@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import AppLogo from "@/components/app-logo/app-logo";
 
 export default function Footer() {
   return (
@@ -9,10 +10,8 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-8">
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">PM</span>
-              </div>
-              <span className="text-xl font-bold">PortfolioMaker</span>
+              <AppLogo />
+              <span className="text-xl text-primary font-bold">PortfolioMaker</span>
             </div>
             <p className="text-black font-semibold">
               La plataforma más fácil para crear portafolios profesionales que
