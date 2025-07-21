@@ -8,7 +8,7 @@ export default function Header() {
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <AppLogo />
-          <span className="text-xl font-bold text-primary">
+          <span className="text-xl hidden sm:flex font-bold text-primary">
             PortfolioMaker
           </span>
         </div>
