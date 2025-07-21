@@ -9,10 +9,7 @@ export default function Footer() {
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-4 gap-8">
           <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <AppLogo />
-              <span className="text-xl text-primary font-bold">PortfolioMaker</span>
-            </div>
+            <AppLogo />
             <p className="text-black font-semibold">
               La plataforma más fácil para crear portafolios profesionales que
               realmente destacan.
