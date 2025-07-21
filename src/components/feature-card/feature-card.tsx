@@ -14,7 +14,7 @@ interface Props {
 
 export default function FeatureCard({ feature }: Props) {
   return (
-    <Card className="border-0 hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-xl border-l-4 border-l-primary/40 hover:border-l-primary border-t-4 border-t-primary/40 hover:border-t-primary">
+    <Card className="border-0 hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-xl border-r-10 border-r-primary/40 hover:border-r-primary">
       <CardHeader>
         <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
           {feature.icon || <Folder className="w-6 h-6 text-white" />}
