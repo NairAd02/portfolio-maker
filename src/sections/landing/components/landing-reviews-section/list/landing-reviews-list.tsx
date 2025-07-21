@@ -15,11 +15,8 @@ export default function LandingReviewsList({ reviews }: Props) {
       <StandardCarousel
         items={reviews}
         dimension="100vw"
-        className="px-2"
-        itemsStyles="2xs:basis-1/2 lg:basis-1/3"
-        withArrows
-        arrowsPosition="outside"
-        arrowsLocation="bottom"
+        className="pl-4 mr-4"
+        itemsStyles="sm:basis-1/2 lg:basis-1/4"
         renderCard={(item) => <ReviewCard review={item} />}
         shouldCenter={(breakpoint: string, cantElements: number) => {
           switch (breakpoint) {
