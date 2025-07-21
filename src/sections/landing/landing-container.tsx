@@ -16,12 +16,6 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Star,
-  Folder,
-  FileText,
-  Briefcase,
-  Award,
-  Mail,
-  ImageIcon,
   Check,
   Facebook,
   Twitter,
@@ -31,6 +25,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import LandingHeroSection from "./components/landing-hero-section/landing-hero-section";
+import LandingFeaturesSection from "./components/landing-features-section/landing-features-section";
 
 export default function LandingContainer() {
   return (
@@ -38,114 +33,8 @@ export default function LandingContainer() {
       {/* Hero Section */}
       <LandingHeroSection />
 
-      {/* Características */}
-      <section id="caracteristicas" className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900">
-              Todo lo que necesitas para destacar
-            </h2>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Herramientas profesionales para crear un portafolio que realmente
-              represente tu talento
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <CardHeader>
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mb-4">
-                  <Folder className="w-6 h-6 text-white" />
-                </div>
-                <CardTitle className="text-xl">Añade tus proyectos</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-slate-600">
-                  Muestra miniaturas de proyectos desarrollados o en los que has
-                  colaborado con descripciones detalladas.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <CardHeader>
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mb-4">
-                  <FileText className="w-6 h-6 text-white" />
-                </div>
-                <CardTitle className="text-xl">Publicaciones y blogs</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-slate-600">
-                  Espacio dedicado para tus artículos, entradas de blog, papers
-                  y contenido técnico.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <CardHeader>
-                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center mb-4">
-                  <Briefcase className="w-6 h-6 text-white" />
-                </div>
-                <CardTitle className="text-xl">
-                  Experiencia profesional
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-slate-600">
-                  Ingresa tu trayectoria como informático de forma intuitiva y
-                  rápida con timeline interactivo.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <CardHeader>
-                <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg flex items-center justify-center mb-4">
-                  <Award className="w-6 h-6 text-white" />
-                </div>
-                <CardTitle className="text-xl">Certificaciones</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-slate-600">
-                  Lista y muestra logos de tus credenciales, cursos completados
-                  y certificaciones profesionales.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <CardHeader>
-                <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-pink-500 rounded-lg flex items-center justify-center mb-4">
-                  <Mail className="w-6 h-6 text-white" />
-                </div>
-                <CardTitle className="text-xl">Contacto</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-slate-600">
-                  Formulario simple con email, LinkedIn y otros enlaces
-                  profesionales para que te contacten fácilmente.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <CardHeader>
-                <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center mb-4">
-                  <ImageIcon className="w-6 h-6 text-white" />
-                </div>
-                <CardTitle className="text-xl">Multimedia</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-slate-600">
-                  Sube imágenes, vídeos y otros contenidos para enriquecer tu
-                  portafolio y hacerlo más atractivo.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
+      {/* Features */}
+      <LandingFeaturesSection />
 
       {/* Demostración */}
       <section className="py-20 bg-gradient-to-r from-slate-50 to-blue-50">

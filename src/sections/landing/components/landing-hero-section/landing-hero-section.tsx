@@ -5,7 +5,7 @@ import React from "react";
 
 export default function LandingHeroSection() {
   return (
-    <section className="p-6 bg-background">
+    <section className="p-6 bg-muted">
       <div className="container mx-auto px-4">
         <div className="flex justify-between gap-12 items-center">
           <div className="space-y-8">
