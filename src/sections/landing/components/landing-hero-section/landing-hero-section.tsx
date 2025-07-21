@@ -7,7 +7,7 @@ export default function LandingHeroSection() {
   return (
     <section className="p-6 bg-muted">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between gap-12 items-center">
+        <div className="flex flex-col-reverse md:flex-row justify-between gap-12 items-center">
           <div className="space-y-8">
             <div className="space-y-4">
               <h1 className="text-4xl lg:text-6xl font-bold text-primary leading-tight">
