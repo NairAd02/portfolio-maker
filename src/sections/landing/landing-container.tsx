@@ -22,10 +22,10 @@ import {
   Instagram,
   Linkedin,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import LandingHeroSection from "./components/landing-hero-section/landing-hero-section";
 import LandingFeaturesSection from "./components/landing-features-section/landing-features-section";
+import LandingDemostrationSection from "./components/landing-demonstration-section/landing-demonstration-section";
 
 export default function LandingContainer() {
   return (
@@ -36,72 +36,8 @@ export default function LandingContainer() {
       {/* Features */}
       <LandingFeaturesSection />
 
-      {/* Demostración */}
-      <section className="py-20 bg-gradient-to-r from-slate-50 to-blue-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900">
-              Elige entre múltiples diseños personalizables
-            </h2>
-            <p className="text-xl text-slate-600">
-              Plantillas profesionales diseñadas para diferentes industrias y
-              estilos
-            </p>
-          </div>
-
-          <div className="relative max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-6">
-              <Card className="overflow-hidden hover:scale-105 transition-transform duration-300">
-                <Image
-                  src="/placeholder.svg?height=300&width=400"
-                  alt="Template 1"
-                  width={400}
-                  height={300}
-                  className="w-full h-48 object-cover"
-                />
-                <CardContent className="p-4">
-                  <h3 className="font-semibold text-slate-900">Minimalista</h3>
-                  <p className="text-sm text-slate-600">
-                    Diseño limpio y elegante
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="overflow-hidden hover:scale-105 transition-transform duration-300">
-                <Image
-                  src="/placeholder.svg?height=300&width=400"
-                  alt="Template 2"
-                  width={400}
-                  height={300}
-                  className="w-full h-48 object-cover"
-                />
-                <CardContent className="p-4">
-                  <h3 className="font-semibold text-slate-900">Creativo</h3>
-                  <p className="text-sm text-slate-600">
-                    Colores vibrantes y dinámico
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="overflow-hidden hover:scale-105 transition-transform duration-300">
-                <Image
-                  src="/placeholder.svg?height=300&width=400"
-                  alt="Template 3"
-                  width={400}
-                  height={300}
-                  className="w-full h-48 object-cover"
-                />
-                <CardContent className="p-4">
-                  <h3 className="font-semibold text-slate-900">Corporativo</h3>
-                  <p className="text-sm text-slate-600">
-                    Profesional y confiable
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Demostration */}
+      <LandingDemostrationSection />
 
       {/* Testimonios */}
       <section className="py-20 bg-white">
