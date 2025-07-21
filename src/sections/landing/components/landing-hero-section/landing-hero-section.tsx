@@ -5,16 +5,15 @@ import React from "react";
 
 export default function LandingHeroSection() {
   return (
-    <section className="p-6">
+    <section className="p-6 bg-background">
       <div className="container mx-auto px-4">
         <div className="flex justify-between gap-12 items-center">
           <div className="space-y-8">
             <div className="space-y-4">
               <h1 className="text-4xl lg:text-6xl font-bold text-primary leading-tight">
-                Crea tu portafolio profesional en{" "}
-                <span className="text-black">minutos</span>
+                Crea tu portafolio profesional en minutos
               </h1>
-              <p className="text-xl text-slate-600 leading-relaxed">
+              <p className="text-xl text-black font-semibold leading-relaxed">
                 PortfolioMaker te ayuda a mostrar tus proyectos, experiencia,
                 certificaciones y más de forma intuitiva. Sin código, sin
                 complicaciones.
