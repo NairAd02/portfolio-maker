@@ -11,7 +11,7 @@ interface Props {
 
 export default function ReviewCard({ review }: Props) {
   return (
-    <Card className="border-0 shadow-lg h-full border-t-12 border-t-primary/40 hover:border-t-primary border-b-4 border-b-primary/40 hover:border-b-primary">
+    <Card className="border-0 hover:scale-105 transition-transform duration-300 shadow-lg h-full border-t-12 border-t-primary/40 hover:border-t-primary border-b-4 border-b-primary/40 hover:border-b-primary">
       <CardHeader>
         <div className="p-2 w-10 rounded-lg bg-primary">
           <MessageSquareCode className="text-white w-6 h-6" />

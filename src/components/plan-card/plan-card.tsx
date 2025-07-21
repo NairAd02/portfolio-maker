@@ -24,7 +24,7 @@ interface Props {
 
 export default function PlanCard({ plan }: Props) {
   return (
-    <Card className="border-2 border-t-8 border-primary/40 hover:border-primary transition-colors">
+    <Card className="border-2 border-t-8 hover:scale-105 transition-transform duration-300 border-primary/40 hover:border-primary">
       <CardHeader className="text-center pb-8">
         <CardTitle className="text-2xl">{plan.title}</CardTitle>
         <div className="text-4xl font-bold text-slate-900">
