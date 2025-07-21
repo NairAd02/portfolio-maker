@@ -27,6 +27,7 @@ import LandingHeroSection from "./components/landing-hero-section/landing-hero-s
 import LandingFeaturesSection from "./components/landing-features-section/landing-features-section";
 import LandingDemostrationSection from "./components/landing-demonstration-section/landing-demonstration-section";
 import LandingReviewsSection from "./components/landing-reviews-section/landing-reviews-section";
+import LandingPlansSection from "./components/landing-plans-section/landing-plans-section";
 
 export default function LandingContainer() {
   return (
@@ -43,130 +44,8 @@ export default function LandingContainer() {
       {/* Reviews */}
       <LandingReviewsSection />
 
-      {/* Planes y Precios */}
-      <section
-        id="precios"
-        className="py-20 bg-gradient-to-r from-slate-50 to-blue-50"
-      >
-        <div className="container mx-auto px-4">
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900">
-              Planes para cada necesidad
-            </h2>
-            <p className="text-xl text-slate-600">
-              Comienza gratis y escala según tus necesidades profesionales
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <Card className="border-2 border-slate-200 hover:border-blue-300 transition-colors">
-              <CardHeader className="text-center pb-8">
-                <CardTitle className="text-2xl">Gratuito</CardTitle>
-                <div className="text-4xl font-bold text-slate-900">$0</div>
-                <p className="text-slate-600">Para empezar</p>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <Check className="w-5 h-5 text-green-500" />
-                  <span>1 portafolio público</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Check className="w-5 h-5 text-green-500" />
-                  <span>5 proyectos máximo</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Check className="w-5 h-5 text-green-500" />
-                  <span>Plantillas básicas</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Check className="w-5 h-5 text-green-500" />
-                  <span>Subdominio PortfolioMaker</span>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button variant="outline" className="w-full bg-transparent">
-                  Comenzar Gratis
-                </Button>
-              </CardFooter>
-            </Card>
-
-            <Card className="border-2 border-blue-500 relative hover:border-blue-600 transition-colors">
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-                  Más Popular
-                </Badge>
-              </div>
-              <CardHeader className="text-center pb-8">
-                <CardTitle className="text-2xl">Profesional</CardTitle>
-                <div className="text-4xl font-bold text-slate-900">$9</div>
-                <p className="text-slate-600">por mes</p>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <Check className="w-5 h-5 text-green-500" />
-                  <span>3 portafolios</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Check className="w-5 h-5 text-green-500" />
-                  <span>Proyectos ilimitados</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Check className="w-5 h-5 text-green-500" />
-                  <span>Todas las plantillas</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Check className="w-5 h-5 text-green-500" />
-                  <span>Dominio personalizado</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Check className="w-5 h-5 text-green-500" />
-                  <span>Analytics básicos</span>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                  Elegir Profesional
-                </Button>
-              </CardFooter>
-            </Card>
-
-            <Card className="border-2 border-slate-200 hover:border-purple-300 transition-colors">
-              <CardHeader className="text-center pb-8">
-                <CardTitle className="text-2xl">Premium</CardTitle>
-                <div className="text-4xl font-bold text-slate-900">$19</div>
-                <p className="text-slate-600">por mes</p>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <Check className="w-5 h-5 text-green-500" />
-                  <span>Portafolios ilimitados</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Check className="w-5 h-5 text-green-500" />
-                  <span>Todo de Profesional</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Check className="w-5 h-5 text-green-500" />
-                  <span>Plantillas premium</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Check className="w-5 h-5 text-green-500" />
-                  <span>Analytics avanzados</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Check className="w-5 h-5 text-green-500" />
-                  <span>Soporte prioritario</span>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button variant="outline" className="w-full bg-transparent">
-                  Elegir Premium
-                </Button>
-              </CardFooter>
-            </Card>
-          </div>
-        </div>
-      </section>
+      {/* Plans and Prices */}
+      <LandingPlansSection />
 
       {/* FAQ */}
       <section id="faq" className="py-20 bg-white">
