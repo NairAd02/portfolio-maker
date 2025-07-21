@@ -26,6 +26,7 @@ import Link from "next/link";
 import LandingHeroSection from "./components/landing-hero-section/landing-hero-section";
 import LandingFeaturesSection from "./components/landing-features-section/landing-features-section";
 import LandingDemostrationSection from "./components/landing-demonstration-section/landing-demonstration-section";
+import LandingReviewsSection from "./components/landing-reviews-section/landing-reviews-section";
 
 export default function LandingContainer() {
   return (
@@ -39,109 +40,8 @@ export default function LandingContainer() {
       {/* Demostration */}
       <LandingDemostrationSection />
 
-      {/* Testimonios */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900">
-              Lo que dicen nuestros usuarios
-            </h2>
-            <p className="text-xl text-slate-600">
-              Miles de profesionales ya confían en PortfolioMaker
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-0 shadow-lg">
-              <CardContent className="p-6">
-                <div className="flex mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-5 h-5 fill-yellow-400 text-yellow-400"
-                    />
-                  ))}
-                </div>
-                <p className="text-slate-600 mb-6">
-                  PortfolioMaker me ayudó a conseguir mi trabajo actual. La
-                  facilidad para mostrar mis proyectos de forma profesional fue
-                  clave.
-                </p>
-                <div className="flex items-center space-x-3">
-                  <Avatar>
-                    <AvatarImage src="/placeholder.svg?height=40&width=40" />
-                    <AvatarFallback>MG</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-semibold text-slate-900">
-                      María González
-                    </p>
-                    <p className="text-sm text-slate-600">Frontend Developer</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-lg">
-              <CardContent className="p-6">
-                <div className="flex mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-5 h-5 fill-yellow-400 text-yellow-400"
-                    />
-                  ))}
-                </div>
-                <p className="text-slate-600 mb-6">
-                  La mejor inversión que he hecho. Mi portafolio se ve
-                  increíblemente profesional y he recibido más ofertas de
-                  trabajo.
-                </p>
-                <div className="flex items-center space-x-3">
-                  <Avatar>
-                    <AvatarImage src="/placeholder.svg?height=40&width=40" />
-                    <AvatarFallback>CR</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-semibold text-slate-900">
-                      Carlos Rodríguez
-                    </p>
-                    <p className="text-sm text-slate-600">Software Engineer</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-lg">
-              <CardContent className="p-6">
-                <div className="flex mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-5 h-5 fill-yellow-400 text-yellow-400"
-                    />
-                  ))}
-                </div>
-                <p className="text-slate-600 mb-6">
-                  Súper fácil de usar y los resultados son impresionantes. Mis
-                  clientes quedan fascinados con la presentación de mis
-                  proyectos.
-                </p>
-                <div className="flex items-center space-x-3">
-                  <Avatar>
-                    <AvatarImage src="/placeholder.svg?height=40&width=40" />
-                    <AvatarFallback>AL</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-semibold text-slate-900">Ana López</p>
-                    <p className="text-sm text-slate-600">UX/UI Designer</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
+      {/* Reviews */}
+      <LandingReviewsSection />
 
       {/* Planes y Precios */}
       <section
