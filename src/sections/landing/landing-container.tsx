@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import LandingHeroSection from "./components/landing-hero-section/landing-hero-section";
 
 export default function LandingContainer() {
   return (
@@ -78,71 +79,7 @@ export default function LandingContainer() {
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 lg:py-32">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
-              <div className="space-y-4">
-                <Badge
-                  variant="secondary"
-                  className="bg-blue-100 text-blue-700 hover:bg-blue-200"
-                >
-                  ✨ Nuevo: Plantillas AI-powered
-                </Badge>
-                <h1 className="text-4xl lg:text-6xl font-bold text-slate-900 leading-tight">
-                  Crea tu portafolio profesional en{" "}
-                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    minutos
-                  </span>
-                </h1>
-                <p className="text-xl text-slate-600 leading-relaxed">
-                  PortfolioMaker te ayuda a mostrar tus proyectos, experiencia,
-                  certificaciones y más de forma intuitiva. Sin código, sin
-                  complicaciones.
-                </p>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-lg px-8 py-6"
-                >
-                  Empieza Gratis
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="text-lg px-8 py-6 bg-transparent"
-                >
-                  Ver Demo
-                </Button>
-              </div>
-              <div className="flex items-center space-x-6 text-sm text-slate-500">
-                <div className="flex items-center space-x-1">
-                  <Check className="w-4 h-4 text-green-500" />
-                  <span>Sin tarjeta de crédito</span>
-                </div>
-                <div className="flex items-center space-x-1">
-                  <Check className="w-4 h-4 text-green-500" />
-                  <span>Setup en 5 minutos</span>
-                </div>
-              </div>
-            </div>
-            <div className="relative">
-              <div className="relative z-10">
-                <Image
-                  src="/placeholder.svg?height=600&width=500"
-                  alt="Portfolio example on laptop"
-                  width={500}
-                  height={600}
-                  className="rounded-2xl shadow-2xl"
-                />
-              </div>
-              <div className="absolute -top-4 -right-4 w-72 h-72 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full blur-3xl opacity-20"></div>
-              <div className="absolute -bottom-4 -left-4 w-72 h-72 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full blur-3xl opacity-20"></div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <LandingHeroSection />
 
       {/* Características */}
       <section id="caracteristicas" className="py-20 bg-white">
