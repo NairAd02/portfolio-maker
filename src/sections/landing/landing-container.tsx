@@ -29,6 +29,7 @@ import LandingDemostrationSection from "./components/landing-demonstration-secti
 import LandingReviewsSection from "./components/landing-reviews-section/landing-reviews-section";
 import LandingPlansSection from "./components/landing-plans-section/landing-plans-section";
 import LandingFaqSection from "./components/landing-faq-section/landing-faq-section";
+import LandingCtaSection from "./components/landing-cta-section/landing-cta-section";
 
 export default function LandingContainer() {
   return (
@@ -52,34 +53,7 @@ export default function LandingContainer() {
       <LandingFaqSection />
 
       {/* CTA Final */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-3xl mx-auto space-y-8">
-            <h2 className="text-3xl lg:text-4xl font-bold text-white">
-              ¿Listo para crear tu portafolio profesional?
-            </h2>
-            <p className="text-xl text-blue-100">
-              Únete a miles de profesionales que ya destacan con PortfolioMaker
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                variant="secondary"
-                className="text-lg px-8 py-6"
-              >
-                Empieza Gratis Ahora
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="text-lg px-8 py-6 text-white border-white hover:bg-white hover:text-blue-600 bg-transparent"
-              >
-                Ver Ejemplos
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <LandingCtaSection />
 
       {/* Footer */}
       <footer className="bg-slate-900 text-white py-16">
