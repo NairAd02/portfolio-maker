@@ -5,6 +5,7 @@ interface Path {
 
 interface ApplicationPath {
   landing: Path;
+  proyects: Path;
   sign_in: Path;
   config_management: (
     params?: Record<string, string>,
@@ -14,7 +15,6 @@ interface ApplicationPath {
     params?: Record<string, string>,
     query?: Record<string, string>
   ) => Path;
-
   users: Path;
 }
 
@@ -35,6 +35,10 @@ function replaceParamsInPath(
 export const paths: ApplicationPath = {
   users: {
     root: "/dashboard/user",
+    isProtected: true,
+  },
+  proyects: {
+    root: "/dashboard/proyects",
     isProtected: true,
   },
   landing: {
