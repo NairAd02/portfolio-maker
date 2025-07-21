@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/sections/root-layout/components/header/header";
 import FooterRendering from "@/sections/root-layout/components/footer/footer-rendering";
+import ProgressBar from "@/components/providers/progress-bar.";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,11 +30,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="flex min-h-screen flex-col">
-          <Header />
-          {children}
-          <FooterRendering />
-        </div>
+        <ProgressBar>
+          <div className="flex min-h-screen flex-col">
+            <Header />
+            {children}
+            <FooterRendering />
+          </div>
+        </ProgressBar>
       </body>
     </html>
   );
