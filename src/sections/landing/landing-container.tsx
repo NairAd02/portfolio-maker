@@ -28,6 +28,7 @@ import LandingFeaturesSection from "./components/landing-features-section/landin
 import LandingDemostrationSection from "./components/landing-demonstration-section/landing-demonstration-section";
 import LandingReviewsSection from "./components/landing-reviews-section/landing-reviews-section";
 import LandingPlansSection from "./components/landing-plans-section/landing-plans-section";
+import LandingFaqSection from "./components/landing-faq-section/landing-faq-section";
 
 export default function LandingContainer() {
   return (
@@ -48,80 +49,7 @@ export default function LandingContainer() {
       <LandingPlansSection />
 
       {/* FAQ */}
-      <section id="faq" className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900">
-              Preguntas Frecuentes
-            </h2>
-            <p className="text-xl text-slate-600">
-              Resolvemos tus dudas más comunes
-            </p>
-          </div>
-
-          <div className="max-w-3xl mx-auto">
-            <Accordion type="single" collapsible className="space-y-4">
-              <AccordionItem value="item-1" className="border rounded-lg px-6">
-                <AccordionTrigger className="text-left">
-                  ¿Necesito conocimientos técnicos para usar PortfolioMaker?
-                </AccordionTrigger>
-                <AccordionContent className="text-slate-600">
-                  No, PortfolioMaker está diseñado para ser completamente
-                  intuitivo. No necesitas saber programación ni diseño. Nuestro
-                  editor visual te permite crear un portafolio profesional
-                  simplemente arrastrando y soltando elementos.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="item-2" className="border rounded-lg px-6">
-                <AccordionTrigger className="text-left">
-                  ¿Puedo usar mi propio dominio?
-                </AccordionTrigger>
-                <AccordionContent className="text-slate-600">
-                  Sí, con los planes Profesional y Premium puedes conectar tu
-                  propio dominio personalizado. Te guiamos paso a paso en el
-                  proceso de configuración para que sea súper sencillo.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="item-3" className="border rounded-lg px-6">
-                <AccordionTrigger className="text-left">
-                  ¿Mis datos están seguros?
-                </AccordionTrigger>
-                <AccordionContent className="text-slate-600">
-                  Absolutamente. Utilizamos encriptación SSL de grado bancario y
-                  cumplimos con todas las regulaciones de privacidad. Tus datos
-                  nunca se comparten con terceros y tienes control total sobre
-                  tu información.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="item-4" className="border rounded-lg px-6">
-                <AccordionTrigger className="text-left">
-                  ¿Puedo cambiar de plan en cualquier momento?
-                </AccordionTrigger>
-                <AccordionContent className="text-slate-600">
-                  Sí, puedes actualizar o degradar tu plan cuando quieras. Los
-                  cambios se aplican inmediatamente y solo pagas la diferencia
-                  prorrateada. No hay penalizaciones por cambiar de plan.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="item-5" className="border rounded-lg px-6">
-                <AccordionTrigger className="text-left">
-                  ¿Ofrecen soporte técnico?
-                </AccordionTrigger>
-                <AccordionContent className="text-slate-600">
-                  Sí, ofrecemos soporte por email para todos los usuarios. Los
-                  usuarios Premium tienen acceso a soporte prioritario con
-                  respuesta en menos de 24 horas. También tenemos una base de
-                  conocimientos completa y tutoriales en video.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </div>
-        </div>
-      </section>
+      <LandingFaqSection />
 
       {/* CTA Final */}
       <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
