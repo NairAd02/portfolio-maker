@@ -1,6 +1,6 @@
 export interface Technology {
-    name: string;
-    icon?: string
-    color: string;
-  }
-  
+  id: string;
+  name: string;
+  icon?: string;
+  color: string;
+}
