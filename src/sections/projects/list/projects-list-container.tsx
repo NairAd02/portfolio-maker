@@ -1,12 +1,13 @@
 import React from "react";
-import { getProyectsList } from "@/lib/services/proyects";
-import { Proyect } from "@/lib/types/proyects";
+
 import ProjectsList from "./projects-list";
+import { Project } from "@/lib/types/projects";
+import { getProjectsList } from "@/lib/services/projects";
 
 export default async function ProjectsListContainer() {
-  const res = await getProyectsList();
+  const res = await getProjectsList();
 
-  if (res.error) throw new Error("Error fetching proyects");
-  const proyects = res.data as Proyect[];
+  if (res.error) throw new Error("Error fetching projects");
+  const proyects = res.data as Project[];
   return <ProjectsList proyects={proyects} />;
 }

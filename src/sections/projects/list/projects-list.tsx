@@ -6,7 +6,7 @@ import { DataTable } from "@/components/ui/data-table";
 import { ColumnDef } from "@tanstack/react-table";
 import { EditIcon, EyeIcon } from "lucide-react";
 import { use, useCallback } from "react";
-import { Proyect } from "@/lib/types/proyects";
+import { Proyect } from "@/lib/types/projects";
 import TableMenu from "@/components/ui/table-menu";
 import PreviewImage from "@/components/preview-image/preview-image";
 

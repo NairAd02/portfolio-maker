@@ -1,7 +1,7 @@
 import { Technology } from "./technologies";
 
 
-export interface Proyect {
+export interface Project {
   id: string;
   name: string;
   description: string;
@@ -16,7 +16,7 @@ export interface Proyect {
   technologies: Technology[];
 }
 
-export interface ProyectCreateDTO {
+export interface ProjectCreateDTO {
   name: string;
   description: string;
   mainImage?: string;
