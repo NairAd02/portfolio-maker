@@ -6,6 +6,7 @@ import FooterRendering from "@/sections/root-layout/components/footer/footer-ren
 import ProgressBar from "@/components/providers/progress-bar.";
 import { PreviewProvider } from "@/components/preview-image/context/preview-context";
 import { ModalProvider } from "@/components/modal/context/modalContext";
+import PreviewModal from "@/components/preview-image/preview-modal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,6 +36,7 @@ export default function RootLayout({
         <ModalProvider>
           <PreviewProvider>
             <ProgressBar>
+              <PreviewModal />
               <div className="flex min-h-screen flex-col">
                 <Header />
                 {children}
