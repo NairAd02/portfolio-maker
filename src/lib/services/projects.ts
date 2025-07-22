@@ -20,7 +20,7 @@ export async function createProject(
   // insert the files of project
   // insert the mainImage
   const mainImage = formData.get("mainImage") as File;
-  
+
   restProjectCreateDTO.mainImage = generateStorageFilePath(
     mainImage,
     "portfolio-maker/projects"
@@ -80,4 +80,6 @@ export async function createProject(
     .single();
 
   if (technologiesError) return { data: null, error: technologiesError };
+
+  return { data: projectEntity, error: null };
 }
