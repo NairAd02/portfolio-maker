@@ -27,5 +27,5 @@ export interface ProjectCreateDTO {
   solution: string;
   impact: string;
   teachings: string;
-  technologies: Technology[];
+  technologies: string[];
 }
