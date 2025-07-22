@@ -4,6 +4,8 @@ import "./globals.css";
 import Header from "@/sections/root-layout/components/header/header";
 import FooterRendering from "@/sections/root-layout/components/footer/footer-rendering";
 import ProgressBar from "@/components/providers/progress-bar.";
+import { PreviewProvider } from "@/components/preview-image/context/preview-context";
+import { ModalProvider } from "@/components/modal/context/modalContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,13 +32,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ProgressBar>
-          <div className="flex min-h-screen flex-col">
-            <Header />
-            {children}
-            <FooterRendering />
-          </div>
-        </ProgressBar>
+        <ModalProvider>
+          <PreviewProvider>
+            <ProgressBar>
+              <div className="flex min-h-screen flex-col">
+                <Header />
+                {children}
+                <FooterRendering />
+              </div>
+            </ProgressBar>
+          </PreviewProvider>
+        </ModalProvider>
       </body>
     </html>
   );
