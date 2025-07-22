@@ -1,5 +1,8 @@
+import ProyectsContainer from "@/sections/proyects/proyects-container";
 import React from "react";
 
-export default function ProyectsPage() {
-  return <div>ProyectsPage</div>;
+
+
+export default async function ProyectsPage() {
+  return <ProyectsContainer />;
 }
