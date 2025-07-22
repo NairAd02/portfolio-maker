@@ -1,4 +1,6 @@
+import NavigationComponent from "@/components/navigation-component/navigation-component";
 import { Button } from "@/components/ui/button";
+import { paths } from "@/routes/path";
 import { Check } from "lucide-react";
 import Image from "next/image";
 import React from "react";
@@ -20,16 +22,27 @@ export default function LandingHeroSection() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                size="lg"
-                variant={"default"}
-                className="text-lg px-8 py-6"
+              <NavigationComponent href={paths.proyects.root}>
+                <Button
+                  size="lg"
+                  variant={"default"}
+                  className="text-lg px-8 py-6"
+                >
+                  Empieza Gratis
+                </Button>
+              </NavigationComponent>
+              <NavigationComponent
+                href="https://asura-portfolio.vercel.app/"
+                inAnotherTab
               >
-                Empieza Gratis
-              </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 py-6">
-                Ver Demo
-              </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="text-lg px-8 py-6"
+                >
+                  Ver Demo
+                </Button>
+              </NavigationComponent>
             </div>
             <div className="flex items-center space-x-6 text-sm text-slate-500">
               <div className="flex items-center space-x-1">
