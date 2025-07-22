@@ -1,4 +1,6 @@
+import NavigationComponent from "@/components/navigation-component/navigation-component";
 import { Button } from "@/components/ui/button";
+import { paths } from "@/routes/path";
 import React from "react";
 
 export default function LandingCtaSection() {
@@ -13,9 +15,15 @@ export default function LandingCtaSection() {
             Únete a miles de profesionales que ya destacan con PortfolioMaker
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" className="text-lg px-8 py-6">
-              Empieza Gratis Ahora
-            </Button>
+            <NavigationComponent href={paths.proyects.root}>
+              <Button
+                size="lg"
+                variant="secondary"
+                className="text-lg px-8 py-6"
+              >
+                Empieza Gratis Ahora
+              </Button>
+            </NavigationComponent>
           </div>
         </div>
       </div>
