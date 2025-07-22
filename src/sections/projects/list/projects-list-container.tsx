@@ -8,6 +8,6 @@ export default async function ProjectsListContainer() {
   const res = await getProjectsList();
 
   if (res.error) throw new Error("Error fetching projects");
-  const proyects = res.data as Project[];
-  return <ProjectsList proyects={proyects} />;
+  const projects = res.data as Project[];
+  return <ProjectsList projects={projects} />;
 }

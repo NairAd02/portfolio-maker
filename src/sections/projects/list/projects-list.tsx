@@ -6,15 +6,15 @@ import { DataTable } from "@/components/ui/data-table";
 import { ColumnDef } from "@tanstack/react-table";
 import { EditIcon, EyeIcon } from "lucide-react";
 import { use, useCallback } from "react";
-import { Proyect } from "@/lib/types/projects";
 import TableMenu from "@/components/ui/table-menu";
 import PreviewImage from "@/components/preview-image/preview-image";
+import { Project } from "@/lib/types/projects";
 
 interface Props {
-  proyects: Proyect[];
+  projects: Project[];
 }
 
-export default function ProjectsList({ proyects }: Props) {
+export default function ProjectsList({ projects }: Props) {
   const { handleOpenModal } = use(ModalContext);
 
   const handleEdit = useCallback(
@@ -37,7 +37,7 @@ export default function ProjectsList({ proyects }: Props) {
     [handleOpenModal]
   );
 
-  const columns: ColumnDef<Proyect>[] = [
+  const columns: ColumnDef<Project>[] = [
     {
       accessorKey: "id",
       enableHiding: false,
@@ -119,7 +119,7 @@ export default function ProjectsList({ proyects }: Props) {
       <div className="flex flex-col gap-4">
         <DataTable
           columns={columns}
-          data={proyects}
+          data={projects}
           initialVisibilityState={{ id: false }}
         />
       </div>
