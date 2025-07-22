@@ -43,7 +43,7 @@ export default function ProyectsList({ proyects }: Props) {
       enableHiding: false,
     },
     {
-      accessorKey: "image",
+      accessorKey: "mainImage",
       header: "Imagen",
       cell: ({ row }) => (
         <PreviewImage
