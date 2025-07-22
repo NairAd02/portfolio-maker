@@ -8,6 +8,7 @@ import { EditIcon, EyeIcon } from "lucide-react";
 import { use, useCallback } from "react";
 import { Proyect } from "@/lib/types/proyects";
 import TableMenu from "@/components/ui/table-menu";
+import PreviewImage from "@/components/preview-image/preview-image";
 
 interface Props {
   proyects: Proyect[];
@@ -40,6 +41,17 @@ export default function ProyectsList({ proyects }: Props) {
     {
       accessorKey: "id",
       enableHiding: false,
+    },
+    {
+      accessorKey: "image",
+      header: "Imagen",
+      cell: ({ row }) => (
+        <PreviewImage
+          preview={row.getValue("mainImage") || "/images/place-holder.jpg"}
+          height={80}
+          width={80}
+        />
+      ),
     },
     {
       accessorKey: "name",
