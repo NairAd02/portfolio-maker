@@ -14,7 +14,7 @@ export default function HeaderNavbar() {
           <Button className="text-xs sm:text-base" variant="outline" size="sm">
             Iniciar Sesión
           </Button>
-          <NavigationComponent href={paths.proyects.root}>
+          <NavigationComponent href={paths.projects.root}>
             <Button
               className="text-xs sm:text-base"
               size="sm"

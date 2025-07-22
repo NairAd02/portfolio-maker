@@ -3,11 +3,12 @@ import { FileCogIcon } from "lucide-react";
 import React from "react";
 import { modalTypes } from "@/components/modal/types/modalTypes";
 import { getProyectsList } from "@/lib/services/proyects";
-import ProyectsListContainer from "./list/proyects-list-container";
+import ProjectsListContainer from "./list/projects-list-container";
 
 
 
-export default function ProyectsContainer() {
+
+export default function ProjectsContainer() {
   getProyectsList();
   return (
     <div className="flex flex-col gap-4">
@@ -21,7 +22,7 @@ export default function ProyectsContainer() {
           creationPath: modalTypes.newProyectModal.name,
         }}
       />
-      <ProyectsListContainer />
+      <ProjectsListContainer />
     </div>
   );
 }

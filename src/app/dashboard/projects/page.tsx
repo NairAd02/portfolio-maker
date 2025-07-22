@@ -1,13 +1,14 @@
 import Modal from "@/components/modal/modal";
 import { modalTypes } from "@/components/modal/types/modalTypes";
-import NewProjectFormModalContainer from "@/sections/proyects/form/new/new-project-form-modal-container";
-import ProyectsContainer from "@/sections/proyects/proyects-container";
+import NewProjectFormModalContainer from "@/sections/projects/form/new/new-project-form-modal-container";
+import ProjectsContainer from "@/sections/projects/projects-container";
+
 import React from "react";
 
-export default async function ProyectsPage() {
+export default async function ProjectsPage() {
   return (
     <>
-      <ProyectsContainer />
+      <ProjectsContainer />
       <Modal
         formPath={modalTypes.newProyectModal.name}
         title={modalTypes.newProyectModal.title}

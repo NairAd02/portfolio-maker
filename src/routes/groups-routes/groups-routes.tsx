@@ -22,7 +22,7 @@ export const groupRoutes: GroupRoute[] = [
       {
         title: "Proyectos",
         icon: <FolderCog />,
-        path: paths.proyects.root,
+        path: paths.projects.root,
       },
     ],
   },

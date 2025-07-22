@@ -22,7 +22,7 @@ export default function LandingHeroSection() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
-              <NavigationComponent href={paths.proyects.root}>
+              <NavigationComponent href={paths.projects.root}>
                 <Button
                   size="lg"
                   variant={"default"}

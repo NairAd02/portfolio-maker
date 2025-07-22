@@ -15,7 +15,7 @@ export default function LandingCtaSection() {
             Únete a miles de profesionales que ya destacan con PortfolioMaker
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <NavigationComponent href={paths.proyects.root}>
+            <NavigationComponent href={paths.projects.root}>
               <Button
                 size="lg"
                 variant="secondary"

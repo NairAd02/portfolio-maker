@@ -14,7 +14,7 @@ interface Props {
   proyects: Proyect[];
 }
 
-export default function ProyectsList({ proyects }: Props) {
+export default function ProjectsList({ proyects }: Props) {
   const { handleOpenModal } = use(ModalContext);
 
   const handleEdit = useCallback(
