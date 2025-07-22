@@ -46,7 +46,7 @@ const TabPanel = ({
             onClick={() => onClickTab?.(item)}
           >
             {item.icon && item.icon}
-            {item.label}
+            <p className="hidden sm:flex">{item.label}</p>
           </TabsTrigger>
         ))}
       </TabsList>
