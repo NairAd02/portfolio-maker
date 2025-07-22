@@ -36,5 +36,7 @@ export const convertProjectCreateDTO = (
   return {
     ...projectCreate,
     images: [],
+    sourceCodeUrl: projectCreate.sourceCodeUrl || undefined,
+    deploymentUrl: projectCreate.deploymentUrl || undefined,
   };
 };
