@@ -1,33 +1,23 @@
 "use server";
-
 import { generateStorageFilePath } from "../images";
 import { createClient } from "../supabase/server";
 import { Project, ProjectCreateDTO } from "../types/projects";
+import { getPublicImageUrl } from "./supabase-storage";
+import { uploadFileToSupabase } from "./supabase-storage";
 
 export async function getProjectsList() {
   const supabase = await createClient();
   const { data, error } = await supabase.from("project").select("*");
   const projects = data as Project[];
-  // get the files
 
   return {
-    data: projects.map((project) => {
-      return {
-        ...project,
-        mainImage: project.mainImage
-          ? supabase.storage
-              .from("portfolio-maker")
-              .getPublicUrl(project.mainImage).data.publicUrl
-          : undefined,
-        images: project.images
-          ? project.images.map((image) => {
-              return supabase.storage
-                .from("portfolio-maker")
-                .getPublicUrl(image).data.publicUrl;
-            })
-          : undefined,
-      };
-    }),
+    data: projects.map((project) => ({
+      ...project,
+      mainImage: getPublicImageUrl(supabase, project.mainImage),
+      images: Array.isArray(project.images)
+        ? project.images.map((image) => getPublicImageUrl(supabase, image))
+        : [],
+    })),
     error,
   };
 }
@@ -38,73 +28,83 @@ export async function createProject(
 ) {
   const { technologies, ...restProjectCreateDTO } = projectCreateDTO;
   const supabase = await createClient();
-  // insert the files of project
-  // insert the mainImage
+
+  // Procesar mainImage
   const mainImage = formData.get("mainImage") as File;
+  let mainImagePath: string | undefined = undefined;
   if (mainImage) {
-    restProjectCreateDTO.mainImage = generateStorageFilePath(
+    mainImagePath = generateStorageFilePath(
       mainImage,
-      "projects/" + restProjectCreateDTO.name + "/" + "mainImage"
+      `projects/${restProjectCreateDTO.name}/mainImage`
     );
-
-    const { error: uploadMainImageError } = await supabase.storage
-      .from("portfolio-maker") // bucket name
-      .upload(restProjectCreateDTO.mainImage, mainImage, {
-        cacheControl: "3600",
-        upsert: false,
-      });
-
-    if (uploadMainImageError)
-      return { data: null, error: uploadMainImageError };
+    const mainImageError = await uploadFileToSupabase(
+      supabase,
+      "portfolio-maker",
+      mainImagePath,
+      mainImage,
+      "3600",
+      false
+    );
+    if (mainImageError) return { data: null, error: mainImageError };
   }
 
-  // insert the images
+  // Procesar imágenes adicionales
   const images = formData.getAll("images[]") as File[];
-
-  if (images) {
-    await Promise.all(
-      images.map(async (image) => {
-        const imagePath = generateStorageFilePath(
-          image,
-          "projects/" + restProjectCreateDTO.name + "/" + "images"
-        );
-
-        restProjectCreateDTO.images.push(imagePath);
-
-        const { error: uploadImageError } = await supabase.storage
-          .from("portfolio-maker") // bucket name
-          .upload(imagePath, image, {
-            cacheControl: "3600",
-            upsert: false,
-          });
-        if (uploadImageError) return { data: null, error: uploadImageError };
-      })
-    );
+  let imagePaths: string[] = [];
+  if (images && images.length > 0) {
+    try {
+      imagePaths = await Promise.all(
+        images.map(async (image) => {
+          const imagePath = generateStorageFilePath(
+            image,
+            `projects/${restProjectCreateDTO.name}/images`
+          );
+          const uploadError = await uploadFileToSupabase(
+            supabase,
+            "portfolio-maker",
+            imagePath,
+            image,
+            "3600",
+            false
+          );
+          if (uploadError) throw uploadError;
+          return imagePath;
+        })
+      );
+    } catch (error) {
+      return { data: null, error };
+    }
   }
+
+  // Preparar el objeto para insertar
+  const insertData = {
+    ...restProjectCreateDTO,
+    mainImage: mainImagePath,
+    images: imagePaths,
+  };
 
   const { data, error: projectError } = await supabase
     .from("project")
-    .insert(restProjectCreateDTO)
+    .insert(insertData)
     .select()
     .single();
-
   if (projectError) return { data: null, error: projectError };
 
   const projectEntity = data as Project;
 
-  // insert the technologies
-  const technologiesRelations = technologies.map((technology) => ({
-    technology_id: technology,
-    proyect_id: projectEntity.id,
-  }));
-
-  const { error: technologiesError } = await supabase
-    .from("technology_has_proyect")
-    .insert(technologiesRelations)
-    .select()
-    .single();
-
-  if (technologiesError) return { data: null, error: technologiesError };
+  // Insertar tecnologías relacionadas
+  if (technologies && technologies.length > 0) {
+    const technologiesRelations = technologies.map((technology) => ({
+      technology_id: technology,
+      proyect_id: projectEntity.id,
+    }));
+    const { error: technologiesError } = await supabase
+      .from("technology_has_proyect")
+      .insert(technologiesRelations)
+      .select()
+      .single();
+    if (technologiesError) return { data: null, error: technologiesError };
+  }
 
   return { data: projectEntity, error: null };
 }
