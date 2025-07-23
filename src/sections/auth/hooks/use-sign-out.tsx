@@ -23,6 +23,7 @@ export default function useSignOut({ onSignOutAction }: Props) {
       fethLoggedUser();
       if (onSignOutAction) onSignOutAction();
     }
+    setLoading(false);
   }, [onSignOutAction, fethLoggedUser]);
   return {
     loading,

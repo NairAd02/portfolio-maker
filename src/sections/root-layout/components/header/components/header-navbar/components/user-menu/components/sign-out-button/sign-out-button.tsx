@@ -8,7 +8,7 @@ import React, { useCallback } from "react";
 
 export default function SignOutButton() {
   const router = useRouter();
-  const { signOut } = useSignOut({
+  const { signOut, loading } = useSignOut({
     onSignOutAction: () => {
       router.push(paths.landing.root);
     },
@@ -21,6 +21,7 @@ export default function SignOutButton() {
   return (
     <Button
       variant="ghost"
+      disabled={loading}
       className="w-full justify-start h-9 px-3 text-red-600 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950"
       onClick={handleSignOut}
     >
