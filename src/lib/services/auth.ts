@@ -43,3 +43,13 @@ export async function signup(formData: FormData) {
   revalidatePath("/", "layout");
   return { error: null };
 }
+
+export async function getLoggedUser() {
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data?.user) {
+    return { data: null, error };
+  }
+
+  return { data, error: null };
+}
