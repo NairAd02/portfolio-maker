@@ -8,6 +8,7 @@ import { PreviewProvider } from "@/components/preview-image/context/preview-cont
 import { ModalProvider } from "@/components/modal/context/modalContext";
 import PreviewModal from "@/components/preview-image/preview-modal";
 import { ToastContainer } from "react-toastify";
+import { LoggedUserProvider } from "@/sections/auth/context/logged-user-context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,17 +36,19 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ModalProvider>
-          <PreviewProvider>
-            <ProgressBar>
-            <ToastContainer />
-              <PreviewModal />
-              <div className="flex min-h-screen flex-col">
-                <Header />
-                {children}
-                <FooterRendering />
-              </div>
-            </ProgressBar>
-          </PreviewProvider>
+          <LoggedUserProvider>
+            <PreviewProvider>
+              <ProgressBar>
+                <ToastContainer />
+                <PreviewModal />
+                <div className="flex min-h-screen flex-col">
+                  <Header />
+                  {children}
+                  <FooterRendering />
+                </div>
+              </ProgressBar>
+            </PreviewProvider>
+          </LoggedUserProvider>
         </ModalProvider>
       </body>
     </html>

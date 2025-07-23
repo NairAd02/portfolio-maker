@@ -1,6 +1,7 @@
 "use client";
 import { logout } from "@/lib/services/auth";
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
+import { LoggedUserContext } from "../context/logged-user-context";
 
 interface Props {
   onSignOutAction?: () => void;
@@ -9,6 +10,7 @@ interface Props {
 export default function useSignOut({ onSignOutAction }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { fethLoggedUser } = useContext(LoggedUserContext);
   const signOut = useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -17,8 +19,11 @@ export default function useSignOut({ onSignOutAction }: Props) {
     if (res.error) {
       console.log(res.error);
       setError("Ocurrió un error durante el cierre de sesión");
-    } else if (onSignOutAction) onSignOutAction();
-  }, [onSignOutAction]);
+    } else {
+      fethLoggedUser();
+      if (onSignOutAction) onSignOutAction();
+    }
+  }, [onSignOutAction, fethLoggedUser]);
   return {
     loading,
     error,

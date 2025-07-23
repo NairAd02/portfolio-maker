@@ -1,62 +1,66 @@
-"use client"
+"use client";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Separator } from "@/components/ui/separator"
-import { Badge } from "@/components/ui/badge"
-import { User, Settings, HelpCircle, ChevronRight } from "lucide-react"
-import SignOutButton from "./components/sign-out-button/sign-out-button"
-import { Skeleton } from "@/components/ui/skeleton"
-import { useCallback, useMemo } from "react"
-import useLoggedUser from "@/sections/auth/hooks/use-logged-user"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+import { User, Settings, HelpCircle, ChevronRight } from "lucide-react";
+import SignOutButton from "./components/sign-out-button/sign-out-button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useCallback, useContext, useMemo } from "react";
+import { LoggedUserContext } from "@/sections/auth/context/logged-user-context";
 
 export default function UserMenu() {
-  const { loggedUser, loading, error } = useLoggedUser()
+  const { loggedUser, loading } = useContext(LoggedUserContext);
 
   const userInitials = useMemo(() => {
-    if (!loggedUser?.email) return "?"
+    if (!loggedUser?.email) return "?";
 
     // Handle email format for initials
-    const emailParts = loggedUser.email.split("@")[0]
-    const nameParts = emailParts.split(/[._-]/)
+    const emailParts = loggedUser.email.split("@")[0];
+    const nameParts = emailParts.split(/[._-]/);
 
     if (nameParts.length >= 2) {
-      return (nameParts[0][0] + nameParts[1][0]).toUpperCase()
+      return (nameParts[0][0] + nameParts[1][0]).toUpperCase();
     }
 
-    return emailParts.slice(0, 2).toUpperCase()
-  }, [loggedUser?.email])
+    return emailParts.slice(0, 2).toUpperCase();
+  }, [loggedUser?.email]);
 
   const handleOpenProfileModal = useCallback(() => {
     // Implementar lógica del modal de perfil
-    console.log("Opening profile modal")
-  }, [])
+    console.log("Opening profile modal");
+  }, []);
 
   const handleOpenSettings = useCallback(() => {
     // Implementar lógica de configuración
-    console.log("Opening settings")
-  }, [])
+    console.log("Opening settings");
+  }, []);
 
   const handleOpenHelp = useCallback(() => {
     // Implementar lógica de ayuda
-    console.log("Opening help")
-  }, [])
+    console.log("Opening help");
+  }, []);
 
   if (loading) {
     return (
       <div className="flex items-center gap-2">
         <Skeleton className="h-10 w-10 rounded-full" />
       </div>
-    )
+    );
   }
 
-  if (!loggedUser || error) {
+  if (!loggedUser) {
     return (
       <div className="flex items-center justify-center h-10 w-10 rounded-full bg-destructive/10 text-destructive border border-destructive/20">
         <User className="h-4 w-4" />
       </div>
-    )
+    );
   }
 
   return (
@@ -92,7 +96,9 @@ export default function UserMenu() {
               <p className="font-semibold text-sm text-foreground truncate">
                 {loggedUser.email?.split("@")[0] || "Usuario"}
               </p>
-              <p className="text-xs text-muted-foreground truncate">{loggedUser.email || "email@ejemplo.com"}</p>
+              <p className="text-xs text-muted-foreground truncate">
+                {loggedUser.email || "email@ejemplo.com"}
+              </p>
               <Badge variant="secondary" className="mt-1 text-xs">
                 Activo
               </Badge>
@@ -149,5 +155,5 @@ export default function UserMenu() {
         </div>
       </PopoverContent>
     </Popover>
-  )
+  );
 }

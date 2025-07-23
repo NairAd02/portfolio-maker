@@ -2,13 +2,13 @@
 import NavigationComponent from "@/components/navigation-component/navigation-component";
 import { Button } from "@/components/ui/button";
 import { paths } from "@/routes/path";
-import useLoggedUser from "@/sections/auth/hooks/use-logged-user";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { useContext } from "react";
 import UserMenu from "./components/user-menu/user-menu";
+import { LoggedUserContext } from "@/sections/auth/context/logged-user-context";
 
 export default function HeaderNavbar() {
-  const { loggedUser, loading } = useLoggedUser();
+  const { loggedUser, loading } = useContext(LoggedUserContext);
   const pathname = usePathname();
 
   if (loading) {
@@ -43,7 +43,6 @@ export default function HeaderNavbar() {
               {loggedUser ? "Dashboard" : "Empezar"}
             </Button>
           </NavigationComponent>
-          
         </div>
       )}
       {loggedUser && <UserMenu />}

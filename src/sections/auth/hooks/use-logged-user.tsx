@@ -13,7 +13,7 @@ export default function useLoggedUser() {
     const res = await getLoggedUserService();
     if (!res.data || res.error) {
       console.log(res.error);
-      setError("Error en la operación de obtención de sessión");
+      setLoggedUser(null);
     } else setLoggedUser(res.data.user);
 
     setLoading(false);
