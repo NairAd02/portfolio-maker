@@ -44,6 +44,16 @@ export async function signup(formData: FormData) {
   return { error: null };
 }
 
+export async function logout() {
+  const supabase = await createClient();
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    return { error };
+  }
+
+  return { error: null };
+}
+
 export async function getLoggedUser() {
   const supabase = await createClient();
   const { data, error } = await supabase.auth.getUser();
