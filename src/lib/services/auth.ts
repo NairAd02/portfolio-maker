@@ -3,7 +3,6 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "../supabase/server";
-import { paths } from "@/routes/path";
 
 export async function login(formData: FormData) {
   const supabase = await createClient();
@@ -22,7 +21,7 @@ export async function login(formData: FormData) {
   }
 
   revalidatePath("/", "layout");
-  redirect(paths.projects.root);
+  return { error: null };
 }
 
 export async function signup(formData: FormData) {
@@ -42,5 +41,5 @@ export async function signup(formData: FormData) {
   }
 
   revalidatePath("/", "layout");
-  redirect(paths.landing.root);
+  return { error: null };
 }
