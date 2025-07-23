@@ -34,22 +34,20 @@ export const projectCreateSchema = z.object({
       (file) => !file || file.type.startsWith("image/"),
       "El archivo debe ser una imagen."
     ),
-  images: z
-    .array(
-      z
-        .instanceof(File, {
-          message: "Por favor selecciona una imagen.",
-        })
-        .refine(
-          (file) => file && file.size <= 5 * 1024 * 1024,
-          "La imagen no debe exceder 5MB."
-        )
-        .refine(
-          (file) => file && file.type.startsWith("image/"),
-          "El archivo debe ser una imagen."
-        )
-    )
-    .min(1, { message: "Debes subir al menos una imagen." }),
+  images: z.array(
+    z
+      .instanceof(File, {
+        message: "Por favor selecciona una imagen.",
+      })
+      .refine(
+        (file) => file && file.size <= 5 * 1024 * 1024,
+        "La imagen no debe exceder 5MB."
+      )
+      .refine(
+        (file) => file && file.type.startsWith("image/"),
+        "El archivo debe ser una imagen."
+      )
+  ),
   sourceCodeUrl: z.string().min(1, { message: "Debe de ser una url válida" }),
   deploymentUrl: z.string().min(1, { message: "Debe de ser una url válida" }),
   problem: z.string().min(1, { message: "Es necesario definir el problema" }),
