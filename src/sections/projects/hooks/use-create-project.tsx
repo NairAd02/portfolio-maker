@@ -23,7 +23,7 @@ export default function useCreateProject({ onCreateAction }: Props) {
       const formData = new FormData();
       if (mainImage) formData.append("mainImage", mainImage);
       images.forEach((image) => {
-        formData.append("image", image);
+        formData.append("images[]", image);
       });
 
       const res = await createProjectService(
