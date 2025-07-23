@@ -15,6 +15,8 @@ export default function useLoggedUser() {
       console.log(res.error);
       setError("Error en la operación de obtención de sessión");
     } else setLoggedUser(res.data.user);
+
+    setLoading(false);
   }, []);
 
   useEffect(() => {
