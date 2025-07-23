@@ -43,7 +43,10 @@ export default function ProjectForm() {
   return (
     <TabsPanelProvider initialTab={tabs[0].value}>
       <ProjectFormSectionsController>
-        <TabsContainer tabs={tabs} />
+        <TabsContainer
+          tabs={tabs}
+          classNameTabsContent="flex-1 overflow-auto flex flex-col max-h-[70vh] p-2"
+        />
       </ProjectFormSectionsController>
     </TabsPanelProvider>
   );
