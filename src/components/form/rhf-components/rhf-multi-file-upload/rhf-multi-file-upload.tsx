@@ -66,6 +66,28 @@ export function RHFMultiFileUpload({
     new Set()
   );
 
+  // Estado local para previews
+  const [previews, setPreviews] = useState<{ [id: string]: string }>({});
+
+  // Generar previews cuando cambia value
+  useEffect(() => {
+    if (!value || !Array.isArray(value)) {
+      setPreviews({});
+      return;
+    }
+    const newPreviews: { [id: string]: string } = {};
+    value.forEach((file) => {
+      if (file.type && file.type.startsWith("image/") && file instanceof File) {
+        newPreviews[file.id] = URL.createObjectURL(file);
+      }
+    });
+    setPreviews(newPreviews);
+    // Limpiar las URLs cuando cambie value o al desmontar
+    return () => {
+      Object.values(newPreviews).forEach((url) => URL.revokeObjectURL(url));
+    };
+  }, [value]);
+
   const processFile = useCallback(
     async (file: File): Promise<FileWithPreview> => {
       const fileId = `${file.name}-${Date.now()}-${Math.random()}`;
@@ -79,9 +101,12 @@ export function RHFMultiFileUpload({
             format: "webp",
           });
 
+          // Cambiar el nombre del archivo a .webp
+          const originalName = file.name.split(".").slice(0, -1).join(".") || file.name;
+          const webpName = originalName + ".webp";
           const processedFile = new File(
             [compressedFile],
-            compressedFile.name,
+            webpName,
             {
               type: compressedFile.type,
             }
@@ -194,6 +219,19 @@ export function RHFMultiFileUpload({
   // Obtener icono según el tipo de archivo
   const getFileIcon = (file: FileWithPreview) => {
     if (file.type.startsWith("image/")) {
+      // Mostrar preview si existe
+      if (previews[file.id]) {
+        return (
+          <div className="relative w-12 h-12 rounded overflow-hidden">
+            <Image
+              src={previews[file.id] || "/placeholder.svg"}
+              alt={file.name}
+              fill
+              className="object-cover"
+            />
+          </div>
+        );
+      }
       return <ImageIcon className="h-8 w-8 text-blue-500" />;
     }
     if (file.type === "application/pdf") {
@@ -308,20 +346,7 @@ export function RHFMultiFileUpload({
                 className="flex items-center gap-3 p-3 border rounded-lg bg-gray-50 dark:bg-gray-900/30"
               >
                 {/* Preview o icono */}
-                <div className="flex-shrink-0">
-                  {file.preview ? (
-                    <div className="relative w-12 h-12 rounded overflow-hidden">
-                      <Image
-                        src={file.preview || "/placeholder.svg"}
-                        alt={file.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  ) : (
-                    getFileIcon(file)
-                  )}
-                </div>
+                <div className="flex-shrink-0">{getFileIcon(file)}</div>
 
                 {/* Información del archivo */}
                 <div className="flex-1 min-w-0">
