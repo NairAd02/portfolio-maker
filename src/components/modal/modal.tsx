@@ -40,7 +40,7 @@ export default function Modal({
       onOpenChange={(_state: boolean) => onOpenChange(formPath)}
     >
       <DialogContent
-        className={`w-full max-h-screen flex flex-col  ${
+        className={`w-full flex flex-col  ${
           !maxWidth
             ? wide === "normal"
               ? "sm:max-w-lg"
@@ -69,7 +69,7 @@ export default function Modal({
             <XIcon className="w-4 h-4 cursor-pointer hover:text-destructive" />
           </DialogClose>
         </DialogHeader>
-        <div className="flex-1 overflow-auto flex flex-col h-full p-4">
+        <div className="flex-1 flex flex-col h-full p-4">
           {children}
         </div>
       </DialogContent>
