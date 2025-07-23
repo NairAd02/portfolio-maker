@@ -58,14 +58,15 @@ const TabPanel = ({
 interface TabItemProps {
   children?: React.ReactNode;
   value: string;
+  classNameTabsContent?: string;
 }
 
 function TabItem(props: TabItemProps) {
-  const { children, value, ...other } = props;
+  const { children, value, classNameTabsContent, ...other } = props;
 
   return (
     <TabsContent value={value} {...other}>
-      <div>{children}</div>
+      <div className={classNameTabsContent}>{children}</div>
     </TabsContent>
   );
 }
@@ -73,9 +74,14 @@ function TabItem(props: TabItemProps) {
 interface TabContainerProps {
   tabs: TabsType[];
   fullWidth?: boolean;
+  classNameTabsContent?: string;
 }
 
-function TabsContainer({ tabs, fullWidth = true }: TabContainerProps) {
+function TabsContainer({
+  tabs,
+  fullWidth = true,
+  classNameTabsContent,
+}: TabContainerProps) {
   const { tabValue, setTabValue } = useContext(TabsPanelContext);
 
   return (
@@ -86,7 +92,11 @@ function TabsContainer({ tabs, fullWidth = true }: TabContainerProps) {
       fullWidth={fullWidth}
     >
       {tabs.map((tab) => (
-        <TabItem key={tab.value} value={tab.value}>
+        <TabItem
+          key={tab.value}
+          value={tab.value}
+          classNameTabsContent={classNameTabsContent}
+        >
           {tab.component}
         </TabItem>
       ))}
