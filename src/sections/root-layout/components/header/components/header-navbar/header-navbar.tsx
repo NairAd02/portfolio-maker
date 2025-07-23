@@ -43,9 +43,10 @@ export default function HeaderNavbar() {
               {loggedUser ? "Dashboard" : "Empezar"}
             </Button>
           </NavigationComponent>
-          {loggedUser && <UserMenu />}
+          
         </div>
       )}
+      {loggedUser && <UserMenu />}
     </nav>
   );
 }
