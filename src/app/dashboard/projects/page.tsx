@@ -13,7 +13,7 @@ export default async function ProjectsPage() {
         formPath={modalTypes.newProyectModal.name}
         title={modalTypes.newProyectModal.title}
         maxWidth="max-w-3xl"
-        className="max-h-[90vh] min-h-[90vh]"
+        className="min-h-[90vh]"
       >
         <NewProjectFormModalContainer />
       </Modal>
