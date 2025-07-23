@@ -48,8 +48,8 @@ export const projectCreateSchema = z.object({
         "El archivo debe ser una imagen."
       )
   ),
-  sourceCodeUrl: z.string().min(1, { message: "Debe de ser una url válida" }),
-  deploymentUrl: z.string().min(1, { message: "Debe de ser una url válida" }),
+  sourceCodeUrl: z.string(),
+  deploymentUrl: z.string(),
   problem: z.string().min(1, { message: "Es necesario definir el problema" }),
   solution: z.string().min(1, { message: "Es necesario definir la solución" }),
   impact: z.string().min(1, { message: "Es necesario definir el imacto" }),
