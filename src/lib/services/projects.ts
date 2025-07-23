@@ -6,9 +6,30 @@ import { Project, ProjectCreateDTO } from "../types/projects";
 
 export async function getProjectsList() {
   const supabase = await createClient();
-  const { data: projects, error } = await supabase.from("project").select("*");
-  console.log(projects);
-  return { data: projects, error };
+  const { data, error } = await supabase.from("project").select("*");
+  const projects = data as Project[];
+  // get the files
+
+  return {
+    data: projects.map((project) => {
+      return {
+        ...project,
+        mainImage: project.mainImage
+          ? supabase.storage
+              .from("portfolio-maker")
+              .getPublicUrl(project.mainImage).data.publicUrl
+          : undefined,
+        images: project.images
+          ? project.images.map((image) => {
+              return supabase.storage
+                .from("portfolio-maker")
+                .getPublicUrl(image).data.publicUrl;
+            })
+          : undefined,
+      };
+    }),
+    error,
+  };
 }
 
 export async function createProject(
@@ -20,42 +41,46 @@ export async function createProject(
   // insert the files of project
   // insert the mainImage
   const mainImage = formData.get("mainImage") as File;
+  if (mainImage) {
+    restProjectCreateDTO.mainImage = generateStorageFilePath(
+      mainImage,
+      "projects/" + restProjectCreateDTO.name + "/" + "mainImage"
+    );
 
-  restProjectCreateDTO.mainImage = generateStorageFilePath(
-    mainImage,
-    "portfolio-maker/projects"
-  );
+    const { error: uploadMainImageError } = await supabase.storage
+      .from("portfolio-maker") // bucket name
+      .upload(restProjectCreateDTO.mainImage, mainImage, {
+        cacheControl: "3600",
+        upsert: false,
+      });
 
-  const { error: uploadMainImageError } = await supabase.storage
-    .from("portfolio-maker") // bucket name
-    .upload(restProjectCreateDTO.mainImage, mainImage, {
-      cacheControl: "3600",
-      upsert: false,
-    });
-
-  if (uploadMainImageError) return { data: null, error: uploadMainImageError };
+    if (uploadMainImageError)
+      return { data: null, error: uploadMainImageError };
+  }
 
   // insert the images
-  const images = formData.getAll("images") as File[];
+  const images = formData.getAll("images[]") as File[];
 
-  await Promise.all(
-    images.map(async (image) => {
-      const imagePath = generateStorageFilePath(
-        image,
-        "portfolio-maker/projects/" + restProjectCreateDTO.name
-      );
+  if (images) {
+    await Promise.all(
+      images.map(async (image) => {
+        const imagePath = generateStorageFilePath(
+          image,
+          "projects/" + restProjectCreateDTO.name + "/" + "images"
+        );
 
-      restProjectCreateDTO.images.push(imagePath);
+        restProjectCreateDTO.images.push(imagePath);
 
-      const { error: uploadImageError } = await supabase.storage
-        .from("portfolio-maker") // bucket name
-        .upload(imagePath, image, {
-          cacheControl: "3600",
-          upsert: false,
-        });
-      if (uploadImageError) return { data: null, error: uploadImageError };
-    })
-  );
+        const { error: uploadImageError } = await supabase.storage
+          .from("portfolio-maker") // bucket name
+          .upload(imagePath, image, {
+            cacheControl: "3600",
+            upsert: false,
+          });
+        if (uploadImageError) return { data: null, error: uploadImageError };
+      })
+    );
+  }
 
   const { data, error: projectError } = await supabase
     .from("project")
