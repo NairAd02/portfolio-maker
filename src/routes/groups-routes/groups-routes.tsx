@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { paths } from "../path";
-import { FolderCog, User } from "lucide-react";
+import { FolderGit2, User } from "lucide-react";
 
 export interface GroupRoute {
   title: string;
@@ -21,7 +21,7 @@ export const groupRoutes: GroupRoute[] = [
     navigationRoutes: [
       {
         title: "Proyectos",
-        icon: <FolderCog />,
+        icon: <FolderGit2 />,
         path: paths.projects.root,
       },
     ],
