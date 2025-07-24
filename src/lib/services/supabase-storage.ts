@@ -1,5 +1,14 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 
+export async function getImageUrlOrThrow(
+  supabase: SupabaseClient<any, "public", any>,
+  path: string
+) {
+  const { data, error } = await getSignedImageUrl(supabase, path);
+  if (error) throw error;
+  return data.signedUrl;
+}
+
 export async function getSignedImageUrl(
   supabase: SupabaseClient<any, "public", any>,
   path: string,
