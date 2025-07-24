@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "kulraeahqplmequlfsjo.supabase.co",
-        pathname: "/storage/v1/object/public/portfolio-maker/**", // bucket name
+        pathname: "/storage/v1/object/sign/portfolio-maker/**", // bucket name
       },
     ],
   },
