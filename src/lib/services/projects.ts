@@ -3,24 +3,44 @@ import { generateStorageFilePath } from "../images";
 import { createClient } from "../supabase/server";
 import { Project, ProjectCreateDTO } from "../types/projects";
 import { getLoggedUser } from "./auth";
-import { getPublicImageUrl } from "./supabase-storage";
+import { getImageUrlOrThrow } from "./supabase-storage";
 import { uploadFileToSupabase } from "./supabase-storage";
 
 export async function getProjectsList() {
   const supabase = await createClient();
   const { data, error } = await supabase.from("project").select("*");
+  if (error) return { data: null, error };
+
   const projects = data as Project[];
 
-  return {
-    data: projects.map((project) => ({
-      ...project,
-      mainImage: getPublicImageUrl(supabase, project.mainImage),
-      images: Array.isArray(project.images)
-        ? project.images.map((image) => getPublicImageUrl(supabase, image))
-        : [],
-    })),
-    error,
-  };
+  try {
+    const mappedProjects = await Promise.all(
+      projects.map(async (project) => {
+        let mainImage = undefined;
+        if (project.mainImage) {
+          mainImage = await getImageUrlOrThrow(supabase, project.mainImage);
+        }
+
+        let images: string[] = [];
+        if (Array.isArray(project.images)) {
+          images = await Promise.all(
+            project.images.map(async (image) => {
+              return await getImageUrlOrThrow(supabase, image);
+            })
+          );
+        }
+
+        return {
+          ...project,
+          mainImage,
+          images,
+        };
+      })
+    );
+    return { data: mappedProjects, error: null };
+  } catch (err) {
+    return { data: null, error: err };
+  }
 }
 
 export async function createProject(
