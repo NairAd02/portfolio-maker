@@ -27,6 +27,7 @@ export interface ProjectCreateDTO {
   solution: string;
   impact: string;
   teachings: string;
+  portfolio_id: string
   technologies: string[];
 }
 
@@ -38,5 +39,6 @@ export const convertProjectCreateDTO = (
     images: [],
     sourceCodeUrl: projectCreate.sourceCodeUrl || undefined,
     deploymentUrl: projectCreate.deploymentUrl || undefined,
+    portfolio_id: ""
   };
 };
