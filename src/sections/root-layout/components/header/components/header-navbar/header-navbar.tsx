@@ -26,13 +26,15 @@ export default function HeaderNavbar() {
       {!pathname.includes("dashboard") && (
         <div className="flex items-center gap-2 sm:gap-4">
           {!loggedUser && (
-            <Button
-              className="text-xs sm:text-base"
-              variant="outline"
-              size="sm"
-            >
-              Iniciar Sesión
-            </Button>
+            <NavigationComponent href={paths.sign_in.root}>
+              <Button
+                className="text-xs sm:text-base"
+                variant="outline"
+                size="sm"
+              >
+                Iniciar Sesión
+              </Button>
+            </NavigationComponent>
           )}
           <NavigationComponent href={paths.projects.root}>
             <Button
