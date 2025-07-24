@@ -1,12 +1,15 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 
-export function getPublicImageUrl(
+export async function getPublicImageUrl(
   supabase: SupabaseClient<any, "public", any>,
-  path: string | undefined
+  path: string,
+  seconds: number = 60
 ) {
-  if (!path) return undefined;
-  return supabase.storage.from("portfolio-maker").getPublicUrl(path).data
-    .publicUrl;
+  const { data, error } = await supabase.storage
+    .from("portfolio-maker")
+    .createSignedUrl(path, seconds);
+  if (error) return { data: null, error };
+  return { data, error: null };
 }
 
 export async function uploadFileToSupabase(
