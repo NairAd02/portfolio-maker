@@ -1,7 +1,7 @@
 import type React from "react";
 import Image from "next/image";
 import SignInFormContainer from "./form/sign-in-form-container";
-import { Building2 } from "lucide-react";
+import AppLogo from "@/components/app-logo/app-logo";
 
 export default function SignInContainer() {
   return (
@@ -9,7 +9,7 @@ export default function SignInContainer() {
       {/* Left Side - Form */}
       <div className="w-full md:w-1/2 flex flex-col p-10">
         <div className="flex flex-col gap-4 items-center justify-center">
-          <Building2 className={` size-16`} />
+          <AppLogo />
 
           <p className="text-2xl font-bold">Inicio de Sesión</p>
         </div>
