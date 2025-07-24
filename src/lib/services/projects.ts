@@ -2,6 +2,7 @@
 import { generateStorageFilePath } from "../images";
 import { createClient } from "../supabase/server";
 import { Project, ProjectCreateDTO } from "../types/projects";
+import { getLoggedUser } from "./auth";
 import { getPublicImageUrl } from "./supabase-storage";
 import { uploadFileToSupabase } from "./supabase-storage";
 
@@ -76,11 +77,27 @@ export async function createProject(
     }
   }
 
+  // find the portfolio user
+
+  // get the session
+  const { data: sessionData, error: loggedUserError } = await getLoggedUser();
+
+  if (!sessionData || loggedUserError) return { data: null, loggedUserError };
+
+  const { data: portfolio, error: portfolioError } = await supabase
+    .from("portfolio")
+    .select("id")
+    .eq("user_id", sessionData.user.id)
+    .single();
+
+  if (portfolioError) return { data: null, error: portfolioError };
+
   // Preparar el objeto para insertar
   const insertData = {
     ...restProjectCreateDTO,
     mainImage: mainImagePath,
     images: imagePaths,
+    portfolio_id: portfolio.id,
   };
 
   const { data, error: projectError } = await supabase
