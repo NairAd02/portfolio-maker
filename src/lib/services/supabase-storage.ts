@@ -1,6 +1,6 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 
-export async function getPublicImageUrl(
+export async function getSignedImageUrl(
   supabase: SupabaseClient<any, "public", any>,
   path: string,
   seconds: number = 60
