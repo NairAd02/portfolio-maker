@@ -2,7 +2,7 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { generateStorageFilePath } from "../images";
 import { createClient } from "../supabase/server";
-import { Project, ProjectCreateDTO } from "../types/projects";
+import { Project, ProjectCreateDTO, ProjectEditDTO } from "../types/projects";
 import { getLoggedUser } from "./auth";
 import { getImageUrlOrThrow } from "./supabase-storage";
 import { uploadFileToSupabase } from "./supabase-storage";
@@ -100,6 +100,72 @@ export async function createProject(
   }
 
   return { data: projectEntity, error: null };
+}
+
+export async function editProject(
+  id: string,
+  projectEditDTO: ProjectEditDTO,
+  formData: FormData
+) {
+  const { technologies, ...restProjectEditDTO } = projectEditDTO;
+  const supabase = await createClient();
+
+  // update the images
+
+  // first delete the images
+  if (projectEditDTO.mainImage)
+    await supabase.storage
+      .from("portfolio-maker")
+      .remove([projectEditDTO.mainImage]);
+  if (projectEditDTO.images && projectEditDTO.images.length > 0)
+    await supabase.storage
+      .from("portfolio-maker")
+      .remove(projectEditDTO.images);
+
+  // insert the images
+  const { data: imagesData, error: insertImagesError } =
+    await insertProjectImages(supabase, restProjectEditDTO.name, formData);
+
+  if (!imagesData || insertImagesError)
+    return { data: null, error: insertImagesError };
+
+  // update project
+
+  const { data: updateProjectData, error: updateProjectError } = await supabase
+    .from("project")
+    .update({
+      ...restProjectEditDTO,
+      mainImage: imagesData.mainImage,
+      images: imagesData.images,
+    })
+    .eq("id", id)
+    .select()
+    .single();
+  if (updateProjectError) return { data: null, error: updateProjectError };
+
+  // update the technologies
+
+  // first delete current technologies
+  const { error: deleteTechnologiesError } = await supabase
+    .from("technology")
+    .delete()
+    .in("id", technologies);
+
+  if (deleteTechnologiesError)
+    return { data: null, error: deleteTechnologiesError };
+
+  // insert new technologies
+  if (technologies.length > 0) {
+    const { error: insertTechnologiesError } = await insertProjectTechnologies(
+      supabase,
+      id,
+      technologies
+    );
+    if (insertTechnologiesError)
+      return { data: null, error: insertTechnologiesError };
+  }
+
+  return { data: updateProjectData, error: null };
 }
 
 // functions auxs
