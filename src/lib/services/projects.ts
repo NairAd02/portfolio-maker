@@ -7,6 +7,7 @@ import { getLoggedUser } from "./auth";
 import { getImageUrlOrThrow } from "./supabase-storage";
 import { uploadFileToSupabase } from "./supabase-storage";
 
+
 export async function getProjectsList() {
   const supabase = await createClient();
   const { data, error } = await supabase.from("project").select("*");
@@ -98,6 +99,25 @@ async function insertProjectImages(
   return { data: { mainImage: mainImagePath, images: imagePaths } };
 }
 
+async function insertProjectTechnologies(
+  supabase: SupabaseClient<any, "public", any>,
+  projectId: string,
+  technologies: string[]
+) {
+  const technologiesRelations = technologies.map((technology) => ({
+    technology_id: technology,
+    proyect_id: projectId,
+  }));
+  const { data, error: technologiesError } = await supabase
+    .from("technology_has_proyect")
+    .insert(technologiesRelations)
+    .select()
+    .single();
+  if (technologiesError) return { data: null, error: technologiesError };
+
+  return { data, error: null };
+}
+
 export async function createProject(
   projectCreateDTO: ProjectCreateDTO,
   formData: FormData
@@ -144,15 +164,12 @@ export async function createProject(
 
   // Insertar tecnologías relacionadas
   if (technologies && technologies.length > 0) {
-    const technologiesRelations = technologies.map((technology) => ({
-      technology_id: technology,
-      proyect_id: projectEntity.id,
-    }));
-    const { error: technologiesError } = await supabase
-      .from("technology_has_proyect")
-      .insert(technologiesRelations)
-      .select()
-      .single();
+    const { error: technologiesError } = await insertProjectTechnologies(
+      supabase,
+      projectEntity.id,
+      technologies
+    );
+
     if (technologiesError) return { data: null, error: technologiesError };
   }
 
