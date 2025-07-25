@@ -1,4 +1,5 @@
 "use server";
+import { SupabaseClient } from "@supabase/supabase-js";
 import { generateStorageFilePath } from "../images";
 import { createClient } from "../supabase/server";
 import { Project, ProjectCreateDTO } from "../types/projects";
@@ -43,20 +44,18 @@ export async function getProjectsList() {
   }
 }
 
-export async function createProject(
-  projectCreateDTO: ProjectCreateDTO,
+async function insertProjectImages(
+  supabase: SupabaseClient<any, "public", any>,
+  projectName: string,
   formData: FormData
 ) {
-  const { technologies, ...restProjectCreateDTO } = projectCreateDTO;
-  const supabase = await createClient();
-
   // Procesar mainImage
   const mainImage = formData.get("mainImage") as File;
   let mainImagePath: string | undefined = undefined;
   if (mainImage) {
     mainImagePath = generateStorageFilePath(
       mainImage,
-      `projects/${restProjectCreateDTO.name}/mainImage`
+      `projects/${projectName}/mainImage`
     );
     const mainImageError = await uploadFileToSupabase(
       supabase,
@@ -78,7 +77,7 @@ export async function createProject(
         images.map(async (image) => {
           const imagePath = generateStorageFilePath(
             image,
-            `projects/${restProjectCreateDTO.name}/images`
+            `projects/${projectName}/images`
           );
           const uploadError = await uploadFileToSupabase(
             supabase,
@@ -96,8 +95,22 @@ export async function createProject(
       return { data: null, error };
     }
   }
+  return { data: { mainImage: mainImagePath, images: imagePaths } };
+}
+
+export async function createProject(
+  projectCreateDTO: ProjectCreateDTO,
+  formData: FormData
+) {
+  const { technologies, ...restProjectCreateDTO } = projectCreateDTO;
+  const supabase = await createClient();
 
   // find the portfolio user
+  const { data: imagesData, error: insertImagesError } =
+    await insertProjectImages(supabase, restProjectCreateDTO.name, formData);
+
+  if (!imagesData || insertImagesError)
+    return { data: null, error: insertImagesError };
 
   // get the session
   const { data: sessionData, error: loggedUserError } = await getLoggedUser();
@@ -115,8 +128,8 @@ export async function createProject(
   // Preparar el objeto para insertar
   const insertData = {
     ...restProjectCreateDTO,
-    mainImage: mainImagePath,
-    images: imagePaths,
+    mainImage: imagesData.mainImage,
+    images: imagesData.images,
     portfolio_id: portfolio.id,
   };
 
