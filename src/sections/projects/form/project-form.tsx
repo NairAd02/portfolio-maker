@@ -44,7 +44,7 @@ export default function ProjectForm({ imageRecived, imagesRecived }: Props) {
         component: <ProjectResourcesSection imagesRecived={imagesRecived} />,
       },
     ],
-    []
+    [imageRecived, imagesRecived]
   );
 
   return (
