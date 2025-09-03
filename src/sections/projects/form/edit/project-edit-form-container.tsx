@@ -13,6 +13,7 @@ import { ProjectEdit, projectEditSchema } from "./schemas/project-edit-schema";
 import { ProjectDetails } from "@/lib/types/projects";
 import useEditProject from "../../hooks/use-edit-project";
 import useImagesForm from "@/components/form/hooks/use-images-form";
+import useImageForm from "@/components/form/hooks/use-image-form";
 
 interface Props {
   project: ProjectDetails;
@@ -44,6 +45,13 @@ export default function ProjectEditFormContainer({ project }: Props) {
     },
   });
 
+  const { loading: loadingImage, error: errorImage } = useImageForm({
+    form,
+    imageUrl: project.mainImage,
+    imageName: project.name,
+    fieldName: "mainImage",
+  });
+
   const { loading: loadingImages, error: errorImages } = useImagesForm({
     form,
     images: project.images,
@@ -65,6 +73,7 @@ export default function ProjectEditFormContainer({ project }: Props) {
         className="w-full flex flex-1 flex-col justify-between gap-8 h-full"
       >
         <ProjectForm
+          imageRecived={{ loading: loadingImage, error: errorImage }}
           imagesRecived={{ loading: loadingImages, error: errorImages }}
         />
         <FormActionButtons

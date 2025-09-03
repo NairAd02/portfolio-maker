@@ -10,17 +10,20 @@ import ProjectContentSection from "./form-sections/project-content-section/proje
 import ProjectResourcesSection from "./form-sections/project-resources-section/project-resources-section";
 
 interface Props {
+  imageRecived?: { loading: boolean; error: string | null };
   imagesRecived?: { loading: boolean; error: string | null };
 }
 
-export default function ProjectForm({ imagesRecived }: Props) {
+export default function ProjectForm({ imageRecived, imagesRecived }: Props) {
   const tabs = useMemo(
     () => [
       {
         label: "Información General",
         value: "1",
         icon: <FileText className="w-4 h-4" />,
-        component: <ProjectGeneralInformationSection />,
+        component: (
+          <ProjectGeneralInformationSection imageRecived={imageRecived} />
+        ),
       },
       {
         label: "Enlaces",

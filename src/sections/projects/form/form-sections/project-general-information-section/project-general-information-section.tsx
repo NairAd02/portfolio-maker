@@ -11,7 +11,13 @@ import {
 import { FileTextIcon } from "lucide-react";
 import React from "react";
 
-export default function ProjectGeneralInformationSection() {
+interface Props {
+  imageRecived?: { loading: boolean; error: string | null };
+}
+
+export default function ProjectGeneralInformationSection({
+  imageRecived,
+}: Props) {
   return (
     <Card>
       <CardHeader>
@@ -34,7 +40,11 @@ export default function ProjectGeneralInformationSection() {
           description="Describa brevemente el proyecto"
           fullWidth
         />
-        <RHFImageUpload name="mainImage" label="Imagen del Proyecto" />
+        <RHFImageUpload
+          name="mainImage"
+          label="Imagen del Proyecto"
+          {...(imageRecived && { loading: imageRecived.loading })}
+        />
       </CardContent>
     </Card>
   );
