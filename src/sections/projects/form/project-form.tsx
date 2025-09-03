@@ -9,7 +9,11 @@ import ProjectLinksSection from "./form-sections/project-links-section/project-l
 import ProjectContentSection from "./form-sections/project-content-section/project-content-section";
 import ProjectResourcesSection from "./form-sections/project-resources-section/project-resources-section";
 
-export default function ProjectForm() {
+interface Props {
+  imagesRecived?: { loading: boolean; error: string | null };
+}
+
+export default function ProjectForm({ imagesRecived }: Props) {
   const tabs = useMemo(
     () => [
       {
@@ -34,7 +38,7 @@ export default function ProjectForm() {
         label: "Recursos",
         icon: <Upload className="w-4 h-4" />,
         value: "4",
-        component: <ProjectResourcesSection />,
+        component: <ProjectResourcesSection imagesRecived={imagesRecived} />,
       },
     ],
     []

@@ -11,7 +11,11 @@ import { RHFMultiSelectField } from "@/components/form/rhf-components/rhf-multi-
 import useTechnologies from "@/sections/technologies/hooks/use-technologies";
 import { RHFMultiFileUpload } from "@/components/form/rhf-components/rhf-multi-file-upload/rhf-multi-file-upload";
 
-export default function ProjectResourcesSection() {
+interface Props {
+  imagesRecived?: { loading: boolean; error: string | null };
+}
+
+export default function ProjectResourcesSection({ imagesRecived }: Props) {
   const { technologies, loadingData: loadingDataTechnologies } =
     useTechnologies();
   return (
@@ -55,6 +59,7 @@ export default function ProjectResourcesSection() {
             compressImages={true}
             quality={85}
             maxWidth={1920}
+            {...(imagesRecived && { loading: imagesRecived.loading })}
           />
         </CardContent>
       </Card>
