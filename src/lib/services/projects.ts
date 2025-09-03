@@ -2,7 +2,12 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { generateStorageFilePath } from "../images";
 import { createClient } from "../supabase/server";
-import { Project, ProjectCreateDTO, ProjectEditDTO } from "../types/projects";
+import {
+  Project,
+  ProjectCreateDTO,
+  ProjectDetails,
+  ProjectEditDTO,
+} from "../types/projects";
 import { getLoggedUser } from "./auth";
 import { getImageUrlOrThrow } from "./supabase-storage";
 import { uploadFileToSupabase } from "./supabase-storage";
@@ -43,6 +48,17 @@ export async function getProjectsList() {
   } catch (err) {
     return { data: null, error: err };
   }
+}
+
+export async function getProjectById(id: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("project")
+    .select("*")
+    .eq("id", id)
+    .single();
+  if (error) return { data: null, error };
+  return { data: data as ProjectDetails, error: null };
 }
 
 export async function createProject(
@@ -110,18 +126,26 @@ export async function editProject(
 ) {
   const { technologies, ...restProjectEditDTO } = projectEditDTO;
   const supabase = await createClient();
+  // find the project
+  const { data: projectFind, error: findProjectError } = await supabase
+    .from("project")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (findProjectError) return { data: null, error: findProjectError };
+
+  const projectEntity = projectFind as Project;
 
   // update the images
 
   // first delete the images
-  if (projectEditDTO.mainImage)
+  if (projectEntity.mainImage)
     await supabase.storage
       .from("portfolio-maker")
-      .remove([projectEditDTO.mainImage]);
-  if (projectEditDTO.images && projectEditDTO.images.length > 0)
-    await supabase.storage
-      .from("portfolio-maker")
-      .remove(projectEditDTO.images);
+      .remove([projectEntity.mainImage]);
+  if (projectEntity.images && projectEntity.images.length > 0)
+    await supabase.storage.from("portfolio-maker").remove(projectEntity.images);
 
   // insert the images
   const { data: imagesData, error: insertImagesError } =
@@ -224,5 +248,3 @@ async function insertProjectImages(
   }
   return { data: { mainImage: mainImagePath, images: imagePaths } };
 }
-
-
