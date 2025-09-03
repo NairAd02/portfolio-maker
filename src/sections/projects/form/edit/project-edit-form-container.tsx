@@ -34,11 +34,11 @@ export default function ProjectEditFormContainer({ project }: Props) {
     defaultValues: {
       name: project.name,
       description: project.description,
-      deploymentUrl: project.deploymentUrl,
+      deploymentUrl: project.deploymentUrl || "",
       impact: project.impact,
       problem: project.problem,
       solution: project.solution,
-      sourceCodeUrl: project.sourceCodeUrl,
+      sourceCodeUrl: project.sourceCodeUrl || "",
       teachings: project.teachings,
       technologies: project.technologies.map((technology) => technology.id),
       images: [],
