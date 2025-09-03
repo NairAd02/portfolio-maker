@@ -12,6 +12,7 @@ import { getLoggedUser } from "./auth";
 import { getImageUrlOrThrow } from "./supabase-storage";
 import { uploadFileToSupabase } from "./supabase-storage";
 import { insertProjectTechnologies } from "./technologies";
+import { Technology } from "../types/technologies";
 
 export async function getProjectsList() {
   const supabase = await createClient();
@@ -54,11 +55,42 @@ export async function getProjectById(id: string) {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("project")
-    .select("*")
+    .select(
+      `
+      *,
+      technology_has_proyect (
+        technology (*)
+      )
+    `
+    )
     .eq("id", id)
     .single();
+
   if (error) return { data: null, error };
-  return { data: data as ProjectDetails, error: null };
+
+  const { technology_has_proyect, ...rest } = data;
+
+  const technologies = technology_has_proyect.map(
+    (thp: { technology: Technology }) => thp.technology
+  );
+
+  return {
+    data: {
+      ...rest,
+      technologies,
+      mainImage: data.mainImage
+        ? await getImageUrlOrThrow(supabase, data.mainImage)
+        : undefined,
+      images: Array.isArray(data.images)
+        ? await Promise.all(
+            data.images.map(async (image: string) => {
+              return await getImageUrlOrThrow(supabase, image);
+            })
+          )
+        : [],
+    } as ProjectDetails,
+    error: null,
+  };
 }
 
 export async function createProject(
