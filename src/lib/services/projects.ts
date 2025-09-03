@@ -204,9 +204,9 @@ export async function editProject(
 
   // first delete current technologies
   const { error: deleteTechnologiesError } = await supabase
-    .from("technology")
+    .from("technology_has_proyect")
     .delete()
-    .in("id", technologies);
+    .eq("proyect_id", projectEntity.id);
 
   if (deleteTechnologiesError)
     return { data: null, error: deleteTechnologiesError };
