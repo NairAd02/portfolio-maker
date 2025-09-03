@@ -20,7 +20,7 @@ export default function ProjectsList({ projects }: Props) {
   const handleEdit = useCallback(
     (id: string) => {
       handleOpenModal({
-        name: modalTypes.newProyectModal.name,
+        name: modalTypes.editProyectModal.name,
         entity: id,
       });
     },

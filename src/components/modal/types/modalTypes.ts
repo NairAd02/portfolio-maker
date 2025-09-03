@@ -15,6 +15,7 @@ export interface SectionModal {
 }
 export interface ModalTypes {
   newProyectModal: SectionModal;
+  editProyectModal: SectionModal;
   previewImageModal: SectionModal;
 }
 
@@ -22,6 +23,10 @@ export const modalTypes: ModalTypes = {
   newProyectModal: {
     name: "newProyectModal",
     title: "Formulario de Creación de Proyecto",
+  },
+  editProyectModal: {
+    name: "editProyectModal",
+    title: "Formulario de Edición de Proyecto",
   },
   previewImageModal: {
     name: "previewImageModal",
