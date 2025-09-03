@@ -78,7 +78,7 @@ export function RHFMultiFileUpload({
     const newPreviews: { [id: string]: string } = {};
     value.forEach((file) => {
       if (file.type && file.type.startsWith("image/") && file instanceof File) {
-        newPreviews[file.id] = URL.createObjectURL(file);
+        newPreviews[file.name] = URL.createObjectURL(file);
       }
     });
     setPreviews(newPreviews);
@@ -102,15 +102,12 @@ export function RHFMultiFileUpload({
           });
 
           // Cambiar el nombre del archivo a .webp
-          const originalName = file.name.split(".").slice(0, -1).join(".") || file.name;
+          const originalName =
+            file.name.split(".").slice(0, -1).join(".") || file.name;
           const webpName = originalName + ".webp";
-          const processedFile = new File(
-            [compressedFile],
-            webpName,
-            {
-              type: compressedFile.type,
-            }
-          ) as FileWithPreview;
+          const processedFile = new File([compressedFile], webpName, {
+            type: compressedFile.type,
+          }) as FileWithPreview;
 
           processedFile.id = fileId;
 
@@ -194,12 +191,12 @@ export function RHFMultiFileUpload({
   const handleRemoveFile = (fileId: string) => {
     if (loading || isProcessing) return;
 
-    const fileToRemove = value.find((f) => f.id === fileId);
+    const fileToRemove = value.find((f) => f.name === fileId);
     if (fileToRemove?.preview) {
       URL.revokeObjectURL(fileToRemove.preview);
     }
 
-    const updatedFiles = value.filter((file) => file.id !== fileId);
+    const updatedFiles = value.filter((file) => file.name !== fileId);
     setValue(name, updatedFiles, { shouldValidate: true });
   };
 
@@ -220,11 +217,11 @@ export function RHFMultiFileUpload({
   const getFileIcon = (file: FileWithPreview) => {
     if (file.type.startsWith("image/")) {
       // Mostrar preview si existe
-      if (previews[file.id]) {
+      if (previews[file.name]) {
         return (
           <div className="relative w-12 h-12 rounded overflow-hidden">
             <Image
-              src={previews[file.id] || "/placeholder.svg"}
+              src={previews[file.name] || "/placeholder.svg"}
               alt={file.name}
               fill
               className="object-cover"
@@ -342,7 +339,7 @@ export function RHFMultiFileUpload({
           <div className="grid gap-3 max-h-64 overflow-y-auto">
             {value.map((file) => (
               <div
-                key={file.id}
+                key={file.name}
                 className="flex items-center gap-3 p-3 border rounded-lg bg-gray-50 dark:bg-gray-900/30"
               >
                 {/* Preview o icono */}
@@ -367,7 +364,7 @@ export function RHFMultiFileUpload({
                   type="button"
                   variant="destructive"
                   size="sm"
-                  onClick={() => handleRemoveFile(file.id)}
+                  onClick={() => handleRemoveFile(file.name)}
                   disabled={loading || isProcessing}
                   className="flex-shrink-0 h-8 w-8 p-0"
                 >
