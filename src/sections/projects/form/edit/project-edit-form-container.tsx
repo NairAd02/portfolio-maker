@@ -40,7 +40,9 @@ export default function ProjectEditFormContainer({ project }: Props) {
       solution: project.solution,
       sourceCodeUrl: project.sourceCodeUrl || "",
       teachings: project.teachings,
-      technologies: project.technologies.map((technology) => technology.id),
+      technologies: project.technologies.map((technology) =>
+        String(technology.id)
+      ),
       images: [],
     },
   });
