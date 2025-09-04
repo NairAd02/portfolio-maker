@@ -1,9 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useContext } from "react";
+import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { ModalContext } from "@/components/modal/context/modalContext";
-import { modalTypes } from "@/components/modal/types/modalTypes";
 import { toast } from "react-toastify";
 import useCreateProject from "../../hooks/use-create-project";
 import { paths } from "@/routes/path";
@@ -14,9 +12,10 @@ import {
 import { revalidateServerPath } from "@/lib/cache";
 import FormActionButtons from "@/components/form/components/form-action-buttons";
 import ProjectForm from "../project-form";
+import { useRouter } from "next/navigation";
 
 export default function ProjectCreateFormContainer() {
-  const { handleCloseModal } = useContext(ModalContext);
+  const router = useRouter();
   const { loading: submitLoading, createProject } = useCreateProject({
     onCreateAction: () => {
       toast.success("Proyecto creado con éxito");
@@ -41,7 +40,7 @@ export default function ProjectCreateFormContainer() {
   });
 
   const handleClose = () => {
-    handleCloseModal(modalTypes.newProyectModal.name);
+    router.back();
   };
 
   function onSubmit(project: ProjectCreate) {
