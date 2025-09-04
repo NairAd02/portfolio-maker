@@ -43,7 +43,7 @@ export const paths: ApplicationPath = {
     isProtected: true,
   },
   createProject: {
-    root: "/create-project",
+    root: "/dashboard/create-project",
     isProtected: true,
   },
   landing: {
