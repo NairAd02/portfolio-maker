@@ -52,7 +52,7 @@ export default function ProjectForm({ imageRecived, imagesRecived }: Props) {
       <ProjectFormSectionsController>
         <TabsContainer
           tabs={tabs}
-          classNameTabsContent="flex-1 overflow-auto flex flex-col max-h-[70vh] p-2"
+          classNameTabsContent="flex-1 overflow-auto flex flex-col h-[70vh] p-2"
         />
       </ProjectFormSectionsController>
     </TabsPanelProvider>
