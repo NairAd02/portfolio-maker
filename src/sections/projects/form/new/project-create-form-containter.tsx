@@ -15,7 +15,7 @@ import { revalidateServerPath } from "@/lib/cache";
 import FormActionButtons from "@/components/form/components/form-action-buttons";
 import ProjectForm from "../project-form";
 
-export default function NewProjectFormContainer() {
+export default function ProjectCreateFormContainer() {
   const { handleCloseModal } = useContext(ModalContext);
   const { loading: submitLoading, createProject } = useCreateProject({
     onCreateAction: () => {
