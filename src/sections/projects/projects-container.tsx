@@ -1,8 +1,8 @@
 import SectionsHeader from "@/components/sections-header/sections-header";
 import { FolderGit2 } from "lucide-react";
 import React from "react";
-import { modalTypes } from "@/components/modal/types/modalTypes";
 import ProjectsListContainer from "./list/projects-list-container";
+import { paths } from "@/routes/path";
 
 export default function ProjectsContainer() {
   return (
@@ -12,9 +12,9 @@ export default function ProjectsContainer() {
         sectionTitle="Gestión de Proyectos"
         sectionDescription="Gestione los proyectos que ha realizado durante su decursar como profesional"
         addButton={{
-          isModalRedirect: true,
+          isModalRedirect: false,
           buttonText: "Nuevo Proyecto",
-          creationPath: modalTypes.newProyectModal.name,
+          creationPath: paths.createProject.root,
         }}
       />
       <ProjectsListContainer />

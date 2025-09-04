@@ -1,7 +1,7 @@
 "use client";
 import { ModalContext } from "@/components/modal/context/modalContext";
+import NavigationComponent from "@/components/navigation-component/navigation-component";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
 import React, { useCallback, useContext } from "react";
 
 interface Props {
@@ -16,11 +16,15 @@ export default function AddButtonSectionsHeader({
   isModalRedirect,
 }: Props) {
   const { handleOpenModal } = useContext(ModalContext);
-  const router = useRouter();
   const handeRedirect = useCallback(() => {
-    if (isModalRedirect) handleOpenModal({ name: creationPath });
-    else router.push(creationPath);
-  }, [handleOpenModal, isModalRedirect, router, creationPath]);
+    handleOpenModal({ name: creationPath });
+  }, [handleOpenModal, creationPath]);
 
-  return <Button onClick={handeRedirect}>{buttonText}</Button>;
+  return isModalRedirect ? (
+    <Button onClick={handeRedirect}>{buttonText}</Button>
+  ) : (
+    <NavigationComponent href={creationPath}>
+      <Button>{buttonText}</Button>
+    </NavigationComponent>
+  );
 }
