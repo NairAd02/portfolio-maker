@@ -1,5 +1,5 @@
 import React from "react";
-import NewProjectFormContainer from "./new-project-form-containter";
+import NewProjectFormContainer from "./project-create-form-containter";
 
 
 export default function NewProjectFormModalContainer() {
