@@ -19,8 +19,9 @@ export default function ProjectCreateFormContainer() {
   const { loading: submitLoading, createProject } = useCreateProject({
     onCreateAction: () => {
       toast.success("Proyecto creado con éxito");
-      handleClose();
       revalidateServerPath(paths.projects.root);
+      handleClose();
+      router.refresh();
     },
   });
   const form = useForm<ProjectCreate>({
