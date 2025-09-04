@@ -6,6 +6,7 @@ interface Path {
 interface ApplicationPath {
   landing: Path;
   projects: Path;
+  createProject: Path;
   sign_in: Path;
   config_management: (
     params?: Record<string, string>,
@@ -39,6 +40,10 @@ export const paths: ApplicationPath = {
   },
   projects: {
     root: "/dashboard/projects",
+    isProtected: true,
+  },
+  createProject: {
+    root: "/create-project",
     isProtected: true,
   },
   landing: {
