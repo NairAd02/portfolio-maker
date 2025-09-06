@@ -1,9 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useContext } from "react";
+import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { ModalContext } from "@/components/modal/context/modalContext";
-import { modalTypes } from "@/components/modal/types/modalTypes";
 import { toast } from "react-toastify";
 import { paths } from "@/routes/path";
 import { revalidateServerPath } from "@/lib/cache";
@@ -14,19 +12,21 @@ import { ProjectDetails } from "@/lib/types/projects";
 import useEditProject from "../../hooks/use-edit-project";
 import useImagesForm from "@/components/form/hooks/use-images-form";
 import useImageForm from "@/components/form/hooks/use-image-form";
+import { useRouter } from "next/navigation";
 
 interface Props {
   project: ProjectDetails;
 }
 
 export default function ProjectEditFormContainer({ project }: Props) {
-  const { handleCloseModal } = useContext(ModalContext);
+  const router = useRouter();
   const { loading: submitLoading, editProject } = useEditProject({
     id: project.id,
     onEditAction: () => {
       toast.success("Proyecto editado con éxito");
-      handleClose();
       revalidateServerPath(paths.projects.root);
+      handleClose();
+      router.refresh();
     },
   });
   const form = useForm<ProjectEdit>({
@@ -62,7 +62,7 @@ export default function ProjectEditFormContainer({ project }: Props) {
   });
 
   const handleClose = () => {
-    handleCloseModal(modalTypes.editProyectModal.name);
+    router.back();
   };
 
   function onSubmit(project: ProjectEdit) {
