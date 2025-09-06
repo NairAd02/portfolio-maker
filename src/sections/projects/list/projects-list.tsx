@@ -1,42 +1,18 @@
 "use client";
 
-import { ModalContext } from "@/components/modal/context/modalContext";
-import { modalTypes } from "@/components/modal/types/modalTypes";
 import { DataTable } from "@/components/ui/data-table";
 import { ColumnDef } from "@tanstack/react-table";
-import { EditIcon, EyeIcon } from "lucide-react";
-import { use, useCallback } from "react";
 import TableMenu from "@/components/ui/table-menu";
 import PreviewImage from "@/components/preview-image/preview-image";
 import { Project } from "@/lib/types/projects";
+import { paths } from "@/routes/path";
+import { EditIcon } from "lucide-react";
 
 interface Props {
   projects: Project[];
 }
 
 export default function ProjectsList({ projects }: Props) {
-  const { handleOpenModal } = use(ModalContext);
-
-  const handleEdit = useCallback(
-    (id: string) => {
-      handleOpenModal({
-        name: modalTypes.editProyectModal.name,
-        entity: id,
-      });
-    },
-    [handleOpenModal]
-  );
-
-  const handleViewDetails = useCallback(
-    (id: string) => {
-      handleOpenModal({
-        name: modalTypes.newProyectModal.name,
-        entity: id,
-      });
-    },
-    [handleOpenModal]
-  );
-
   const columns: ColumnDef<Project>[] = [
     {
       accessorKey: "id",
@@ -91,20 +67,12 @@ export default function ProjectsList({ projects }: Props) {
           <div className="flex justify-end">
             <TableMenu
               titleTableMenu="Acciones"
-              actions={[
-                {
-                  label: "Ver Detalles",
-                  icon: <EyeIcon />,
-                  action: () => {
-                    handleViewDetails(row.getValue("id"));
-                  },
-                },
+              links={[
                 {
                   label: "Editar",
                   icon: <EditIcon />,
-                  action: () => {
-                    handleEdit(row.getValue("id"));
-                  },
+                  href: paths.editProject({ id: row.getValue("id") as string })
+                    .root,
                 },
               ]}
             />
