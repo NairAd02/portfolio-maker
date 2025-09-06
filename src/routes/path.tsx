@@ -7,11 +7,16 @@ interface ApplicationPath {
   landing: Path;
   projects: Path;
   createProject: Path;
+  editProject: (
+    params?: Record<string, string>,
+    query?: Record<string, string>
+  ) => Path;
   sign_in: Path;
   config_management: (
     params?: Record<string, string>,
     query?: Record<string, string>
   ) => Path;
+
   inspection: (
     params?: Record<string, string>,
     query?: Record<string, string>
@@ -45,6 +50,15 @@ export const paths: ApplicationPath = {
   createProject: {
     root: "/dashboard/create-project",
     isProtected: true,
+  },
+  editProject: (params = {}, query = {}) => {
+    const basePath = "/dashboard/edit-project/[id]";
+    const pathWithParams = replaceParamsInPath(basePath, params);
+    const queryString = buildQueryString(query);
+    return {
+      root: queryString ? `${pathWithParams}?${queryString}` : pathWithParams,
+      isProtected: true,
+    };
   },
   landing: {
     root: "/",
