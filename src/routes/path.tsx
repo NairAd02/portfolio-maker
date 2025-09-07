@@ -15,6 +15,10 @@ interface ApplicationPath {
     params?: Record<string, string>,
     query?: Record<string, string>
   ) => Path;
+  deleteProject: (
+    params?: Record<string, string>,
+    query?: Record<string, string>
+  ) => Path;
   sign_in: Path;
   config_management: (
     params?: Record<string, string>,
@@ -66,6 +70,15 @@ export const paths: ApplicationPath = {
   },
   projectDetails: (params = {}, query = {}) => {
     const basePath = "/dashboard/projects/[id]";
+    const pathWithParams = replaceParamsInPath(basePath, params);
+    const queryString = buildQueryString(query);
+    return {
+      root: queryString ? `${pathWithParams}?${queryString}` : pathWithParams,
+      isProtected: true,
+    };
+  },
+  deleteProject: (params = {}, query = {}) => {
+    const basePath = "/dashboard/delete-project/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {

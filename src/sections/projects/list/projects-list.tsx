@@ -6,7 +6,7 @@ import TableMenu from "@/components/ui/table-menu";
 import PreviewImage from "@/components/preview-image/preview-image";
 import { Project } from "@/lib/types/projects";
 import { paths } from "@/routes/path";
-import { EditIcon, EyeIcon } from "lucide-react";
+import { Delete, EditIcon, EyeIcon } from "lucide-react";
 
 interface Props {
   projects: Project[];
@@ -97,15 +97,22 @@ export default function ProjectsList({ projects }: Props) {
               titleTableMenu="Acciones"
               links={[
                 {
+                  label: "Ver Detalles",
+                  icon: <EyeIcon />,
+                  href: paths.projectDetails({
+                    id: row.getValue("id") as string,
+                  }).root,
+                },
+                {
                   label: "Editar",
                   icon: <EditIcon />,
                   href: paths.editProject({ id: row.getValue("id") as string })
                     .root,
                 },
                 {
-                  label: "Ver Detalles",
-                  icon: <EyeIcon />,
-                  href: paths.projectDetails({
+                  label: "Eliminar",
+                  icon: <Delete />,
+                  href: paths.deleteProject({
                     id: row.getValue("id") as string,
                   }).root,
                 },
