@@ -7,6 +7,7 @@ import PreviewImage from "@/components/preview-image/preview-image";
 import { Project } from "@/lib/types/projects";
 import { paths } from "@/routes/path";
 import { EditIcon, EyeIcon, Trash2 } from "lucide-react";
+import ProjectsFiltersContainer from "../filters/projects-filters-container";
 
 interface Props {
   projects: Project[];
@@ -129,6 +130,7 @@ export default function ProjectsList({ projects }: Props) {
       <div className="flex flex-col gap-4">
         <DataTable
           columns={columns}
+          filters={<ProjectsFiltersContainer />}
           data={projects}
           initialVisibilityState={{ id: false }}
         />
