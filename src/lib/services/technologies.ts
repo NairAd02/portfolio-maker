@@ -1,6 +1,10 @@
-"use server"
+"use server";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "../supabase/server";
+import { TechnologyCreateDTO } from "../types/technologies";
+import { getLoggedUser } from "./auth";
+import { generateStorageFilePath } from "../images";
+import { uploadFileToSupabase } from "./supabase-storage";
 
 export async function getTechnologiesList() {
   const supabase = await createClient();
@@ -9,6 +13,61 @@ export async function getTechnologiesList() {
     .select("*");
   console.log(technologies);
   return { data: technologies, error };
+}
+
+export async function createTechnology(
+  technologyDTO: TechnologyCreateDTO,
+  formData: FormData
+) {
+  const supabase = await createClient();
+
+  // get the session
+  const { data: sessionData, error: loggedUserError } = await getLoggedUser();
+
+  if (!sessionData || loggedUserError) return { data: null, loggedUserError };
+
+  const { data: portfolio, error: portfolioError } = await supabase
+    .from("portfolio")
+    .select("id")
+    .eq("user_id", sessionData.user.id)
+    .single();
+
+  if (portfolioError) return { data: null, error: portfolioError };
+
+  // insert the icon
+
+  const icon = formData.get("icon") as File;
+
+  const iconPath = generateStorageFilePath(
+    icon,
+    `technologies/${technologyDTO.name}/icon`
+  );
+
+  const uploadIconError = await uploadFileToSupabase(
+    supabase,
+    "portfolio-maker",
+    iconPath,
+    icon,
+    "3600",
+    false
+  );
+  if (uploadIconError) return { data: null, error: uploadIconError };
+
+  const { data: createTechnologyData, error: createTechnologyError } =
+    await supabase
+      .from("technology")
+      .insert({
+        ...technologyDTO,
+        icon: iconPath,
+        portfolio_id: portfolio.id,
+      })
+      .select()
+      .single();
+
+  if (createTechnologyError)
+    return { data: null, error: createTechnologyError };
+
+  return { data: createTechnologyData, error: null };
 }
 
 export async function insertProjectTechnologies(
