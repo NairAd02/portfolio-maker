@@ -6,6 +6,7 @@ interface Path {
 interface ApplicationPath {
   landing: Path;
   projects: Path;
+  technologies: Path;
   createProject: Path;
   editProject: (
     params?: Record<string, string>,
@@ -53,6 +54,10 @@ export const paths: ApplicationPath = {
   },
   projects: {
     root: "/dashboard/projects",
+    isProtected: true,
+  },
+  technologies: {
+    root: "/dashboard/technologies",
     isProtected: true,
   },
   createProject: {
