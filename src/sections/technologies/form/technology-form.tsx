@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { FileTextIcon } from "lucide-react";
+import { Aperture, FileTextIcon } from "lucide-react";
 import { RHFTextField } from "@/components/form/rhf-components/rhf-text-field/rhf-text-field";
 import { RHFImageUpload } from "@/components/form/rhf-components/rhf-image-upload/rhf-image-upload";
 
@@ -24,18 +24,24 @@ export default function TechnologyForm({ imageRecived }: Props) {
         </CardTitle>
         <CardDescription>Información básica de la tecnología</CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="flex items-center gap-8">
+        <RHFImageUpload
+          name="icon"
+          label="Icono de la tecnología"
+          variant="avatar"
+          avatarIcon={
+            <Aperture
+              className="text-secondary dark:text-secondary"
+              size={120 * 0.4}
+            />
+          }
+          {...(imageRecived && { loading: imageRecived.loading })}
+        />
         <RHFTextField
           name="name"
           label="Nombre de la tecnología *"
           placeholder="Ingrese el nombre de la tecnología"
           fullWidth
-        />
-
-        <RHFImageUpload
-          name="icon"
-          label="Icono de la tecnología"
-          {...(imageRecived && { loading: imageRecived.loading })}
         />
       </CardContent>
     </Card>
