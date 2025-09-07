@@ -1,11 +1,17 @@
+import { ProjectsFiltersDTO } from "@/lib/types/projects";
 import ProjectsContainer from "@/sections/projects/projects-container";
 
 import React from "react";
 
-export default async function ProjectsPage() {
+type Props = {
+  searchParams: Promise<ProjectsFiltersDTO>;
+};
+
+export default async function ProjectsPage({ searchParams }: Props) {
+  const projectsFilters = await searchParams;
   return (
     <>
-      <ProjectsContainer />
+      <ProjectsContainer projectsFilters={projectsFilters} />
     </>
   );
 }

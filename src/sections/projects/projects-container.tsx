@@ -3,8 +3,13 @@ import { FolderGit2 } from "lucide-react";
 import React from "react";
 import ProjectsListContainer from "./list/projects-list-container";
 import { paths } from "@/routes/path";
+import { ProjectsFiltersDTO } from "@/lib/types/projects";
 
-export default function ProjectsContainer() {
+interface Props {
+  projectsFilters: ProjectsFiltersDTO;
+}
+
+export default function ProjectsContainer({ projectsFilters }: Props) {
   return (
     <div className="flex flex-col gap-4">
       <SectionsHeader
@@ -17,7 +22,7 @@ export default function ProjectsContainer() {
           creationPath: paths.createProject.root,
         }}
       />
-      <ProjectsListContainer />
+      <ProjectsListContainer projectsFilters={projectsFilters} />
     </div>
   );
 }

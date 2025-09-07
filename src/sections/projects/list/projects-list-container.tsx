@@ -1,11 +1,16 @@
 import React from "react";
-
 import ProjectsList from "./projects-list";
-import { Project } from "@/lib/types/projects";
+import { Project, ProjectsFiltersDTO } from "@/lib/types/projects";
 import { getProjectsList } from "@/lib/services/projects";
 
-export default async function ProjectsListContainer() {
-  const res = await getProjectsList();
+interface Props {
+  projectsFilters: ProjectsFiltersDTO;
+}
+
+export default async function ProjectsListContainer({
+  projectsFilters,
+}: Props) {
+  const res = await getProjectsList(projectsFilters);
 
   if (res.error) throw new Error("Error fetching projects");
   const projects = res.data as Project[];
