@@ -108,7 +108,7 @@ export function RHFImageUpload({
     return (
       <div className={cn("space-y-3", className)}>
         {displayLabel && (
-          <p className="text-base font-semibold text-secondary text-center">
+          <p className="text-base font-semibold text-foreground text-center">
             {displayLabel}
           </p>
         )}
@@ -130,7 +130,7 @@ export function RHFImageUpload({
                 "relative overflow-hidden rounded-full  transition-all duration-200",
                 isDragActive && "shadow-lg scale-105",
                 fieldError && "border-red-500",
-                "bg-muted dark:bg-muted"
+                "bg-primary dark:bg-muted"
               )}
               style={{ width: avatarSize, height: avatarSize }}
             >
@@ -188,14 +188,14 @@ export function RHFImageUpload({
 
           {/* Instructions text */}
           <div className="text-center space-y-1">
-            <p className="text-sm font-semibold text-secondary dark:text-secondary">
+            <p className="text-sm font-semibold text-foreground dark:text-foreground">
               {isDragActive
                 ? "Suelta la imagen aquí"
                 : loading || isProcessing
                 ? "Procesando imagen..."
                 : "Haz clic para cambiar la foto"}
             </p>
-            <p className="text-sm font-semibold text-secondary dark:text-secondary">
+            <p className="text-sm font-semibold text-foreground dark:text-foreground">
               PNG, JPG, GIF hasta {Math.round(maxSize / (1024 * 1024))}MB
             </p>
           </div>
@@ -232,7 +232,7 @@ export function RHFImageUpload({
           <div className="absolute inset-0 bg-background/50 backdrop-blur-[1px] flex items-center justify-center z-10 rounded-lg">
             <div className="flex flex-col items-center gap-2">
               <Loader2 className="h-8 w-8 text-primary animate-spin" />
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-foreground">
                 {isProcessing
                   ? "Optimizando imagen..."
                   : "Procesando imagen..."}
@@ -267,7 +267,7 @@ export function RHFImageUpload({
             {isDragActive ? (
               <>
                 <ImageIcon className="w-10 h-10 text-primary" />
-                <p className="text-sm text-secondary dark:text-secondary">
+                <p className="text-sm text-foreground dark:text-foreground">
                   Suelta la imagen aquí
                 </p>
               </>
@@ -275,16 +275,16 @@ export function RHFImageUpload({
               <>
                 <Upload
                   className={cn(
-                    "w-10 h-10 text-secondary",
+                    "w-10 h-10 text-primary",
                     (loading || isProcessing) && "opacity-50"
                   )}
                 />
-                <p className="text-sm text-secondary dark:text-secondary">
+                <p className="text-sm text-foreground dark:text-secondary">
                   {loading || isProcessing
                     ? "Espera mientras se procesa la imagen..."
                     : "Arrastra y suelta una imagen, o haz clic para seleccionar"}
                 </p>
-                <p className="text-xs text-secondary dark:text-secondary">
+                <p className="text-xs text-foreground dark:text-foreground">
                   PNG, JPG, GIF hasta {Math.round(maxSize / (1024 * 1024))}MB
                   (se convertirá a WebP)
                 </p>
