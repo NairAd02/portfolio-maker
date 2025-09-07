@@ -1,6 +1,6 @@
 "use client";
 import type React from "react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, ReactNode } from "react";
 import { useDropzone } from "react-dropzone";
 import { useFormContext } from "react-hook-form";
 import { X, Upload, ImageIcon, Loader2, Camera, User } from "lucide-react";
@@ -18,7 +18,8 @@ interface ImageUploadProps {
   loading?: boolean;
   quality?: number;
   maxWidth?: number;
-  variant?: "default" | "avatar"; // Nueva prop para el tipo de componente
+  variant?: "default" | "avatar";
+  avatarIcon?: ReactNode; // Nueva prop para el tipo de componente
   avatarSize?: number; // Tamaño del avatar en píxeles
 }
 
@@ -33,6 +34,7 @@ export function RHFImageUpload({
   maxWidth = 1920,
   variant = "default",
   avatarSize = 120,
+  avatarIcon,
 }: ImageUploadProps) {
   const { setValue, watch, formState } = useFormContext();
   const value = watch(name);
@@ -147,10 +149,12 @@ export function RHFImageUpload({
                 />
               ) : (
                 <div className="flex items-center justify-center w-full h-full">
-                  <User
-                    className="text-secondary dark:text-secondary"
-                    size={avatarSize * 0.4}
-                  />
+                  {avatarIcon || (
+                    <User
+                      className="text-secondary dark:text-secondary"
+                      size={avatarSize * 0.4}
+                    />
+                  )}
                 </div>
               )}
 
