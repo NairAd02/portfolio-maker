@@ -6,7 +6,7 @@ import TableMenu from "@/components/ui/table-menu";
 import PreviewImage from "@/components/preview-image/preview-image";
 import { Project } from "@/lib/types/projects";
 import { paths } from "@/routes/path";
-import { Delete, EditIcon, EyeIcon } from "lucide-react";
+import { EditIcon, EyeIcon, Trash2 } from "lucide-react";
 
 interface Props {
   projects: Project[];
@@ -111,7 +111,7 @@ export default function ProjectsList({ projects }: Props) {
                 },
                 {
                   label: "Eliminar",
-                  icon: <Delete />,
+                  icon: <Trash2 />,
                   href: paths.deleteProject({
                     id: row.getValue("id") as string,
                   }).root,
