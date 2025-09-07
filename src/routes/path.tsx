@@ -5,8 +5,8 @@ interface Path {
 
 interface ApplicationPath {
   landing: Path;
+  sign_in: Path;
   projects: Path;
-  technologies: Path;
   createProject: Path;
   editProject: (
     params?: Record<string, string>,
@@ -20,16 +20,7 @@ interface ApplicationPath {
     params?: Record<string, string>,
     query?: Record<string, string>
   ) => Path;
-  sign_in: Path;
-  config_management: (
-    params?: Record<string, string>,
-    query?: Record<string, string>
-  ) => Path;
-
-  inspection: (
-    params?: Record<string, string>,
-    query?: Record<string, string>
-  ) => Path;
+  technologies: Path;
   users: Path;
 }
 
@@ -98,24 +89,6 @@ export const paths: ApplicationPath = {
   sign_in: {
     root: "/sign-in",
     isProtected: false,
-  },
-  config_management: (params = {}, query = {}) => {
-    const basePath = "/dashboard/configs/[id]";
-    const pathWithParams = replaceParamsInPath(basePath, params);
-    const queryString = buildQueryString(query);
-    return {
-      root: queryString ? `${pathWithParams}?${queryString}` : pathWithParams,
-      isProtected: false,
-    };
-  },
-  inspection: (params = {}, query = {}) => {
-    const basePath = "/dashboard/inspections/[id]";
-    const pathWithParams = replaceParamsInPath(basePath, params);
-    const queryString = buildQueryString(query);
-    return {
-      root: queryString ? `${pathWithParams}?${queryString}` : pathWithParams,
-      isProtected: false,
-    };
   },
 } as const;
 
