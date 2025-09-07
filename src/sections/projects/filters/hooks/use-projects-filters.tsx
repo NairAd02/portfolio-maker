@@ -39,7 +39,13 @@ export default function useProjectsFilters({
       ...updatedFilters,
     }));
     if (urlPagination)
-      updateFiltersInUrl(convertProjectsFiltersDTO(newFilters));
+      updateFiltersInUrl({
+        ...convertProjectsFiltersDTO(newFilters),
+        technologies:
+          newFilters.technologies.length > 0
+            ? newFilters.technologies
+            : undefined,
+      });
     if (setPagination)
       setPagination((oldPagination) => ({ ...oldPagination, page: 1 }));
   }
