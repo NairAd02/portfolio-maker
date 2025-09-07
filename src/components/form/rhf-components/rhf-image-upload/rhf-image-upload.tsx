@@ -1,14 +1,13 @@
 "use client";
-
 import type React from "react";
 import { useState, useEffect, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { useFormContext } from "react-hook-form";
-import { X, Upload, ImageIcon, Loader2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { X, Upload, ImageIcon, Loader2, Camera, User } from "lucide-react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { compressImage } from "@/lib/images";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 interface ImageUploadProps {
   name: string;
@@ -19,24 +18,31 @@ interface ImageUploadProps {
   loading?: boolean;
   quality?: number;
   maxWidth?: number;
+  variant?: "default" | "avatar"; // Nueva prop para el tipo de componente
+  avatarSize?: number; // Tamaño del avatar en píxeles
 }
 
 export function RHFImageUpload({
   name,
-  label = "Subir imagen",
+  label,
   maxSize = 5 * 1024 * 1024, // 5MB default
   className,
   error,
   loading = false,
   quality = 80,
   maxWidth = 1920,
+  variant = "default",
+  avatarSize = 120,
 }: ImageUploadProps) {
   const { setValue, watch, formState } = useFormContext();
   const value = watch(name);
   const fieldError = error || formState.errors[name]?.message;
-
   const [preview, setPreview] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+
+  // Configurar label por defecto según el variant
+  const defaultLabel = variant === "avatar" ? "Foto de perfil" : "Subir imagen";
+  const displayLabel = label || defaultLabel;
 
   const processImage = useCallback(
     async (file: File) => {
@@ -47,7 +53,6 @@ export function RHFImageUpload({
           maxWidth,
           format: "webp",
         });
-
         setValue(name, compressedFile, { shouldValidate: true });
       } catch (err) {
         console.error("Error processing image:", err);
@@ -81,10 +86,8 @@ export function RHFImageUpload({
       setPreview(null);
       return;
     }
-
     const objectUrl = URL.createObjectURL(value);
     setPreview(objectUrl);
-
     // Free memory when component unmounts
     return () => URL.revokeObjectURL(objectUrl);
   }, [value]);
@@ -100,10 +103,117 @@ export function RHFImageUpload({
   // Get file rejection errors
   const fileRejectionError = fileRejections[0]?.errors[0]?.message;
 
+  // Renderizado para variant avatar
+  if (variant === "avatar") {
+    return (
+      <div className={cn("space-y-3", className)}>
+        {displayLabel && (
+          <p className="text-base font-semibold text-secondary text-center">
+            {displayLabel}
+          </p>
+        )}
+
+        <div className="flex flex-col items-center space-y-4">
+          <div
+            {...getRootProps()}
+            className={cn(
+              "relative group cursor-pointer",
+              loading || isProcessing ? "cursor-wait" : "cursor-pointer"
+            )}
+            style={{ width: avatarSize, height: avatarSize }}
+          >
+            <input {...getInputProps()} disabled={loading || isProcessing} />
+
+            {/* Avatar container */}
+            <div
+              className={cn(
+                "relative overflow-hidden rounded-full  transition-all duration-200",
+                isDragActive && "shadow-lg scale-105",
+                fieldError && "border-red-500",
+                "bg-muted dark:bg-muted"
+              )}
+              style={{ width: avatarSize, height: avatarSize }}
+            >
+              {preview ? (
+                <Image
+                  src={preview || "/placeholder.svg"}
+                  alt="Avatar preview"
+                  width={avatarSize}
+                  height={avatarSize}
+                  className={cn(
+                    "object-cover w-full h-full",
+                    (loading || isProcessing) && "filter blur-[1px] opacity-70"
+                  )}
+                />
+              ) : (
+                <div className="flex items-center justify-center w-full h-full">
+                  <User
+                    className="text-secondary dark:text-secondary"
+                    size={avatarSize * 0.4}
+                  />
+                </div>
+              )}
+
+              {/* Overlay */}
+              <div
+                className={cn(
+                  "absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200",
+                  isDragActive && "opacity-100"
+                )}
+              >
+                <Camera className="text-white" size={avatarSize * 0.2} />
+              </div>
+
+              {/* Loading overlay */}
+              {(loading || isProcessing) && (
+                <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center">
+                  <Loader2 className="h-6 w-6 text-primary animate-spin" />
+                </div>
+              )}
+            </div>
+
+            {/* Remove button */}
+            {preview && !loading && !isProcessing && (
+              <Button
+                type="button"
+                onClick={handleRemove}
+                variant="destructive"
+                size="sm"
+                className="absolute -top-2 -right-2 h-8 w-8 rounded-full p-0 shadow-lg"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
+
+          {/* Instructions text */}
+          <div className="text-center space-y-1">
+            <p className="text-sm font-semibold text-secondary dark:text-secondary">
+              {isDragActive
+                ? "Suelta la imagen aquí"
+                : loading || isProcessing
+                ? "Procesando imagen..."
+                : "Haz clic para cambiar la foto"}
+            </p>
+            <p className="text-sm font-semibold text-secondary dark:text-secondary">
+              PNG, JPG, GIF hasta {Math.round(maxSize / (1024 * 1024))}MB
+            </p>
+          </div>
+        </div>
+
+        {(fieldError || fileRejectionError) && (
+          <p className="text-sm text-red-500 text-center">
+            {typeof fieldError === "string" ? fieldError : fileRejectionError}
+          </p>
+        )}
+      </div>
+    );
+  }
+
+  // Renderizado para variant default (original)
   return (
     <div className={cn("space-y-2", className)}>
-      {label && <p className="text-sm font-medium">{label}</p>}
-
+      {displayLabel && <p className="text-sm font-medium">{displayLabel}</p>}
       <div
         {...getRootProps()}
         className={cn(
@@ -112,13 +222,12 @@ export function RHFImageUpload({
             ? "border-primary bg-primary/5"
             : "border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-900/30",
           preview ? "h-64" : "h-40",
-          error && "border-red-500",
+          fieldError && "border-red-500",
           loading || isProcessing ? "cursor-wait opacity-70" : "cursor-pointer",
           (loading || isProcessing) && !preview && "animate-pulse"
         )}
       >
         <input {...getInputProps()} disabled={loading || isProcessing} />
-
         {(loading || isProcessing) && (
           <div className="absolute inset-0 bg-background/50 backdrop-blur-[1px] flex items-center justify-center z-10 rounded-lg">
             <div className="flex flex-col items-center gap-2">
@@ -131,7 +240,6 @@ export function RHFImageUpload({
             </div>
           </div>
         )}
-
         {preview ? (
           <>
             <Image
@@ -159,7 +267,7 @@ export function RHFImageUpload({
             {isDragActive ? (
               <>
                 <ImageIcon className="w-10 h-10 text-primary" />
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-secondary dark:text-secondary">
                   Suelta la imagen aquí
                 </p>
               </>
@@ -167,16 +275,16 @@ export function RHFImageUpload({
               <>
                 <Upload
                   className={cn(
-                    "w-10 h-10 text-gray-400",
+                    "w-10 h-10 text-secondary",
                     (loading || isProcessing) && "opacity-50"
                   )}
                 />
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-secondary dark:text-secondary">
                   {loading || isProcessing
                     ? "Espera mientras se procesa la imagen..."
                     : "Arrastra y suelta una imagen, o haz clic para seleccionar"}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-500">
+                <p className="text-xs text-secondary dark:text-secondary">
                   PNG, JPG, GIF hasta {Math.round(maxSize / (1024 * 1024))}MB
                   (se convertirá a WebP)
                 </p>
@@ -185,7 +293,6 @@ export function RHFImageUpload({
           </div>
         )}
       </div>
-
       {(fieldError || fileRejectionError) && (
         <p className="text-sm text-red-500">
           {typeof fieldError === "string" ? fieldError : fileRejectionError}
