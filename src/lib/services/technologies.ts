@@ -1,18 +1,33 @@
 "use server";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "../supabase/server";
-import { TechnologyCreateDTO } from "../types/technologies";
+import { Technology, TechnologyCreateDTO } from "../types/technologies";
 import { getLoggedUser } from "./auth";
 import { generateStorageFilePath } from "../images";
-import { uploadFileToSupabase } from "./supabase-storage";
+import { getImageUrlOrThrow, uploadFileToSupabase } from "./supabase-storage";
 
 export async function getTechnologiesList() {
   const supabase = await createClient();
-  const { data: technologies, error } = await supabase
+  const { data: technologiesData, error } = await supabase
     .from("technology")
     .select("*");
-  console.log(technologies);
-  return { data: technologies, error };
+  const technologies = technologiesData as Technology[];
+
+  try {
+    const technologiesMapped = await Promise.all(
+      technologies.map(async (technology) => {
+        return {
+          ...technology,
+          icon: technology.icon
+            ? await getImageUrlOrThrow(supabase, technology.icon)
+            : undefined,
+        };
+      })
+    );
+    return { data: technologiesMapped, error };
+  } catch (error) {
+    return { data: null, error };
+  }
 }
 
 export async function createTechnology(
