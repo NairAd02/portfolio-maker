@@ -1,6 +1,7 @@
 import { ProjectCreate } from "@/sections/projects/form/new/schemas/project-create-schema";
 import { Technology } from "./technologies";
 import { ProjectEdit } from "@/sections/projects/form/edit/schemas/project-edit-schema";
+import { ProjectsFilters } from "@/sections/projects/filters/hooks/use-projects-filters";
 
 export interface Project {
   id: string;
@@ -30,6 +31,16 @@ export interface ProjectDetails {
   impact: string;
   teachings: string;
   technologies: Technology[];
+}
+
+export interface ProjectsFiltersDTO {
+  name?: string;
+  description?: string;
+  problem?: string;
+  solution?: string;
+  impact?: string;
+  teachings?: string;
+  technologies: string[];
 }
 
 export interface ProjectCreateDTO {
@@ -81,5 +92,13 @@ export const convertProjectEditDTO = (
     images: [],
     sourceCodeUrl: projectEdit.sourceCodeUrl || undefined,
     deploymentUrl: projectEdit.deploymentUrl || undefined,
+  };
+};
+
+export const convertProjectsFiltersDTO = (
+  projectsFilters: ProjectsFilters
+): ProjectsFiltersDTO => {
+  return {
+    ...projectsFilters,
   };
 };
