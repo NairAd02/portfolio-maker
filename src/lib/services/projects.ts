@@ -225,6 +225,15 @@ export async function editProject(
   return { data: updateProjectData, error: null };
 }
 
+export async function deleteProject(id: string) {
+  const supabase = await createClient();
+  const { error } = await supabase.from("project").delete().eq("id", id);
+
+  if (error) return { data: null, error };
+
+  return { data: { message: "Proyecto eliminado con éxito" }, error: null };
+}
+
 // functions auxs
 
 async function insertProjectImages(
