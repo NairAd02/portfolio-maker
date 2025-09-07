@@ -1,3 +1,4 @@
+import DetailsSectionHeader from "@/components/details-section-header/details-section-header";
 import { getProjectById } from "@/lib/services/projects";
 import { ProjectDetailsContainer } from "@/sections/projects/details/project-details-container";
 import React from "react";
@@ -15,5 +16,13 @@ export default async function ProjectDetailsPage({ params }: Props) {
 
   const project = res.data;
 
-  return <ProjectDetailsContainer project={project} />;
+  return (
+    <div className="max-w-6xl mx-auto flex flex-col gap-8">
+      <DetailsSectionHeader
+        title="Detalles del Proyecto"
+        description="Información detallada del proyecto registrado"
+      />
+      <ProjectDetailsContainer project={project} />;
+    </div>
+  );
 }

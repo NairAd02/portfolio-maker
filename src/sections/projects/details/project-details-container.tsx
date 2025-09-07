@@ -20,7 +20,7 @@ interface Props {
 
 export function ProjectDetailsContainer({ project }: Props) {
   return (
-    <div className="max-w-6xl mx-auto rounded-2xl bg-white shadow-lg p-6 space-y-8">
+    <div className="rounded-2xl bg-white shadow-lg p-6 space-y-8">
       {/* Header Section */}
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
