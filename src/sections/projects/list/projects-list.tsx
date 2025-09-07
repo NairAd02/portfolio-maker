@@ -6,7 +6,7 @@ import TableMenu from "@/components/ui/table-menu";
 import PreviewImage from "@/components/preview-image/preview-image";
 import { Project } from "@/lib/types/projects";
 import { paths } from "@/routes/path";
-import { EditIcon } from "lucide-react";
+import { EditIcon, EyeIcon } from "lucide-react";
 
 interface Props {
   projects: Project[];
@@ -73,6 +73,13 @@ export default function ProjectsList({ projects }: Props) {
                   icon: <EditIcon />,
                   href: paths.editProject({ id: row.getValue("id") as string })
                     .root,
+                },
+                {
+                  label: "Ver Detalles",
+                  icon: <EyeIcon />,
+                  href: paths.projectDetails({
+                    id: row.getValue("id") as string,
+                  }).root,
                 },
               ]}
             />
