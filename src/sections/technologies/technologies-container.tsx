@@ -14,7 +14,7 @@ export default function TechnologiesContainer() {
         addButton={{
           isModalRedirect: false,
           buttonText: "Nueva Tecnología",
-          creationPath: paths.createProject.root,
+          creationPath: paths.createTechnology.root,
         }}
       />
       <TechnologiesListContainer />

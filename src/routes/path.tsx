@@ -21,6 +21,7 @@ interface ApplicationPath {
     query?: Record<string, string>
   ) => Path;
   technologies: Path;
+  createTechnology: Path;
   users: Path;
 }
 
@@ -39,16 +40,16 @@ function replaceParamsInPath(
 }
 
 export const paths: ApplicationPath = {
-  users: {
-    root: "/dashboard/user",
-    isProtected: true,
+  landing: {
+    root: "/",
+    isProtected: false,
+  },
+  sign_in: {
+    root: "/sign-in",
+    isProtected: false,
   },
   projects: {
     root: "/dashboard/projects",
-    isProtected: true,
-  },
-  technologies: {
-    root: "/dashboard/technologies",
     isProtected: true,
   },
   createProject: {
@@ -82,13 +83,17 @@ export const paths: ApplicationPath = {
       isProtected: true,
     };
   },
-  landing: {
-    root: "/",
-    isProtected: false,
+  technologies: {
+    root: "/dashboard/technologies",
+    isProtected: true,
   },
-  sign_in: {
-    root: "/sign-in",
-    isProtected: false,
+  createTechnology: {
+    root: "/dashboard/create-technology",
+    isProtected: true,
+  },
+  users: {
+    root: "/dashboard/user",
+    isProtected: true,
   },
 } as const;
 
