@@ -38,7 +38,7 @@ export default function ProjectsList({ projects }: Props) {
       header: "Descripción",
       cell: ({ row }) => {
         return (
-          <p className="text-sm line-clamp-3 break-words max-w-[300px] whitespace-pre-wrap leading-relaxed text-gray-700">
+          <p className="text-sm line-clamp-3 break-words max-w-[300px] whitespace-pre-wrap leading-relaxed">
             {row.getValue("description")}
           </p>
         );
@@ -47,18 +47,46 @@ export default function ProjectsList({ projects }: Props) {
     {
       accessorKey: "problem",
       header: "Problema",
+      cell: ({ row }) => {
+        return (
+          <p className="text-sm line-clamp-3 break-words max-w-[300px] whitespace-pre-wrap leading-relaxed">
+            {row.getValue("problem")}
+          </p>
+        );
+      },
     },
     {
       accessorKey: "solution",
       header: "Solución",
+      cell: ({ row }) => {
+        return (
+          <p className="text-sm line-clamp-3 break-words max-w-[300px] whitespace-pre-wrap leading-relaxed">
+            {row.getValue("solution")}
+          </p>
+        );
+      },
     },
     {
       accessorKey: "impact",
       header: "Impacto",
+      cell: ({ row }) => {
+        return (
+          <p className="text-sm line-clamp-3 break-words max-w-[300px] whitespace-pre-wrap leading-relaxed">
+            {row.getValue("impact")}
+          </p>
+        );
+      },
     },
     {
       accessorKey: "teachings",
       header: "Aprendizaje",
+      cell: ({ row }) => {
+        return (
+          <p className="text-sm line-clamp-3 break-words max-w-[300px] whitespace-pre-wrap leading-relaxed">
+            {row.getValue("teachings")}
+          </p>
+        );
+      },
     },
     {
       id: "actions",
