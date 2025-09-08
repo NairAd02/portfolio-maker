@@ -47,7 +47,15 @@ export async function getTechnologyById(id: string) {
 
   const technology = data as TechnologyDetails;
 
-  return { data: technology, error: null };
+  return {
+    data: {
+      ...technology,
+      icon: technology.icon
+        ? await getImageUrlOrThrow(supabase, technology.icon)
+        : undefined,
+    },
+    error: null,
+  };
 }
 
 export async function createTechnology(
