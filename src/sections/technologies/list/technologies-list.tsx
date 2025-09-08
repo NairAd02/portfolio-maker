@@ -52,7 +52,7 @@ export default function TechnologiesList({ technologies }: Props) {
                 {
                   label: "Eliminar",
                   icon: <Trash2 />,
-                  href: paths.deleteProject({
+                  href: paths.deleteTechnology({
                     id: row.getValue("id") as string,
                   }).root,
                 },
