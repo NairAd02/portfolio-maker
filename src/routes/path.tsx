@@ -22,6 +22,10 @@ interface ApplicationPath {
   ) => Path;
   technologies: Path;
   createTechnology: Path;
+  editTechnology: (
+    params?: Record<string, string>,
+    query?: Record<string, string>
+  ) => Path;
   users: Path;
 }
 
@@ -90,6 +94,15 @@ export const paths: ApplicationPath = {
   createTechnology: {
     root: "/dashboard/create-technology",
     isProtected: true,
+  },
+  editTechnology: (params = {}, query = {}) => {
+    const basePath = "/dashboard/edit-technology/[id]";
+    const pathWithParams = replaceParamsInPath(basePath, params);
+    const queryString = buildQueryString(query);
+    return {
+      root: queryString ? `${pathWithParams}?${queryString}` : pathWithParams,
+      isProtected: true,
+    };
   },
   users: {
     root: "/dashboard/user",

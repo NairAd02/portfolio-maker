@@ -5,7 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import TableMenu from "@/components/ui/table-menu";
 import PreviewImage from "@/components/preview-image/preview-image";
 import { paths } from "@/routes/path";
-import { EditIcon, EyeIcon, Trash2 } from "lucide-react";
+import { EditIcon, Trash2 } from "lucide-react";
 import { Technology } from "@/lib/types/technologies";
 import { principalPlaceHolder } from "@/lib/place-holders";
 
@@ -43,17 +43,11 @@ export default function TechnologiesList({ technologies }: Props) {
               titleTableMenu="Acciones"
               links={[
                 {
-                  label: "Ver Detalles",
-                  icon: <EyeIcon />,
-                  href: paths.projectDetails({
-                    id: row.getValue("id") as string,
-                  }).root,
-                },
-                {
                   label: "Editar",
                   icon: <EditIcon />,
-                  href: paths.editProject({ id: row.getValue("id") as string })
-                    .root,
+                  href: paths.editTechnology({
+                    id: row.getValue("id") as string,
+                  }).root,
                 },
                 {
                   label: "Eliminar",
