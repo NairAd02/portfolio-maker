@@ -14,7 +14,7 @@ interface Props {
 
 export default function TechnologyDeleteContainer({ id }: Props) {
   const router = useRouter();
-  const { deleteTechnology, loading } = useDeleteTechnology({
+  const { deleteTechnology, loading, error } = useDeleteTechnology({
     id,
     onDeleteAction: () => {
       toast.success("Tecnología eliminada con éxito");
@@ -37,6 +37,7 @@ export default function TechnologyDeleteContainer({ id }: Props) {
       onCancel={handleClose}
       isLoading={loading}
       isDestructive
+      error={error}
     />
   );
 }

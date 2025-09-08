@@ -5,6 +5,7 @@ import {
   Loader2Icon,
 } from "lucide-react";
 import { Button } from "../ui/button";
+import { AlertDestructive } from "../ui/alert-destructive";
 
 interface ConfirmationPanelProps {
   title: string;
@@ -16,6 +17,7 @@ interface ConfirmationPanelProps {
   onCancel: () => void;
   isDestructive?: boolean;
   isLoading: boolean;
+  error: string | null;
 }
 
 export default function ConfirmationPanel({
@@ -28,9 +30,11 @@ export default function ConfirmationPanel({
   onCancel,
   isDestructive = false,
   isLoading,
+  error,
 }: ConfirmationPanelProps) {
   return (
     <div className="w-full flex flex-col gap-4 h-full rounded-lg overflow-hidden">
+      {error && <AlertDestructive title={error} />}
       <div className="p-5 flex flex-col gap-3">
         <div className="flex items-center gap-2">
           {isDestructive ? (
