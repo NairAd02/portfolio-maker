@@ -1,4 +1,4 @@
-import TechnologyDeleteContainer from "@/sections/technologies/delete/project-delete-container";
+import TechnologyDeleteContainer from "@/sections/technologies/delete/technology-delete-container";
 import React from "react";
 
 type Props = {
