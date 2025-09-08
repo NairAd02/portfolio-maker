@@ -1,7 +1,11 @@
 "use server";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "../supabase/server";
-import { Technology, TechnologyCreateDTO } from "../types/technologies";
+import {
+  Technology,
+  TechnologyCreateDTO,
+  TechnologyEditDTO,
+} from "../types/technologies";
 import { getLoggedUser } from "./auth";
 import { generateStorageFilePath } from "../images";
 import { getImageUrlOrThrow, uploadFileToSupabase } from "./supabase-storage";
@@ -50,30 +54,17 @@ export async function createTechnology(
   if (portfolioError) return { data: null, error: portfolioError };
 
   // insert the icon
+  const { data: iconUploadData, error: iconUploadError } =
+    await insertTechnologyIcon(supabase, formData, technologyDTO.name);
 
-  const icon = formData.get("icon") as File;
-
-  const iconPath = generateStorageFilePath(
-    icon,
-    `technologies/${technologyDTO.name}/icon`
-  );
-
-  const uploadIconError = await uploadFileToSupabase(
-    supabase,
-    "portfolio-maker",
-    iconPath,
-    icon,
-    "3600",
-    false
-  );
-  if (uploadIconError) return { data: null, error: uploadIconError };
+  if (iconUploadError) return { data: null, error: iconUploadError };
 
   const { data: createTechnologyData, error: createTechnologyError } =
     await supabase
       .from("technology")
       .insert({
         ...technologyDTO,
-        icon: iconPath,
+        icon: iconUploadData,
         portfolio_id: portfolio.id,
       })
       .select()
@@ -83,6 +74,52 @@ export async function createTechnology(
     return { data: null, error: createTechnologyError };
 
   return { data: createTechnologyData, error: null };
+}
+
+export async function editTechnology(
+  id: string,
+  technologyEditDTO: TechnologyEditDTO,
+  formData: FormData
+) {
+  const supabase = await createClient();
+
+  // find the technology to edit
+  const { data: technologyFind, error: technologyFindError } = await supabase
+    .from("technology")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (technologyFindError) return { data: null, error: technologyFindError };
+
+  const technologyEntity = technologyFind as Technology;
+
+  // delete the icon
+  if (technologyEntity.icon)
+    await supabase.storage
+      .from("portfolio-maker")
+      .remove([technologyEntity.icon]);
+
+  // insert the icon
+  const { data: iconUploadData, error: iconUploadError } =
+    await insertTechnologyIcon(supabase, formData, technologyEditDTO.name);
+
+  if (iconUploadError) return { data: null, error: iconUploadError };
+
+  const { data: updateTechnologyData, error: updateTechnologyError } =
+    await supabase
+      .from("project")
+      .update({
+        ...technologyEditDTO,
+        icon: iconUploadData,
+      })
+      .eq("id", id)
+      .select()
+      .single();
+  if (updateTechnologyError)
+    return { data: null, error: updateTechnologyError };
+
+  return { data: updateTechnologyData, error: null };
 }
 
 export async function insertProjectTechnologies(
@@ -102,4 +139,31 @@ export async function insertProjectTechnologies(
   if (technologiesError) return { data: null, error: technologiesError };
 
   return { data, error: null };
+}
+
+// aux functions
+async function insertTechnologyIcon(
+  supabase: SupabaseClient<any, "public", any>,
+  formData: FormData,
+  technologyName: string
+) {
+  const icon = formData.get("icon") as File;
+  if (!icon) return { data: undefined, error: null };
+
+  const iconPath = generateStorageFilePath(
+    icon,
+    `technologies/${technologyName}/icon`
+  );
+
+  const uploadIconError = await uploadFileToSupabase(
+    supabase,
+    "portfolio-maker",
+    iconPath,
+    icon,
+    "3600",
+    false
+  );
+  if (uploadIconError) return { data: null, error: uploadIconError };
+
+  return { data: iconPath, error: null };
 }
