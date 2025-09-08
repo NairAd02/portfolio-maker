@@ -32,7 +32,8 @@ export default function useEditProject({ id, onEditAction }: Props) {
         formData
       );
 
-      if (res.error) setError("Error en la edición del proyecto");
+      if (res.error)
+        setError(res.error.message || "Error en la edición del proyecto");
       else {
         onEditAction();
       }

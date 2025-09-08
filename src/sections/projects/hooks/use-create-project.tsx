@@ -33,7 +33,7 @@ export default function useCreateProject({ onCreateAction }: Props) {
 
       if (res.error) {
         console.log(res.error);
-        setError("Error en la creación del proyecto");
+        setError(res.error.message || "Error en la creación del proyecto");
       } else {
         onCreateAction();
       }

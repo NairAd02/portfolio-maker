@@ -13,10 +13,15 @@ import {
   technologyCreateSchema,
 } from "./schemas/technology-create-schema";
 import TechnologyForm from "../technology-form";
+import { AlertDestructive } from "@/components/ui/alert-destructive";
 
 export default function TechnologyCreateFormContainer() {
   const router = useRouter();
-  const { loading: submitLoading, createTechnology } = useCreateTechnology({
+  const {
+    loading: submitLoading,
+    createTechnology,
+    error: createTechnologyError,
+  } = useCreateTechnology({
     onCreateAction: () => {
       toast.success("Tecnología creada con éxito");
       revalidateServerPath(paths.technologies.root);
@@ -44,6 +49,9 @@ export default function TechnologyCreateFormContainer() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-full flex flex-1 flex-col justify-between gap-8 h-full"
       >
+        {createTechnologyError && (
+          <AlertDestructive title={createTechnologyError} />
+        )}
         <TechnologyForm />
         <FormActionButtons
           submitLoading={submitLoading}

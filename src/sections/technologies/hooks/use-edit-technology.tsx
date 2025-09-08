@@ -29,7 +29,8 @@ export default function useEditTechnology({ id, onEditAction }: Props) {
         formData
       );
 
-      if (res.error) setError("Error en la edición de la tecnología");
+      if (res.error)
+        setError(res.error.message || "Error en la edición de la tecnología");
       else {
         onEditAction();
       }

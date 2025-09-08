@@ -13,10 +13,15 @@ import { revalidateServerPath } from "@/lib/cache";
 import FormActionButtons from "@/components/form/components/form-action-buttons";
 import ProjectForm from "../project-form";
 import { useRouter } from "next/navigation";
+import { AlertDestructive } from "@/components/ui/alert-destructive";
 
 export default function ProjectCreateFormContainer() {
   const router = useRouter();
-  const { loading: submitLoading, createProject } = useCreateProject({
+  const {
+    loading: submitLoading,
+    createProject,
+    error: createProjectError,
+  } = useCreateProject({
     onCreateAction: () => {
       toast.success("Proyecto creado con éxito");
       revalidateServerPath(paths.projects.root);
@@ -53,6 +58,7 @@ export default function ProjectCreateFormContainer() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-full flex flex-1 flex-col justify-between gap-8 h-full"
       >
+        {createProjectError && <AlertDestructive title={createProjectError} />}
         <ProjectForm />
         <FormActionButtons
           submitLoading={submitLoading}

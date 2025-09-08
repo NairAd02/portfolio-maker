@@ -30,7 +30,7 @@ export default function useCreateTechnology({ onCreateAction }: Props) {
 
       if (res.error) {
         console.log(res.error);
-        setError("Error en la creación de la tecnología");
+        setError(res.error.message || "Error en la creación de la tecnología");
       } else {
         onCreateAction();
       }

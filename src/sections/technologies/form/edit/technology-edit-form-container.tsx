@@ -15,6 +15,7 @@ import {
   technologyEditSchema,
 } from "./schemas/technology-edit-schema";
 import useImageForm from "@/components/form/hooks/use-image-form";
+import { AlertDestructive } from "@/components/ui/alert-destructive";
 
 interface Props {
   technology: TechnologyDetails;
@@ -22,7 +23,11 @@ interface Props {
 
 export default function TechnologyEditFormContainer({ technology }: Props) {
   const router = useRouter();
-  const { loading: submitLoading, editTechnology } = useEditTechnology({
+  const {
+    loading: submitLoading,
+    editTechnology,
+    error: editTechnologyError,
+  } = useEditTechnology({
     id: technology.id,
     onEditAction: () => {
       toast.success("Tecnología editada con éxito");
@@ -59,6 +64,9 @@ export default function TechnologyEditFormContainer({ technology }: Props) {
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-full flex flex-1 flex-col justify-between gap-8 h-full"
       >
+        {editTechnologyError && (
+          <AlertDestructive title={editTechnologyError} />
+        )}
         <TechnologyForm
           imageRecived={{ loading: loadingImage, error: errorImage }}
         />

@@ -13,6 +13,7 @@ import useEditProject from "../../hooks/use-edit-project";
 import useImagesForm from "@/components/form/hooks/use-images-form";
 import useImageForm from "@/components/form/hooks/use-image-form";
 import { useRouter } from "next/navigation";
+import { AlertDestructive } from "@/components/ui/alert-destructive";
 
 interface Props {
   project: ProjectDetails;
@@ -20,7 +21,11 @@ interface Props {
 
 export default function ProjectEditFormContainer({ project }: Props) {
   const router = useRouter();
-  const { loading: submitLoading, editProject } = useEditProject({
+  const {
+    loading: submitLoading,
+    editProject,
+    error: editProjectError,
+  } = useEditProject({
     id: project.id,
     onEditAction: () => {
       toast.success("Proyecto editado con éxito");
@@ -74,6 +79,7 @@ export default function ProjectEditFormContainer({ project }: Props) {
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-full flex flex-1 flex-col justify-between gap-8 h-full"
       >
+        {editProjectError && <AlertDestructive title={editProjectError} />}
         <ProjectForm
           imageRecived={{ loading: loadingImage, error: errorImage }}
           imagesRecived={{ loading: loadingImages, error: errorImages }}
