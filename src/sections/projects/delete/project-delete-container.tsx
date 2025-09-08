@@ -14,7 +14,7 @@ interface Props {
 
 export default function ProjectDeleteContainer({ id }: Props) {
   const router = useRouter();
-  const { deleteProject, loading } = useDeleteProject({
+  const { deleteProject, loading, error } = useDeleteProject({
     id,
     onDeleteAction: () => {
       toast.success("Proyecto eliminado con éxito");
@@ -37,6 +37,7 @@ export default function ProjectDeleteContainer({ id }: Props) {
       onCancel={handleClose}
       isLoading={loading}
       isDestructive
+      error={error}
     />
   );
 }
