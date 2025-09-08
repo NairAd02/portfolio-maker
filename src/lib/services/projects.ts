@@ -310,7 +310,7 @@ async function insertProjectImages(
 ) {
   // Procesar mainImage
   const mainImage = formData.get("mainImage") as File;
-  let mainImagePath: string | undefined = undefined;
+  let mainImagePath: string | null = null;
   if (mainImage) {
     mainImagePath = generateStorageFilePath(
       mainImage,

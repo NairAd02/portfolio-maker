@@ -172,7 +172,7 @@ async function insertTechnologyIcon(
   technologyName: string
 ) {
   const icon = formData.get("icon") as File;
-  if (!icon) return { data: undefined, error: null };
+  if (!icon) return { data: null, error: null };
 
   const iconPath = generateStorageFilePath(
     icon,
