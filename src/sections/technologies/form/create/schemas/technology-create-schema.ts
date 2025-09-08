@@ -8,7 +8,7 @@ export interface TechnologyCreate {
 export const technologyCreateSchema = z.object({
   name: z
     .string()
-    .min(1, { message: "El nombre del proyecto no puede estar vacío" }),
+    .min(1, { message: "El nombre de la tecnología no puede estar vacío" }),
 
   icon: z
     .instanceof(File, {
