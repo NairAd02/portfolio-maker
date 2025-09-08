@@ -11,7 +11,7 @@ import useCreateTechnology from "../../hooks/use-create-technology";
 import {
   TechnologyCreate,
   technologyCreateSchema,
-} from "../schemas/technology-create-schema";
+} from "./schemas/technology-create-schema";
 import TechnologyForm from "../technology-form";
 
 export default function TechnologyCreateFormContainer() {

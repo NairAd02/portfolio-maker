@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useState } from "react";
 import { convertTechnologyCreateDTO } from "@/lib/types/technologies";
-import { TechnologyCreate } from "../form/schemas/technology-create-schema";
+import { TechnologyCreate } from "../form/create/schemas/technology-create-schema";
 import { createTechnology as createTechnologyService } from "@/lib/services/technologies";
 
 interface Props {
