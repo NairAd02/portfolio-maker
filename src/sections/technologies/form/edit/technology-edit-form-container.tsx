@@ -34,7 +34,7 @@ export default function TechnologyEditFormContainer({ technology }: Props) {
   const form = useForm<TechnologyEdit>({
     resolver: zodResolver(technologyEditSchema),
     defaultValues: {
-      name: "",
+      name: technology.name,
     },
   });
 
