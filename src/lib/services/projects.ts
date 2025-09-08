@@ -14,6 +14,7 @@ import { getImageUrlOrThrow } from "./supabase-storage";
 import { uploadFileToSupabase } from "./supabase-storage";
 import { insertProjectTechnologies } from "./technologies";
 import { Technology } from "../types/technologies";
+import { StorageError } from "@supabase/storage-js";
 
 export async function getProjectsList(projectFilters: ProjectsFiltersDTO) {
   const supabase = await createClient();
@@ -371,7 +372,7 @@ async function insertProjectImages(
         })
       );
     } catch (error) {
-      return { data: null, error };
+      return { data: null, error: error as StorageError };
     }
   }
   return { data: { mainImage: mainImagePath, images: imagePaths } };
