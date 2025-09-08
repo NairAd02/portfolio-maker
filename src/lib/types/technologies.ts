@@ -8,6 +8,13 @@ export interface Technology {
   color: string;
 }
 
+export interface TechnologyDetails {
+  id: string;
+  name: string;
+  icon?: string;
+  color: string;
+}
+
 export interface TechnologyCreateDTO {
   name: string;
 }
