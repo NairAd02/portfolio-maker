@@ -306,8 +306,6 @@ export async function deleteProject(id: string) {
 
   const projectEntity = projectFind as Project;
 
-  // update the images
-
   // delete the images
   if (projectEntity.mainImage)
     await supabase.storage
