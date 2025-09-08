@@ -30,7 +30,7 @@ export default function ConfirmationPanel({
   isLoading,
 }: ConfirmationPanelProps) {
   return (
-    <div className="w-full flex flex-col gap-4 bg-white h-full rounded-lg overflow-hidden">
+    <div className="w-full flex flex-col gap-4 h-full rounded-lg overflow-hidden">
       <div className="p-5 flex flex-col gap-3">
         <div className="flex items-center gap-2">
           {isDestructive ? (
@@ -38,10 +38,10 @@ export default function ConfirmationPanel({
           ) : (
             <CheckCircleIcon className="h-6 w-6 text-emerald-500" />
           )}
-          <h6 className="text-xl font-semibold text-gray-800">{title}</h6>
+          <h6 className="text-xl font-semibold text-foreground">{title}</h6>
         </div>
 
-        <div className="text-gray-600 leading-relaxed pl-8">{message}</div>
+        <div className="text-foreground leading-relaxed pl-8">{message}</div>
       </div>
 
       {warningMessage && (
@@ -53,7 +53,7 @@ export default function ConfirmationPanel({
         </div>
       )}
 
-      <div className="flex gap-2 justify-end">
+      <div className="flex gap-2 p-2 justify-end">
         <Button variant={"outline"} onClick={onCancel} disabled={isLoading}>
           <div className="flex items-center gap-1.5">
             <XCircleIcon className="h-4 w-4" />
