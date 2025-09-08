@@ -132,7 +132,7 @@ export async function editTechnology(
 
   const { data: updateTechnologyData, error: updateTechnologyError } =
     await supabase
-      .from("project")
+      .from("technology")
       .update({
         ...technologyEditDTO,
         icon: iconUploadData,
