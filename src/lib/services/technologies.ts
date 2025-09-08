@@ -165,6 +165,33 @@ export async function insertProjectTechnologies(
   return { data, error: null };
 }
 
+export async function deleteTechnology(id: string) {
+  const supabase = await createClient();
+
+  // find the technology to edit
+  const { data: technologyFind, error: technologyFindError } = await supabase
+    .from("technology")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (technologyFindError) return { data: null, error: technologyFindError };
+
+  const technologyEntity = technologyFind as Technology;
+
+  // delete the icon
+  if (technologyEntity.icon)
+    await supabase.storage
+      .from("portfolio-maker")
+      .remove([technologyEntity.icon]);
+
+  const { error } = await supabase.from("technology").delete().eq("id", id);
+
+  if (error) return { data: null, error };
+
+  return { data: { message: "Tecnología eliminada con éxito" }, error: null };
+}
+
 // aux functions
 async function insertTechnologyIcon(
   supabase: SupabaseClient<any, "public", any>,
