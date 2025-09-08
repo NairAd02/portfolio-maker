@@ -64,7 +64,7 @@ export default function TechnologyEditFormContainer({ technology }: Props) {
         />
         <FormActionButtons
           submitLoading={submitLoading}
-          submitButtonText="Crear Tecnología"
+          submitButtonText="Editar Tecnología"
           handleClose={handleClose}
         />
       </form>
