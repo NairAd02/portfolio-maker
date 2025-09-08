@@ -294,6 +294,28 @@ export async function editProject(
 
 export async function deleteProject(id: string) {
   const supabase = await createClient();
+
+  // find the project
+  const { data: projectFind, error: findProjectError } = await supabase
+    .from("project")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (findProjectError) return { data: null, error: findProjectError };
+
+  const projectEntity = projectFind as Project;
+
+  // update the images
+
+  // delete the images
+  if (projectEntity.mainImage)
+    await supabase.storage
+      .from("portfolio-maker")
+      .remove([projectEntity.mainImage]);
+  if (projectEntity.images && projectEntity.images.length > 0)
+    await supabase.storage.from("portfolio-maker").remove(projectEntity.images);
+
   const { error } = await supabase.from("project").delete().eq("id", id);
 
   if (error) return { data: null, error };
