@@ -4,6 +4,7 @@ import { createClient } from "../supabase/server";
 import {
   Technology,
   TechnologyCreateDTO,
+  TechnologyDetails,
   TechnologyEditDTO,
 } from "../types/technologies";
 import { getLoggedUser } from "./auth";
@@ -32,6 +33,21 @@ export async function getTechnologiesList() {
   } catch (error) {
     return { data: null, error };
   }
+}
+
+export async function getTechnologyById(id: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("technology")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) return { data: null, error };
+
+  const technology = data as TechnologyDetails;
+
+  return { data: technology, error: null };
 }
 
 export async function createTechnology(
