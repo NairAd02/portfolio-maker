@@ -3,8 +3,8 @@ import { z } from "zod";
 export interface ExperienceCreate {
   company: string;
   position: string;
-  startdate: string;
-  enddate: string;
+  startdate: Date;
+  enddate: Date;
   description: string;
   achievements: { name: string }[];
   mainImage?: File;
