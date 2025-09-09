@@ -1,11 +1,31 @@
 import { RHFDatePickerField } from "@/components/form/rhf-components/rhf-date-picker-field/rhf-date-picker-field";
+import { RHFImageUpload } from "@/components/form/rhf-components/rhf-image-upload/rhf-image-upload";
 import { RHFTextAreaField } from "@/components/form/rhf-components/rhf-text-area-field/rhf-text-area-field";
 import { RHFTextField } from "@/components/form/rhf-components/rhf-text-field/rhf-text-field";
+import { Building2 } from "lucide-react";
 import React from "react";
 
-export default function ExperienceGeneralInformationSection() {
+interface Props {
+  imageRecived?: { loading: boolean; error: string | null };
+}
+
+export default function ExperienceGeneralInformationSection({
+  imageRecived,
+}: Props) {
   return (
     <div className="flex flex-col gap-4">
+      <RHFImageUpload
+        name="mainImage"
+        label="Imagen representativa de la compañía (logo)"
+        variant="avatar"
+        avatarIcon={
+          <Building2
+            className="text-secondary dark:text-secondary"
+            size={120 * 0.4}
+          />
+        }
+        {...(imageRecived && { loading: imageRecived.loading })}
+      />
       <div className="flex gap-6">
         <RHFTextField
           name="company"
@@ -30,12 +50,12 @@ export default function ExperienceGeneralInformationSection() {
         <RHFDatePickerField
           name="startdate"
           label="Fecha de Inicio *"
-          placeholder="Ingrese la fecha en la que empezó a trabajar..."
+          placeholder="Ingrese la fecha en la que empezó..."
         />
         <RHFDatePickerField
           name="enddate"
           label="Fecha de Finalización"
-          placeholder="Ingrese la fecha en la que finalizó su trabajo (si es que ya finalizó)..."
+          placeholder="Ingrese la fecha en la que terminó..."
         />
       </div>
     </div>
