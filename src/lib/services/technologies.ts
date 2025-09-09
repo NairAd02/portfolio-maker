@@ -158,8 +158,8 @@ export async function insertProjectTechnologies(
   const { data, error: technologiesError } = await supabase
     .from("technology_has_proyect")
     .insert(technologiesRelations)
-    .select()
-    .single();
+    .select();
+
   if (technologiesError) return { data: null, error: technologiesError };
 
   return { data, error: null };
@@ -177,8 +177,8 @@ export async function insertExperienceTechnologies(
   const { data, error: technologiesError } = await supabase
     .from("experience_has_technology")
     .insert(technologiesRelations)
-    .select()
-    .single();
+    .select();
+
   if (technologiesError) return { data: null, error: technologiesError };
 
   return { data, error: null };
