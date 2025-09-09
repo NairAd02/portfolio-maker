@@ -76,7 +76,7 @@ export default function ExperiencesList({ experiences }: Props) {
     },
     {
       accessorKey: "enddate",
-      header: "Fecha de Fin",
+      header: "Fecha de Finalización",
       cell: ({ row }) => {
         return (
           <p className="text-sm line-clamp-3 break-words max-w-[300px] whitespace-pre-wrap leading-relaxed">
