@@ -31,6 +31,7 @@ interface ApplicationPath {
     query?: Record<string, string>
   ) => Path;
   experiences: Path;
+  createExperience: Path;
   users: Path;
 }
 
@@ -120,6 +121,10 @@ export const paths: ApplicationPath = {
   },
   experiences: {
     root: "/dashboard/experiences",
+    isProtected: true,
+  },
+  createExperience: {
+    root: "/dashboard/create-experience",
     isProtected: true,
   },
   users: {

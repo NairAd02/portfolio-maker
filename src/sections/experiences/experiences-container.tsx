@@ -14,7 +14,7 @@ export default function ExperiencesContainer() {
         addButton={{
           isModalRedirect: false,
           buttonText: "Nueva Experiencia",
-          creationPath: paths.createTechnology.root,
+          creationPath: paths.createExperience.root,
         }}
       />
       <ExperiencesListContainer />
