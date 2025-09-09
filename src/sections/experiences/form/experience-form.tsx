@@ -1,6 +1,6 @@
 "use client";
 import { useMemo } from "react";
-import { Link, FileText } from "lucide-react";
+import { CircleEllipsis, FileText } from "lucide-react";
 import { TabsPanelProvider } from "@/components/ui/tabs-panel/context/tabs-panel-context";
 import { TabsContainer } from "@/components/ui/tabs-panel/tabs-panel";
 import ExperienceGeneralInformationSection from "./form-sections/experience-general-information-section/experience-general-information-section";
@@ -18,15 +18,15 @@ export default function ExperienceForm({ imageRecived }: Props) {
         label: "Información General",
         value: "1",
         icon: <FileText className="w-4 h-4" />,
-        component: <ExperienceGeneralInformationSection />,
+        component: (
+          <ExperienceGeneralInformationSection imageRecived={imageRecived} />
+        ),
       },
       {
         label: "Información Adicional",
-        icon: <Link className="w-4 h-4" />,
+        icon: <CircleEllipsis className="w-4 h-4" />,
         value: "2",
-        component: (
-          <ExperienceAdditionalInformationSection imageRecived={imageRecived} />
-        ),
+        component: <ExperienceAdditionalInformationSection />,
       },
     ],
     [imageRecived]
