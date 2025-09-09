@@ -35,13 +35,13 @@ export function RHFListField<T>({
   }, [append, newItem]);
 
   return (
-    <Card className="bg-muted">
+    <Card className="bg-white">
       <CardHeader className="pb-4">
         <CardTitle className="text-lg flex flex-col gap-2 md:flex-row items-center justify-between">
           {label}
           <Button
             size="sm"
-            variant="secondary"
+            variant="default"
             onClick={handleAddItem}
             type="button"
           >
@@ -56,7 +56,7 @@ export function RHFListField<T>({
             fields.map((field, index) => (
               <div
                 key={field.id}
-                className="flex items-center gap-3 p-3 border rounded-lg"
+                className="flex items-center gap-3 p-3 bg-white border rounded-lg"
               >
                 <div className="flex-1">
                   <StackComponent index={index} />
