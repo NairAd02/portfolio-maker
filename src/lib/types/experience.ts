@@ -7,7 +7,7 @@ export interface Experience {
   startdate: string;
   enddate: string;
   description: string;
-  mainImage: string;
+  mainImage?: string;
 }
 
 export interface ExperienceDetails {
