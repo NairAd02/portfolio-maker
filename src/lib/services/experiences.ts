@@ -1,6 +1,6 @@
 "use server";
 import { createClient } from "../supabase/server";
-import { Experience } from "../types/experience";
+import { Experience } from "../types/experiences";
 import { getImageUrlOrThrow } from "./supabase-storage";
 
 export async function getExperiencesList() {
