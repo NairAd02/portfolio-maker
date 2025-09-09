@@ -165,6 +165,25 @@ export async function insertProjectTechnologies(
   return { data, error: null };
 }
 
+export async function insertExperienceTechnologies(
+  supabase: SupabaseClient<any, "public", any>,
+  experienceId: string,
+  technologies: string[]
+) {
+  const technologiesRelations = technologies.map((technology) => ({
+    technology_id: technology,
+    experience_id: experienceId,
+  }));
+  const { data, error: technologiesError } = await supabase
+    .from("experience_has_technology")
+    .insert(technologiesRelations)
+    .select()
+    .single();
+  if (technologiesError) return { data: null, error: technologiesError };
+
+  return { data, error: null };
+}
+
 export async function deleteTechnology(id: string) {
   const supabase = await createClient();
 
