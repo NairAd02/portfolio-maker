@@ -96,11 +96,11 @@ async function insertExperienceMainImage(
   formData: FormData,
   experienceName: string
 ) {
-  const icon = formData.get("icon") as File;
-  if (!icon) return { data: null, error: null };
+  const mainImage = formData.get("mainImage") as File;
+  if (!mainImage) return { data: null, error: null };
 
   const iconPath = generateStorageFilePath(
-    icon,
+    mainImage,
     `experiences/${experienceName}/mainImage`
   );
 
@@ -108,7 +108,7 @@ async function insertExperienceMainImage(
     supabase,
     "portfolio-maker",
     iconPath,
-    icon,
+    mainImage,
     "3600",
     false
   );
