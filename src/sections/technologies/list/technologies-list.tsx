@@ -25,8 +25,9 @@ export default function TechnologiesList({ technologies }: Props) {
       cell: ({ row }) => (
         <PreviewImage
           preview={row.getValue("icon") || principalPlaceHolder}
-          height={80}
-          width={80}
+          height={46}
+          width={46}
+          rounded="2xl"
         />
       ),
     },

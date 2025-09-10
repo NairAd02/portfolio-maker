@@ -25,8 +25,9 @@ export default function ExperiencesList({ experiences }: Props) {
       cell: ({ row }) => (
         <PreviewImage
           preview={row.getValue("mainImage") || principalPlaceHolder}
-          height={80}
-          width={80}
+          height={45}
+          width={45}
+          rounded={"2xl"}
         />
       ),
     },

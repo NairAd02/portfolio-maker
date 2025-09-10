@@ -25,8 +25,9 @@ export default function ProjectsList({ projects }: Props) {
       cell: ({ row }) => (
         <PreviewImage
           preview={row.getValue("mainImage") || "/images/place-holder.jpg"}
-          height={80}
-          width={80}
+          height={60}
+          width={60}
+          rounded="2xl"
         />
       ),
     },
