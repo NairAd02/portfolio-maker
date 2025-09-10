@@ -13,19 +13,17 @@ export default function ExperienceFormSectionsController({ children }: Props) {
   const { setTabValue } = useContext(TabsPanelContext);
 
   useEffect(() => {
-    if (errors.name || errors.description || errors.mainImage) {
-      setTabValue("1"); // move general information section
-    } else if (errors.sourceCodeUrl || errors.deploymentUrl) {
-      setTabValue("2"); // move links section
-    } else if (
-      errors.problem ||
-      errors.solution ||
-      errors.impact ||
-      errors.teachings
+    if (
+      errors.mainImage ||
+      errors.company ||
+      errors.position ||
+      errors.description ||
+      errors.startdate ||
+      errors.enddate
     ) {
-      setTabValue("3"); // move conent section
-    } else if (errors.technologies || errors.images) {
-      setTabValue("4"); // move resources section
+      setTabValue("1"); // move general information section
+    } else if (errors.achievements || errors.technologies) {
+      setTabValue("2"); // move additional information section
     }
   }, [errors, setTabValue]);
 
