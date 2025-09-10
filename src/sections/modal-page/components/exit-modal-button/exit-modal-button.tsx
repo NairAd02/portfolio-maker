@@ -9,7 +9,7 @@ export default function ExitModalButton() {
   const close = () => router.back();
   return (
     <Button
-      variant={"ghost"}
+      variant={"default"}
       className="hover:text-destructive hover:bg-muted"
       size={"icon"}
       onClick={close}
