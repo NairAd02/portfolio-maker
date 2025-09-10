@@ -103,7 +103,7 @@ export default function ExperiencesList({ experiences }: Props) {
                 {
                   label: "Eliminar",
                   icon: <Trash2 />,
-                  href: paths.deleteTechnology({
+                  href: paths.deleteExperience({
                     id: row.getValue("id") as string,
                   }).root,
                 },
