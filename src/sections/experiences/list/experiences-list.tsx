@@ -96,7 +96,7 @@ export default function ExperiencesList({ experiences }: Props) {
                 {
                   label: "Editar",
                   icon: <EditIcon />,
-                  href: paths.editTechnology({
+                  href: paths.editExperience({
                     id: row.getValue("id") as string,
                   }).root,
                 },

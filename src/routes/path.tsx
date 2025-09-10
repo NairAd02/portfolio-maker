@@ -32,6 +32,10 @@ interface ApplicationPath {
   ) => Path;
   experiences: Path;
   createExperience: Path;
+  editExperience: (
+    params?: Record<string, string>,
+    query?: Record<string, string>
+  ) => Path;
   users: Path;
 }
 
@@ -126,6 +130,15 @@ export const paths: ApplicationPath = {
   createExperience: {
     root: "/dashboard/create-experience",
     isProtected: true,
+  },
+  editExperience: (params = {}, query = {}) => {
+    const basePath = "/dashboard/edit-experience/[id]";
+    const pathWithParams = replaceParamsInPath(basePath, params);
+    const queryString = buildQueryString(query);
+    return {
+      root: queryString ? `${pathWithParams}?${queryString}` : pathWithParams,
+      isProtected: true,
+    };
   },
   users: {
     root: "/dashboard/user",
