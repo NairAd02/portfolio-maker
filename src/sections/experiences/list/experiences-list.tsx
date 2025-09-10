@@ -5,7 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import TableMenu from "@/components/ui/table-menu";
 import PreviewImage from "@/components/preview-image/preview-image";
 import { paths } from "@/routes/path";
-import { EditIcon, Trash2 } from "lucide-react";
+import { EditIcon, EyeIcon, Trash2 } from "lucide-react";
 import { principalPlaceHolder } from "@/lib/place-holders";
 import { Experience } from "@/lib/types/experiences";
 
@@ -93,6 +93,13 @@ export default function ExperiencesList({ experiences }: Props) {
             <TableMenu
               titleTableMenu="Acciones"
               links={[
+                {
+                  label: "Ver Detalles",
+                  icon: <EyeIcon />,
+                  href: paths.experienceDetails({
+                    id: row.getValue("id") as string,
+                  }).root,
+                },
                 {
                   label: "Editar",
                   icon: <EditIcon />,
