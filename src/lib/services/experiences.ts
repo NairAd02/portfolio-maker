@@ -185,7 +185,7 @@ export async function editExperience(
   const { error: deleteTechnologiesError } = await supabase
     .from("experience_has_technology")
     .delete()
-    .eq("proyect_id", id);
+    .eq("experience_id", id);
 
   if (deleteTechnologiesError)
     return { data: null, error: deleteTechnologiesError };
