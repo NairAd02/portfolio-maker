@@ -21,7 +21,7 @@ export default function ExperiencesList({ experiences }: Props) {
     },
     {
       accessorKey: "mainImage",
-      header: "Imagen",
+      header: "Logo",
       cell: ({ row }) => (
         <PreviewImage
           preview={row.getValue("mainImage") || principalPlaceHolder}
