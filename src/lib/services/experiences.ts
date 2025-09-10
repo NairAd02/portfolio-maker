@@ -1,7 +1,12 @@
 "use server";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "../supabase/server";
-import { Experience, ExperienceCreateDTO } from "../types/experiences";
+import {
+  Experience,
+  ExperienceCreateDTO,
+  ExperienceDetails,
+  ExperienceEditDTO,
+} from "../types/experiences";
 import { getImageUrlOrThrow, uploadFileToSupabase } from "./supabase-storage";
 import { generateStorageFilePath } from "../images";
 import { insertExperienceTechnologies } from "./technologies";
@@ -88,6 +93,77 @@ export async function createExperience(
   }
 
   return { data: createExperienceData, error: null };
+}
+
+export async function editExperience(
+  id: string,
+  experienceEditDTO: ExperienceEditDTO,
+  formData: FormData
+) {
+  const { technologies, ...restExperienceEditDTO } = experienceEditDTO;
+  const supabase = await createClient();
+
+  // find the technology to edit
+  const { data: experienceFind, error: experienceFindError } = await supabase
+    .from("experience")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (experienceFindError) return { data: null, error: experienceFindError };
+
+  const experienceEntity = experienceFind as ExperienceDetails;
+
+  // delete the mainImage
+  if (experienceEntity.mainImage)
+    await supabase.storage
+      .from("portfolio-maker")
+      .remove([experienceEntity.mainImage]);
+
+  // insert the mainImage
+  const { data: mainImageUploadData, error: mainImageUploadError } =
+    await insertExperienceMainImage(
+      supabase,
+      formData,
+      experienceEntity.company
+    );
+
+  if (mainImageUploadError) return { data: null, error: mainImageUploadError };
+
+  const { data: updateExperienceData, error: updateExperienceError } =
+    await supabase
+      .from("experience")
+      .update({
+        ...restExperienceEditDTO,
+        mainImage: mainImageUploadData,
+      })
+      .eq("id", id)
+      .select()
+      .single();
+
+  if (updateExperienceError)
+    return { data: null, error: updateExperienceError };
+
+  // update the technologies
+
+  // first delete current technologies
+  const { error: deleteTechnologiesError } = await supabase
+    .from("experience_has_technology")
+    .delete()
+    .eq("proyect_id", id);
+
+  if (deleteTechnologiesError)
+    return { data: null, error: deleteTechnologiesError };
+
+  // insert new technologies
+  if (technologies.length > 0) {
+    const { error: insertTechnologiesError } =
+      await insertExperienceTechnologies(supabase, id, technologies);
+    if (insertTechnologiesError)
+      return { data: null, error: insertTechnologiesError };
+  }
+
+  return { data: updateExperienceData, error: null };
 }
 
 // aux functions
