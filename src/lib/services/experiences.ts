@@ -201,6 +201,36 @@ export async function editExperience(
   return { data: updateExperienceData, error: null };
 }
 
+export async function deleteExperience(id: string) {
+  const supabase = await createClient();
+
+  // find the experience to edit
+  const { data: experienceFind, error: experienceFindError } = await supabase
+    .from("experience")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (experienceFindError) return { data: null, error: experienceFindError };
+
+  const experienceEntity = experienceFind as Experience;
+
+  // delete the mainImage
+  if (experienceEntity.mainImage)
+    await supabase.storage
+      .from("portfolio-maker")
+      .remove([experienceEntity.mainImage]);
+
+  const { error } = await supabase.from("experience").delete().eq("id", id);
+
+  if (error) return { data: null, error };
+
+  return {
+    data: { message: "Experiencia laboral eliminada con éxito" },
+    error: null,
+  };
+}
+
 // aux functions
 async function insertExperienceMainImage(
   supabase: SupabaseClient<any, "public", any>,
