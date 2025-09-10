@@ -11,6 +11,7 @@ import { getImageUrlOrThrow, uploadFileToSupabase } from "./supabase-storage";
 import { generateStorageFilePath } from "../images";
 import { insertExperienceTechnologies } from "./technologies";
 import { getLoggedUser } from "./auth";
+import { Technology } from "../types/technologies";
 
 export async function getExperiencesList() {
   const supabase = await createClient();
@@ -34,6 +35,40 @@ export async function getExperiencesList() {
   } catch (error) {
     return { data: null, error };
   }
+}
+export async function getExperienceById(id: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("experience")
+    .select(
+      `
+      *,
+      experience_has_technology (
+        technology (*)
+      )
+    `
+    )
+    .eq("id", id)
+    .single();
+
+  if (error) return { data: null, error };
+
+  const { experience_has_technology, ...rest } = data;
+
+  const technologies = experience_has_technology.map(
+    (thp: { technology: Technology }) => thp.technology
+  );
+
+  return {
+    data: {
+      ...rest,
+      technologies,
+      mainImage: data.mainImage
+        ? await getImageUrlOrThrow(supabase, data.mainImage)
+        : undefined,
+    } as ExperienceDetails,
+    error: null,
+  };
 }
 
 export async function createExperience(
