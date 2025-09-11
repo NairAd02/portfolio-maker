@@ -1,6 +1,12 @@
 import { ReactNode } from "react";
 import { paths } from "../path";
-import { BriefcaseBusiness, Cpu, FolderGit2, User } from "lucide-react";
+import {
+  BriefcaseBusiness,
+  ChartNetwork,
+  Cpu,
+  FolderGit2,
+  User,
+} from "lucide-react";
 
 export interface GroupRoute {
   title: string;
@@ -28,6 +34,11 @@ export const groupRoutes: GroupRoute[] = [
         title: "Experiencias Laborales",
         icon: <BriefcaseBusiness />,
         path: paths.experiences.root,
+      },
+      {
+        title: "Grupos de Habilidades",
+        icon: <ChartNetwork />,
+        path: paths.skillGroups.root,
       },
     ],
   },
