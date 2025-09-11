@@ -23,7 +23,7 @@ export const levelMap: Map<
   [LevelEnum.BASIC, { name: "Básico", color: "secondary" }],
 ]);
 
-interface Skill {
+export interface Skill {
   name: string;
   level: LevelEnum;
   icon?: string;
