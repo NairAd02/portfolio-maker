@@ -45,6 +45,7 @@ interface ApplicationPath {
     query?: Record<string, string>
   ) => Path;
   skillGroups: Path;
+  createSkillGroup: Path;
   users: Path;
 }
 
@@ -169,6 +170,10 @@ export const paths: ApplicationPath = {
   },
   skillGroups: {
     root: "/dashboard/skill-groups",
+    isProtected: true,
+  },
+  createSkillGroup: {
+    root: "/dashboard/create-skill-group",
     isProtected: true,
   },
   users: {

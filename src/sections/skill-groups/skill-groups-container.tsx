@@ -14,7 +14,7 @@ export default function SkillGroupsContainer() {
         addButton={{
           isModalRedirect: false,
           buttonText: "Nuevo Grupo de Habilidades",
-          creationPath: paths.createExperience.root,
+          creationPath: paths.createSkillGroup.root,
         }}
       />
       <SkillGroupsListContainer />
