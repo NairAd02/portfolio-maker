@@ -21,6 +21,7 @@ interface ImageUploadProps {
   variant?: "default" | "avatar";
   avatarIcon?: ReactNode; // Nueva prop para el tipo de componente
   avatarSize?: number; // Tamaño del avatar en píxeles
+  withAdditionalInfo?: boolean;
 }
 
 export function RHFImageUpload({
@@ -35,16 +36,13 @@ export function RHFImageUpload({
   variant = "default",
   avatarSize = 120,
   avatarIcon,
+  withAdditionalInfo = true,
 }: ImageUploadProps) {
   const { setValue, watch, formState } = useFormContext();
   const value = watch(name);
   const fieldError = error || formState.errors[name]?.message;
   const [preview, setPreview] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
-
-  // Configurar label por defecto según el variant
-  const defaultLabel = variant === "avatar" ? "Foto de perfil" : "Subir imagen";
-  const displayLabel = label || defaultLabel;
 
   const processImage = useCallback(
     async (file: File) => {
@@ -109,13 +107,13 @@ export function RHFImageUpload({
   if (variant === "avatar") {
     return (
       <div className={cn("space-y-3", className)}>
-        {displayLabel && (
+        {label && (
           <p className="text-base font-semibold text-foreground text-center">
-            {displayLabel}
+            {label}
           </p>
         )}
 
-        <div className="flex flex-col items-center space-y-4">
+        <div className="flex flex-col items-center gap-2">
           <div
             {...getRootProps()}
             className={cn(
@@ -183,7 +181,9 @@ export function RHFImageUpload({
                 onClick={handleRemove}
                 variant="destructive"
                 size="sm"
-                className="absolute -top-2 -right-2 h-8 w-8 rounded-full p-0 shadow-lg"
+                className={`absolute -top-2 -right-2 ${
+                  avatarSize < 80 ? "h-5 w-5" : "h-8 w-8"
+                } rounded-full p-0 shadow-lg`}
               >
                 <X className="h-4 w-4" />
               </Button>
@@ -191,18 +191,24 @@ export function RHFImageUpload({
           </div>
 
           {/* Instructions text */}
-          <div className="text-center space-y-1">
-            <p className="text-sm font-semibold text-foreground dark:text-foreground">
-              {isDragActive
-                ? "Suelta la imagen aquí"
-                : loading || isProcessing
-                ? "Procesando imagen..."
-                : "Haz clic para cambiar la foto"}
-            </p>
-            <p className="text-sm font-semibold text-foreground dark:text-foreground">
-              PNG, JPG, GIF hasta {Math.round(maxSize / (1024 * 1024))}MB
-            </p>
-          </div>
+
+          {withAdditionalInfo && (
+            <div className="text-center space-y-1">
+              <p className="text-sm font-semibold text-foreground dark:text-foreground">
+                {isDragActive
+                  ? "Suelta la imagen aquí"
+                  : loading || isProcessing
+                  ? "Procesando imagen..."
+                  : withAdditionalInfo
+                  ? "Haz clic para cambiar la foto"
+                  : ""}
+              </p>
+
+              <p className="text-sm font-semibold text-foreground dark:text-foreground">
+                PNG, JPG, GIF hasta {Math.round(maxSize / (1024 * 1024))}MB
+              </p>
+            </div>
+          )}
         </div>
 
         {(fieldError || fileRejectionError) && (
@@ -217,7 +223,7 @@ export function RHFImageUpload({
   // Renderizado para variant default (original)
   return (
     <div className={cn("space-y-2", className)}>
-      {displayLabel && <p className="text-sm font-medium">{displayLabel}</p>}
+      {label && <p className="text-sm font-medium">{label}</p>}
       <div
         {...getRootProps()}
         className={cn(
