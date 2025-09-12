@@ -1,3 +1,5 @@
+import { SkillGroupCreate } from "@/sections/skill-groups/form/create/schemas/skill-group-create-schema";
+
 export enum LevelEnum {
   BASIC = "basic",
   ADVANCED = "avanzado",
@@ -47,3 +49,15 @@ export interface SkillGroupCreateDTO {
   icon?: string;
   skills: SkillCreateDTO[];
 }
+
+export const convertSkillGroup = (
+  skillGroupCreate: Omit<SkillGroupCreate, "icon">
+): SkillGroupCreateDTO => {
+  return {
+    ...skillGroupCreate,
+    skills: skillGroupCreate.skills.map((skill) => ({
+      ...skill,
+      icon: skill.icon ? skill.icon.name : undefined,
+    })),
+  };
+};
