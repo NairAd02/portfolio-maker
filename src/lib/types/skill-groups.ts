@@ -29,9 +29,21 @@ export interface Skill {
   icon?: string;
 }
 
+export interface SkillCreateDTO {
+  name: string;
+  level: LevelEnum;
+  icon?: string;
+}
+
 export interface SkillGroup {
   id: string;
   name: string;
   icon?: string;
   skills: Skill[];
+}
+
+export interface SkillGroupCreateDTO {
+  name: string;
+  icon?: string;
+  skills: SkillCreateDTO[];
 }
