@@ -12,11 +12,11 @@ interface Props {
 
 export default function SkillGroupSkillStack({ index }: Props) {
   return (
-    <div className="flex flex-col gap-2 items-center">
-      <div className="flex items-center gap-8">
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center gap-4">
         <RHFImageUpload
           name={`skills.${index}.icon`}
-          label="Icono de la habilidad"
+          withAdditionalInfo={false}
           variant="avatar"
           avatarIcon={
             <Aperture
@@ -24,6 +24,7 @@ export default function SkillGroupSkillStack({ index }: Props) {
               size={60 * 0.4}
             />
           }
+          avatarSize={50}
         />
         <RHFTextField
           name={`skills.${index}.name`}
