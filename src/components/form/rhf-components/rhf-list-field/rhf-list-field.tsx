@@ -4,6 +4,7 @@ import { PlusIcon, X } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useCallback } from "react";
+import { AlertCircle } from "lucide-react"; // Icono opcional para errores
 
 interface Props<T> {
   name: string;
@@ -24,7 +25,10 @@ export function RHFListField<T>({
   addButtonLabel = "Agregar",
   className,
 }: Props<T>) {
-  const { control } = useFormContext();
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
     name: name,
@@ -34,11 +38,14 @@ export function RHFListField<T>({
     append(newItem);
   }, [append, newItem]);
 
+  // Obtener error raíz del array
+  const fieldError = errors[name] as { message?: string } | undefined;
+
   return (
     <Card className="bg-white">
       <CardHeader className="pb-4">
-        <CardTitle className="text-lg flex flex-col gap-2 md:flex-row items-center justify-between">
-          {label}
+        <div className="flex justify-between items-center">
+          <CardTitle className="text-lg">{label}</CardTitle>
           <Button
             size="sm"
             variant="default"
@@ -48,8 +55,16 @@ export function RHFListField<T>({
             <PlusIcon className="h-4 w-4 mr-1" />
             {addButtonLabel}
           </Button>
-        </CardTitle>
+        </div>
+
+        {fieldError?.message && (
+          <div className="flex items-center gap-1 text-destructive text-sm mt-2">
+            <AlertCircle className="h-4 w-4" />
+            <span>{fieldError.message}</span>
+          </div>
+        )}
       </CardHeader>
+
       <CardContent>
         <div className={"space-y-3 overflow-auto " + className}>
           {fields.length > 0 ? (
@@ -65,9 +80,7 @@ export function RHFListField<T>({
                   size="sm"
                   variant="ghost"
                   type="button"
-                  onClick={() => {
-                    remove(index);
-                  }}
+                  onClick={() => remove(index)}
                   className="text-destructive hover:text-destructive"
                 >
                   <X className="h-4 w-4" />
