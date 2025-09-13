@@ -2,7 +2,12 @@
 
 import { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "../supabase/server";
-import { SkillGroup, SkillGroupCreateDTO } from "../types/skill-groups";
+import {
+  SkillGroup,
+  SkillGroupCreateDTO,
+  SkillGroupDetails,
+  SkillGroupEditDTO,
+} from "../types/skill-groups";
 import { getLoggedUser } from "./auth";
 import { getImageUrlOrThrow, uploadFileToSupabase } from "./supabase-storage";
 import { generateStorageFilePath } from "../images";
@@ -98,6 +103,79 @@ export async function createSkillGroup(
     return { data: null, error: createSkillGroupError };
 
   return { data: createSkillGroupData, error: null };
+}
+
+export async function editSkillGroup(
+  id: string,
+  skillGroupEditDTO: SkillGroupEditDTO,
+  formData: FormData
+) {
+  const supabase = await createClient();
+
+  // find the technology to edit
+  const { data: skillGroupFind, error: skillGroupFindError } = await supabase
+    .from("skillgroup")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (skillGroupFindError) return { data: null, error: skillGroupFindError };
+
+  const skillGroupEntity = skillGroupFind as SkillGroupDetails;
+
+  // delete the skill group icon
+  if (skillGroupEntity.icon)
+    await supabase.storage
+      .from("portfolio-maker")
+      .remove([skillGroupEntity.icon]);
+
+  // delete the skills icons
+  if (skillGroupEntity.skills && skillGroupEntity.skills.length > 0)
+    await Promise.all(
+      skillGroupEntity.skills.map(async (skill) => {
+        if (skill.icon)
+          await supabase.storage.from("portfolio-maker").remove([skill.icon]);
+      })
+    );
+
+  // insert the skill group icon
+  const { data: iconUploadData, error: iconUploadError } =
+    await insertSkillGroupIcon(supabase, formData, skillGroupEditDTO.name);
+
+  if (iconUploadError) return { data: null, error: iconUploadError };
+
+  // insert the skills icons
+  const { data: skillIconsData, error: insertSkillIconsError } =
+    await insertSkillIcons(supabase, formData, skillGroupEditDTO.name);
+
+  if (insertSkillIconsError)
+    return { data: null, error: insertSkillIconsError };
+
+  const { data: updateSkillGroupData, error: updateSkillGroupError } =
+    await supabase
+      .from("skillgroup")
+      .update({
+        ...skillGroupEditDTO,
+        icon: iconUploadData,
+        skills: skillGroupEditDTO.skills.map((skill) => {
+          // find the icon skill
+          const skillIcon = skill.icon
+            ? skillIconsData.find((skillIcon) => skillIcon.id === skill.icon)
+            : undefined;
+          return {
+            ...skill,
+            icon: skillIcon ? skillIcon.path : undefined,
+          };
+        }),
+      })
+      .eq("id", id)
+      .select()
+      .single();
+
+  if (updateSkillGroupError)
+    return { data: null, error: updateSkillGroupError };
+
+  return { data: updateSkillGroupData, error: null };
 }
 
 // aux functions
