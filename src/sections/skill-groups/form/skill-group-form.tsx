@@ -13,12 +13,17 @@ import React from "react";
 import { SkillCreate } from "./create/schemas/skill-create-schema";
 import SkillGroupSkillStack from "./stacks/skill-group-skill-stack";
 import { LevelEnum } from "@/lib/types/skill-groups";
+import SkillGroupSkillEditStack from "./stacks/skill-group-skill-edit-stack";
 
 interface Props {
   imageRecived?: { loading: boolean; error: string | null };
+  mode?: "create" | "edit";
 }
 
-export default function SkillGroupForm({ imageRecived }: Props) {
+export default function SkillGroupForm({
+  imageRecived,
+  mode = "create",
+}: Props) {
   return (
     <Card>
       <CardHeader>
@@ -52,7 +57,9 @@ export default function SkillGroupForm({ imageRecived }: Props) {
         <RHFListField<SkillCreate>
           name="skills"
           label="Habilidades"
-          StackComponent={SkillGroupSkillStack}
+          StackComponent={
+            mode === "create" ? SkillGroupSkillStack : SkillGroupSkillEditStack
+          }
           newItem={{
             name: "",
             level: LevelEnum.BASIC,
