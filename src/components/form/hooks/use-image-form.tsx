@@ -22,10 +22,12 @@ export default function useImageForm<T extends Record<string, any>>({
   const fetchImage = useCallback(async () => {
     try {
       setLoading(true);
-      form.setValue(
-        fieldName,
-        imageUrl ? ((await urlToFile(imageUrl, imageName)) as any) : undefined
-      );
+
+      const currentValue = form.getValues(fieldName);
+      if (!currentValue && imageUrl) {
+        const file = await urlToFile(imageUrl, imageName);
+        form.setValue(fieldName, file as any);
+      }
     } catch (error) {
       console.log(error);
       if (error instanceof Error) setError(error.message);
@@ -35,8 +37,13 @@ export default function useImageForm<T extends Record<string, any>>({
   }, [imageUrl, imageName, fieldName, form]);
 
   useEffect(() => {
-    fetchImage();
-  }, [fetchImage]);
+    const currentValue = form.getValues(fieldName);
+    if (imageUrl && !currentValue) {
+      fetchImage();
+    } else {
+      setLoading(false);
+    }
+  }, [imageUrl, fieldName, form, fetchImage]);
 
   return {
     loading,
