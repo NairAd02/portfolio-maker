@@ -82,7 +82,7 @@ export default function SkillGroupsList({ skillGroups }: Props) {
                 {
                   label: "Editar",
                   icon: <EditIcon />,
-                  href: paths.editExperience({
+                  href: paths.editSkillGroup({
                     id: row.getValue("id") as string,
                   }).root,
                 },

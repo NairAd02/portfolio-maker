@@ -46,6 +46,10 @@ interface ApplicationPath {
   ) => Path;
   skillGroups: Path;
   createSkillGroup: Path;
+  editSkillGroup: (
+    params?: Record<string, string>,
+    query?: Record<string, string>
+  ) => Path;
   users: Path;
 }
 
@@ -175,6 +179,15 @@ export const paths: ApplicationPath = {
   createSkillGroup: {
     root: "/dashboard/create-skill-group",
     isProtected: true,
+  },
+  editSkillGroup: (params = {}, query = {}) => {
+    const basePath = "/dashboard/edit-skill-group/[id]";
+    const pathWithParams = replaceParamsInPath(basePath, params);
+    const queryString = buildQueryString(query);
+    return {
+      root: queryString ? `${pathWithParams}?${queryString}` : pathWithParams,
+      isProtected: true,
+    };
   },
   users: {
     root: "/dashboard/user",
