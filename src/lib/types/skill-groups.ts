@@ -37,7 +37,20 @@ export interface SkillCreateDTO {
   icon?: string;
 }
 
+export interface SkillEditDTO {
+  name: string;
+  level: LevelEnum;
+  icon?: string;
+}
+
 export interface SkillGroup {
+  id: string;
+  name: string;
+  icon?: string;
+  skills: Skill[];
+}
+
+export interface SkillGroupDetails {
   id: string;
   name: string;
   icon?: string;
@@ -50,7 +63,25 @@ export interface SkillGroupCreateDTO {
   skills: SkillCreateDTO[];
 }
 
-export const convertSkillGroup = (
+export interface SkillGroupEditDTO {
+  name: string;
+  icon?: string;
+  skills: SkillEditDTO[];
+}
+
+export const convertSkillGroupCreateDTO = (
+  skillGroupCreate: Omit<SkillGroupCreate, "icon">
+): SkillGroupCreateDTO => {
+  return {
+    ...skillGroupCreate,
+    skills: skillGroupCreate.skills.map((skill) => ({
+      ...skill,
+      icon: skill.icon ? skill.icon.name : undefined,
+    })),
+  };
+};
+
+export const convertSkillGroupEditDTO = (
   skillGroupCreate: Omit<SkillGroupCreate, "icon">
 ): SkillGroupCreateDTO => {
   return {
