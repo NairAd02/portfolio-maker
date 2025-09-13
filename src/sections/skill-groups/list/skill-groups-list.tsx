@@ -51,7 +51,7 @@ export default function SkillGroupsList({ skillGroups }: Props) {
           <div key={index} className="flex items-center gap-2">
             {skill.icon && (
               <PreviewImage
-                preview={skill.icon}
+                preview={skill.icon || principalPlaceHolder}
                 height={45}
                 width={45}
                 rounded={"2xl"}
