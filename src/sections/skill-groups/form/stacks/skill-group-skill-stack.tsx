@@ -33,7 +33,7 @@ export default function SkillGroupSkillStack({ index }: Props) {
         />
       </div>
       <RHFSelectField
-        name="level"
+        name={`skills.${index}.level`}
         label="Nivel de Habilidad"
         placeholder="Seleccione el nivel de habilidad que tiene en esta habilidad"
         options={[
