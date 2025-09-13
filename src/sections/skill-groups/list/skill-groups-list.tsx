@@ -47,21 +47,25 @@ export default function SkillGroupsList({ skillGroups }: Props) {
       header: "Habilidades",
       cell: ({ row }) => {
         const skills = row.getValue("skills") as Skill[];
-        return skills.map((skill, index) => (
-          <div key={index} className="flex items-center gap-2">
-            {skill.icon && (
-              <PreviewImage
-                preview={skill.icon}
-                height={25}
-                width={25}
-                rounded={"2xl"}
-              />
-            )}
-            <p className="text-sm line-clamp-3 break-words max-w-[300px] whitespace-pre-wrap leading-relaxed">
-              {skill.name}
-            </p>
+        return (
+          <div className="flex flex-col gap-2">
+            {skills.map((skill, index) => (
+              <div key={index} className="flex items-center gap-2">
+                {skill.icon && (
+                  <PreviewImage
+                    preview={skill.icon}
+                    height={25}
+                    width={25}
+                    rounded={"2xl"}
+                  />
+                )}
+                <p className="text-sm line-clamp-3 break-words max-w-[300px] whitespace-pre-wrap leading-relaxed">
+                  {skill.name}
+                </p>
+              </div>
+            ))}
           </div>
-        ));
+        );
       },
     },
     {
