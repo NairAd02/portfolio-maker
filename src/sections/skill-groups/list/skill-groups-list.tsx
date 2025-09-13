@@ -52,8 +52,8 @@ export default function SkillGroupsList({ skillGroups }: Props) {
             {skill.icon && (
               <PreviewImage
                 preview={skill.icon}
-                height={45}
-                width={45}
+                height={25}
+                width={25}
                 rounded={"2xl"}
               />
             )}
