@@ -45,6 +45,37 @@ export async function getSkillGroupsList() {
   }
 }
 
+export async function getSkillGroupById(id: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("skillgroup")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) return { data: null, error };
+
+  const skillGroup = data as SkillGroupDetails;
+
+  return {
+    data: {
+      ...skillGroup,
+      icon: skillGroup.icon
+        ? await getImageUrlOrThrow(supabase, skillGroup.icon)
+        : undefined,
+      skills: await Promise.all(
+        skillGroup.skills.map(async (skill) => ({
+          ...skill,
+          icon: skill.icon
+            ? await getImageUrlOrThrow(supabase, skill.icon)
+            : undefined,
+        }))
+      ),
+    },
+    error: null,
+  };
+}
+
 export async function createSkillGroup(
   skillGroupCreateDTO: SkillGroupCreateDTO,
   formData: FormData
