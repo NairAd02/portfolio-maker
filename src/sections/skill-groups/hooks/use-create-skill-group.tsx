@@ -2,7 +2,9 @@
 import { useCallback, useState } from "react";
 import { SkillGroupCreate } from "../form/create/schemas/skill-group-create-schema";
 import { createSkillGroup as createSkillGroupService } from "@/lib/services/skill-groups";
-import { convertSkillGroup } from "@/lib/types/skill-groups";
+import {
+  convertSkillGroupCreateDTO,
+} from "@/lib/types/skill-groups";
 
 interface Props {
   onCreateAction: () => void;
@@ -27,7 +29,7 @@ export default function useCreateSkillGroup({ onCreateAction }: Props) {
       });
 
       const res = await createSkillGroupService(
-        convertSkillGroup(restSkillGroup),
+        convertSkillGroupCreateDTO(restSkillGroup),
         formData
       );
 
