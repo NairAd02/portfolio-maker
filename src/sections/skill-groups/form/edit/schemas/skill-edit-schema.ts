@@ -5,6 +5,7 @@ export interface SkillEdit {
   name: string;
   level: LevelEnum;
   icon?: File;
+  iconPath?: string
 }
 
 export const skillEditSchema = z.object({
