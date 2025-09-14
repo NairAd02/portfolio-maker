@@ -236,6 +236,44 @@ async function insertSkillGroupIcon(
   return { data: iconPath, error: null };
 }
 
+export async function deleteSkillGroup(id: string) {
+  const supabase = await createClient();
+
+  // find the skillgroup to edit
+  const { data: skillGroupFind, error: skillGroupFindError } = await supabase
+    .from("skillgroup")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (skillGroupFindError) return { data: null, error: skillGroupFindError };
+
+  const skillGroupEntity = skillGroupFind as SkillGroupDetails;
+
+  // delete the icon
+  if (skillGroupEntity.icon)
+    await supabase.storage
+      .from("portfolio-maker")
+      .remove([skillGroupEntity.icon]);
+
+  // delete the skills icons
+  Promise.all(
+    skillGroupEntity.skills.map(async (skill) => {
+      if (skill.icon)
+        await supabase.storage.from("portfolio-maker").remove([skill.icon]);
+    })
+  );
+
+  const { error } = await supabase.from("skillgroup").delete().eq("id", id);
+
+  if (error) return { data: null, error };
+
+  return {
+    data: { message: "Grupo de habilidades eliminada con éxito" },
+    error: null,
+  };
+}
+
 async function insertSkillIcons(
   supabase: SupabaseClient<any, "public", any>,
   formData: FormData,
