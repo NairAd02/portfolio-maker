@@ -25,6 +25,42 @@ export const levelMap: Map<
   [LevelEnum.BASIC, { name: "Básico", color: "secondary" }],
 ]);
 
+// Función para obtener el color del nivel
+export const getLevelColor = (level: LevelEnum): string => {
+  switch (level) {
+    case LevelEnum.BASIC:
+      return "bg-red-100 text-red-800 border-red-200";
+    case LevelEnum.INTERMEDIATE:
+      return "bg-yellow-100 text-yellow-800 border-yellow-200";
+    default:
+      return "bg-gray-100 text-gray-800 border-gray-200";
+  }
+};
+
+// Función para obtener el número de estrellas según el nivel
+export const getLevelStars = (level: LevelEnum): number => {
+  switch (level) {
+    case LevelEnum.BASIC:
+      return 1;
+    case LevelEnum.INTERMEDIATE:
+      return 2;
+    default:
+      return 3;
+  }
+};
+
+// Función para obtener el texto del nivel en español
+export const getLevelText = (level: LevelEnum): string => {
+  switch (level) {
+    case LevelEnum.BASIC:
+      return "Principiante";
+    case LevelEnum.INTERMEDIATE:
+      return "Intermedio";
+    default:
+      return "Avanzado";
+  }
+};
+
 export interface Skill {
   name: string;
   level: LevelEnum;
