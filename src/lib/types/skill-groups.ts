@@ -53,7 +53,7 @@ export const getLevelStars = (level: LevelEnum): number => {
 export const getLevelText = (level: LevelEnum): string => {
   switch (level) {
     case LevelEnum.BASIC:
-      return "Principiante";
+      return "Básico";
     case LevelEnum.INTERMEDIATE:
       return "Intermedio";
     default:
