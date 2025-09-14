@@ -79,7 +79,7 @@ export default function SkillGroupsList({ skillGroups }: Props) {
                 {
                   label: "Ver Detalles",
                   icon: <EyeIcon />,
-                  href: paths.experienceDetails({
+                  href: paths.skillGroupDetails({
                     id: row.getValue("id") as string,
                   }).root,
                 },
