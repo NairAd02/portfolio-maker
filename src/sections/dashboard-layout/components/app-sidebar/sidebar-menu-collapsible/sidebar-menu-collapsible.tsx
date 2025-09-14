@@ -25,7 +25,7 @@ export default function SidebarMenuCollapsible({ item }: Props) {
     <Collapsible asChild open={isOpen} onOpenChange={setIsOpen}>
       <SidebarMenuItem>
         <CollapsibleTrigger asChild>
-          <SidebarMenuButton tooltip={item.title}>
+          <SidebarMenuButton className="text-[15px]" tooltip={item.title}>
             {item.icon && item.icon}
             <span>{item.title}</span>
             <ChevronRight
