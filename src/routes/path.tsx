@@ -50,6 +50,10 @@ interface ApplicationPath {
     params?: Record<string, string>,
     query?: Record<string, string>
   ) => Path;
+  deleteSkillGroup: (
+    params?: Record<string, string>,
+    query?: Record<string, string>
+  ) => Path;
   users: Path;
 }
 
@@ -182,6 +186,15 @@ export const paths: ApplicationPath = {
   },
   editSkillGroup: (params = {}, query = {}) => {
     const basePath = "/dashboard/edit-skill-group/[id]";
+    const pathWithParams = replaceParamsInPath(basePath, params);
+    const queryString = buildQueryString(query);
+    return {
+      root: queryString ? `${pathWithParams}?${queryString}` : pathWithParams,
+      isProtected: true,
+    };
+  },
+  deleteSkillGroup: (params = {}, query = {}) => {
+    const basePath = "/dashboard/delete-skill-group/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {

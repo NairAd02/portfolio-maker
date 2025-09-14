@@ -93,7 +93,7 @@ export default function SkillGroupsList({ skillGroups }: Props) {
                 {
                   label: "Eliminar",
                   icon: <Trash2 />,
-                  href: paths.deleteExperience({
+                  href: paths.deleteSkillGroup({
                     id: row.getValue("id") as string,
                   }).root,
                 },
