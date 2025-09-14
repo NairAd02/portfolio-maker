@@ -4,7 +4,9 @@ import {
   BriefcaseBusiness,
   ChartNetwork,
   Cpu,
+  Files,
   FolderGit2,
+  ScrollText,
   User,
 } from "lucide-react";
 
@@ -39,6 +41,23 @@ export const groupRoutes: GroupRoute[] = [
         title: "Grupos de Habilidades",
         icon: <ChartNetwork />,
         path: paths.skillGroups.root,
+      },
+      {
+        title: "Certificaciones obtenidas",
+        icon: <ScrollText />,
+        path: paths.certifications.root,
+        children: [
+          {
+            title: "Grupos",
+            icon: <Files />,
+            path: paths.certificationGroups.root,
+          },
+          {
+            title: "Certificaciones",
+            icon: <ScrollText />,
+            path: paths.certifications.root,
+          },
+        ],
       },
     ],
   },

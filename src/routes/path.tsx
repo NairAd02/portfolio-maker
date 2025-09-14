@@ -58,6 +58,8 @@ interface ApplicationPath {
     params?: Record<string, string>,
     query?: Record<string, string>
   ) => Path;
+  certifications: Path;
+  certificationGroups: Path;
   users: Path;
 }
 
@@ -214,6 +216,14 @@ export const paths: ApplicationPath = {
       root: queryString ? `${pathWithParams}?${queryString}` : pathWithParams,
       isProtected: true,
     };
+  },
+  certifications: {
+    root: "/dashboard/certifications",
+    isProtected: true,
+  },
+  certificationGroups: {
+    root: "/dashboard/certification-groups",
+    isProtected: true,
   },
   users: {
     root: "/dashboard/user",
