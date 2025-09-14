@@ -4,8 +4,8 @@ export interface Certification {
   institution: string;
   startdate: string;
   enddate: string;
-  image: string;
-  link: string;
+  image?: string;
+  link?: string;
 }
 
 export interface CertificationDetails {
@@ -14,6 +14,6 @@ export interface CertificationDetails {
   institution: string;
   startdate: string;
   enddate: string;
-  image: string;
-  link: string;
+  image?: string;
+  link?: string;
 }
