@@ -43,7 +43,7 @@ export const groupRoutes: GroupRoute[] = [
         path: paths.skillGroups.root,
       },
       {
-        title: "Certificaciones obtenidas",
+        title: "Certificaciones",
         icon: <ScrollText />,
         path: paths.certifications.root,
         children: [
