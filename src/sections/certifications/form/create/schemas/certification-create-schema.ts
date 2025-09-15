@@ -3,8 +3,8 @@ import { z } from "zod";
 export interface CertificationCreate {
   title: string;
   institution: string;
-  startdate: string;
-  enddate: string;
+  startdate: Date;
+  enddate: Date;
   image?: string;
   link: string;
 }
