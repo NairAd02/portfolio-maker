@@ -102,7 +102,7 @@ export default function CertificationsList({ certifications }: Props) {
                 {
                   label: "Editar",
                   icon: <EditIcon />,
-                  href: paths.editTechnology({
+                  href: paths.editCertification({
                     id: row.getValue("id") as string,
                   }).root,
                 },
