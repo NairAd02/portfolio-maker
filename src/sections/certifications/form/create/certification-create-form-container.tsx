@@ -33,6 +33,7 @@ export default function CertificationCreateFormContainer() {
     resolver: zodResolver(certificationCreateSchema),
     defaultValues: {
       title: "",
+      description: "",
       institution: "",
       link: "",
     },

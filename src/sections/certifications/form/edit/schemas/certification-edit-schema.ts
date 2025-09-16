@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export interface CertificationEdit {
   title: string;
+  description: string;
   institution: string;
   startdate: Date;
   enddate: Date;
@@ -12,6 +13,7 @@ export interface CertificationEdit {
 export const certificationEditSchema = z
   .object({
     title: z.string().min(1, { message: "El campo es requerido" }),
+    description: z.string(),
     institution: z.string().min(1, { message: "El campo es requerido" }),
     link: z.string(),
     image: z

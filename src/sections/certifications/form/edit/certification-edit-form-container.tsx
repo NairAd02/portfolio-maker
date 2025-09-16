@@ -42,6 +42,7 @@ export default function CertificationEditFormContainer({
     resolver: zodResolver(certificationEditSchema),
     defaultValues: {
       title: certification.title,
+      description: certification.description,
       institution: certification.institution,
       link: certification.link || "",
       startdate: new Date(certification.startdate),

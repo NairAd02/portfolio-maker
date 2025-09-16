@@ -1,5 +1,6 @@
 import { RHFDatePickerField } from "@/components/form/rhf-components/rhf-date-picker-field/rhf-date-picker-field";
 import { RHFImageUpload } from "@/components/form/rhf-components/rhf-image-upload/rhf-image-upload";
+import { RHFTextAreaField } from "@/components/form/rhf-components/rhf-text-area-field/rhf-text-area-field";
 import { RHFTextField } from "@/components/form/rhf-components/rhf-text-field/rhf-text-field";
 import {
   Card,
@@ -60,6 +61,12 @@ export default function CertificationForm({ imageRecived }: Props) {
               fullWidth
             />
           </div>
+          <RHFTextAreaField
+            name="description"
+            label="Descripción (opcional)"
+            placeholder="Ingrese una breve descripción sobre la certificación..."
+            fullWidth
+          />
           <RHFTextField
             name="link"
             label="Enlace"

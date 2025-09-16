@@ -55,6 +55,18 @@ export default function CertificationsList({ certifications }: Props) {
       },
     },
     {
+      accessorKey: "description",
+      header: "Descripción",
+      cell: ({ row }) => {
+        const description = row.getValue("description") as string | undefined;
+        return (
+          <p className="text-sm line-clamp-3 break-words max-w-[300px] whitespace-pre-wrap leading-relaxed">
+            {description || "no posee descripción"}
+          </p>
+        );
+      },
+    },
+    {
       accessorKey: "startdate",
       header: "Fecha de Inicio",
       cell: ({ row }) => {

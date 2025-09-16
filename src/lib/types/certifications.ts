@@ -4,6 +4,7 @@ import { CertificationEdit } from "@/sections/certifications/form/edit/schemas/c
 export interface Certification {
   id: string;
   title: string;
+  description?: string;
   institution: string;
   startdate: string;
   enddate: string;
@@ -14,6 +15,7 @@ export interface Certification {
 export interface CertificationDetails {
   id: string;
   title: string;
+  description?: string;
   institution: string;
   startdate: string;
   enddate: string;
@@ -23,6 +25,7 @@ export interface CertificationDetails {
 
 export interface CertificationCreateDTO {
   title: string;
+  description?: string;
   institution: string;
   startdate: string;
   enddate: string;
@@ -31,6 +34,7 @@ export interface CertificationCreateDTO {
 
 export interface CertificationEditDTO {
   title: string;
+  description?: string;
   institution: string;
   startdate: string;
   enddate: string;
@@ -42,6 +46,7 @@ export const convertCertificationCreateDTO = (
 ): CertificationCreateDTO => {
   return {
     ...certification,
+    description: certification.description || undefined,
     link: certification.link || undefined,
     startdate: certification.startdate.toISOString(),
     enddate: certification.enddate.toISOString(),
@@ -53,6 +58,7 @@ export const convertCertificationEditDTO = (
 ): CertificationEditDTO => {
   return {
     ...certification,
+    description: certification.description || undefined,
     link: certification.link || undefined,
     startdate: certification.startdate.toISOString(),
     enddate: certification.enddate.toISOString(),
