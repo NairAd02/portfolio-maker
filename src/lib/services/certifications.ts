@@ -54,7 +54,7 @@ export async function getCertificationById(id: string) {
       image: certification.image
         ? await getImageUrlOrThrow(supabase, certification.image)
         : undefined,
-    },
+    } as CertificationDetails,
     error: null,
   };
 }
