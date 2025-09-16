@@ -58,13 +58,13 @@ export default function CertificationForm({ imageRecived }: Props) {
             placeholder="Ingrese la institución de la que adquirió la certificación..."
             fullWidth
           />
-          <RHFTextField
-            name="link"
-            label="Enlace"
-            placeholder="Ingrese el enlace de la certificación..."
-            fullWidth
-          />
         </div>
+        <RHFTextField
+          name="link"
+          label="Enlace"
+          placeholder="Ingrese el enlace de la certificación..."
+          fullWidth
+        />
       </CardContent>
     </Card>
   );
