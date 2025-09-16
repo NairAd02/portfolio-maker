@@ -153,6 +153,34 @@ export async function editCertification(
   return { data: updateCertificationData, error: null };
 }
 
+export async function deleteCertification(id: string) {
+  const supabase = await createClient();
+
+  // find the certification to edit
+  const { data: certificationFind, error: certificationFindError } =
+    await supabase.from("certification").select("*").eq("id", id).single();
+
+  if (certificationFindError)
+    return { data: null, error: certificationFindError };
+
+  const certificationEntity = certificationFind as Certification;
+
+  // delete the image
+  if (certificationEntity.image)
+    await supabase.storage
+      .from("portfolio-maker")
+      .remove([certificationEntity.image]);
+
+  const { error } = await supabase.from("certification").delete().eq("id", id);
+
+  if (error) return { data: null, error };
+
+  return {
+    data: { message: "Certificación eliminada con éxito" },
+    error: null,
+  };
+}
+
 // aux functions
 async function insertCertificationImage(
   supabase: SupabaseClient<any, "public", any>,
