@@ -2,7 +2,11 @@
 
 import { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "../supabase/server";
-import { Certification, CertificationCreateDTO } from "../types/certifications";
+import {
+  Certification,
+  CertificationCreateDTO,
+  CertificationEditDTO,
+} from "../types/certifications";
 import { getLoggedUser } from "./auth";
 import { getImageUrlOrThrow, uploadFileToSupabase } from "./supabase-storage";
 import { generateStorageFilePath } from "../images";
@@ -75,6 +79,54 @@ export async function createCertification(
     return { data: null, error: createCertificationError };
 
   return { data: createCertificationData, error: null };
+}
+
+export async function editCertification(
+  id: string,
+  certificationEditDTO: CertificationEditDTO,
+  formData: FormData
+) {
+  const supabase = await createClient();
+
+  // find the certification to edit
+  const { data: certificationFind, error: certificationFindError } =
+    await supabase.from("certification").select("*").eq("id", id).single();
+
+  if (certificationFindError)
+    return { data: null, error: certificationFindError };
+
+  const certification = certificationFind as Certification;
+
+  // delete the image
+  if (certification.image)
+    await supabase.storage
+      .from("portfolio-maker")
+      .remove([certification.image]);
+
+  // insert the icon
+  const { data: imageUploadData, error: imageUploadError } =
+    await insertCertificationImage(
+      supabase,
+      formData,
+      certificationEditDTO.title
+    );
+
+  if (imageUploadError) return { data: null, error: imageUploadError };
+
+  const { data: updateCertificationData, error: updateCertificationError } =
+    await supabase
+      .from("certification")
+      .update({
+        ...certificationEditDTO,
+        image: imageUploadData,
+      })
+      .eq("id", id)
+      .select()
+      .single();
+  if (updateCertificationError)
+    return { data: null, error: updateCertificationError };
+
+  return { data: updateCertificationData, error: null };
 }
 
 // aux functions
