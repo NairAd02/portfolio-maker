@@ -14,7 +14,7 @@ export default function CertificationsContainer() {
         addButton={{
           isModalRedirect: false,
           buttonText: "Nueva Certificación",
-          creationPath: paths.createTechnology.root,
+          creationPath: paths.createCertification.root,
         }}
       />
       <CertificationsListContainer />
