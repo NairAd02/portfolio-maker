@@ -26,8 +26,8 @@ export default function CertificationsList({ certifications }: Props) {
       cell: ({ row }) => (
         <PreviewImage
           preview={row.getValue("image") || principalPlaceHolder}
-          height={46}
-          width={46}
+          height={60}
+          width={60}
           rounded="2xl"
         />
       ),
