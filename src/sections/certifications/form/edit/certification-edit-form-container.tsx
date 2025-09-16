@@ -43,7 +43,7 @@ export default function CertificationEditFormContainer({
     defaultValues: {
       title: certification.title,
       institution: certification.institution,
-      link: certification.link,
+      link: certification.link || "",
       startdate: new Date(certification.startdate),
       enddate: new Date(certification.enddate),
     },
