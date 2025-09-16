@@ -5,7 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import TableMenu from "@/components/ui/table-menu";
 import PreviewImage from "@/components/preview-image/preview-image";
 import { paths } from "@/routes/path";
-import { EditIcon, Trash2 } from "lucide-react";
+import { EditIcon, EyeIcon, Trash2 } from "lucide-react";
 import { principalPlaceHolder } from "@/lib/place-holders";
 import { Certification } from "@/lib/types/certifications";
 import NavigationComponent from "@/components/navigation-component/navigation-component";
@@ -111,6 +111,13 @@ export default function CertificationsList({ certifications }: Props) {
             <TableMenu
               titleTableMenu="Acciones"
               links={[
+                {
+                  label: "Ver Detalles",
+                  icon: <EyeIcon />,
+                  href: paths.certificationDetails({
+                    id: row.getValue("id") as string,
+                  }).root,
+                },
                 {
                   label: "Editar",
                   icon: <EditIcon />,
