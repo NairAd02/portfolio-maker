@@ -5,6 +5,7 @@ import { createClient } from "../supabase/server";
 import {
   Certification,
   CertificationCreateDTO,
+  CertificationDetails,
   CertificationEditDTO,
 } from "../types/certifications";
 import { getLoggedUser } from "./auth";
@@ -33,6 +34,29 @@ export async function getCertificationsList() {
   } catch (error) {
     return { data: null, error };
   }
+}
+
+export async function getCertificationById(id: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("certification")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) return { data: null, error };
+
+  const certification = data as CertificationDetails;
+
+  return {
+    data: {
+      ...certification,
+      image: certification.image
+        ? await getImageUrlOrThrow(supabase, certification.image)
+        : undefined,
+    },
+    error: null,
+  };
 }
 
 export async function createCertification(
