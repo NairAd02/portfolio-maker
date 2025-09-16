@@ -5,7 +5,7 @@ export interface CertificationCreate {
   institution: string;
   startdate: Date;
   enddate: Date;
-  image?: string;
+  image?: File;
   link: string;
 }
 
