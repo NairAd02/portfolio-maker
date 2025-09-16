@@ -109,7 +109,7 @@ export default function CertificationsList({ certifications }: Props) {
                 {
                   label: "Eliminar",
                   icon: <Trash2 />,
-                  href: paths.deleteTechnology({
+                  href: paths.deleteCertification({
                     id: row.getValue("id") as string,
                   }).root,
                 },

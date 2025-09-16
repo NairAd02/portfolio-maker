@@ -64,6 +64,10 @@ interface ApplicationPath {
     params?: Record<string, string>,
     query?: Record<string, string>
   ) => Path;
+  deleteCertification: (
+    params?: Record<string, string>,
+    query?: Record<string, string>
+  ) => Path;
   certificationGroups: Path;
   users: Path;
 }
@@ -232,6 +236,15 @@ export const paths: ApplicationPath = {
   },
   editCertification: (params = {}, query = {}) => {
     const basePath = "/dashboard/edit-certification/[id]";
+    const pathWithParams = replaceParamsInPath(basePath, params);
+    const queryString = buildQueryString(query);
+    return {
+      root: queryString ? `${pathWithParams}?${queryString}` : pathWithParams,
+      isProtected: true,
+    };
+  },
+  deleteCertification: (params = {}, query = {}) => {
+    const basePath = "/dashboard/delete-certification/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
