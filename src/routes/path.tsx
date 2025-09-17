@@ -73,6 +73,7 @@ interface ApplicationPath {
     query?: Record<string, string>
   ) => Path;
   certificationGroups: Path;
+  createCertificationGroup: Path;
   users: Path;
 }
 
@@ -267,6 +268,10 @@ export const paths: ApplicationPath = {
   },
   certificationGroups: {
     root: "/dashboard/certification-groups",
+    isProtected: true,
+  },
+  createCertificationGroup: {
+    root: "/dashboard/create-certification-group",
     isProtected: true,
   },
   users: {

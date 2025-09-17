@@ -14,7 +14,7 @@ export default function CertificationGroupsContainer() {
         addButton={{
           isModalRedirect: false,
           buttonText: "Nuevo grupo de certificaciones",
-          creationPath: paths.createCertification.root,
+          creationPath: paths.createCertificationGroup.root,
         }}
       />
       <CertificationGroupsListContainer />
