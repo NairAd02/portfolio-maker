@@ -27,7 +27,7 @@ export default function CertificationGroupForm() {
             Información general de la certificación
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-8">
           <RHFTextField
             name="title"
             label="Título *"
@@ -36,6 +36,8 @@ export default function CertificationGroupForm() {
           />
           <RHFSelectableCardListField<CertificationSchema>
             name="certifications"
+            label="Certificaciones"
+            selectElementsText="Añadir certificación"
             CardComponent={CertificationCard}
             modalPath={modalTypes.selectableCertificationsModal.name}
           />
