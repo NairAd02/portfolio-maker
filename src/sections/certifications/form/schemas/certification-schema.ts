@@ -5,9 +5,9 @@ export interface CertificationSchema {
   title: string;
   description: string;
   institution: string;
-  startdate: Date;
-  enddate: Date;
-  image?: File;
+  startdate: string;
+  enddate: string;
+  image?: string;
   link?: string;
 }
 
