@@ -19,17 +19,21 @@ export async function getCertificationGroupsList() {
       )
     `);
   const certificationGroups = certificationGroupsData as (CertificationGroup & {
-    certification_has_certificationgroup: { title: string }[];
+    certification_has_certificationgroup: {
+      certification: { title: string };
+    }[];
   })[];
 
   return {
-    data: certificationGroups.map((certificationGroup) => ({
-      title: certificationGroup.title,
-      certificationTitles:
-        certificationGroup.certification_has_certificationgroup.map(
-          (certification) => certification.title
-        ),
-    })) as CertificationGroup[],
+    data: certificationGroups.map((certificationGroup) => {
+      return {
+        title: certificationGroup.title,
+        certificationTitles:
+          certificationGroup.certification_has_certificationgroup.map(
+            (certification) => certification.certification.title
+          ),
+      };
+    }) as CertificationGroup[],
     error,
   };
 }
