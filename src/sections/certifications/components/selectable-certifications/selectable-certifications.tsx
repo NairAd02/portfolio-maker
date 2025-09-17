@@ -24,7 +24,7 @@ export default function SelectableCertifications({
       </h3>
       <div className="flex flex-col flex-1 gap-4 justify-between h-full">
         {certifications.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-2 max-h-[55vh] overflow-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-2 max-h-[80vh] overflow-auto">
             {certifications.map((certification) => (
               <div
                 key={certification.id}

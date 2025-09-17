@@ -8,7 +8,11 @@ export default function CertificationGroupsPage() {
   return (
     <>
       <CertificationGroupsContainer />
-      <Modal formPath={modalTypes.selectableCertificationsModal.name}>
+      <Modal
+        formPath={modalTypes.selectableCertificationsModal.name}
+        maxWidth="max-w-2xl"
+        className="min-h-[90vh]"
+      >
         <SelectableCertificationsModalContainer />
       </Modal>
     </>
