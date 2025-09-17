@@ -181,6 +181,25 @@ export async function deleteCertification(id: string) {
   };
 }
 
+export async function insertCertificationsGroups(
+  supabase: SupabaseClient<any, "public", any>,
+  certificationGroupId: string,
+  certifications: string[]
+) {
+  const certificationsRelations = certifications.map((certification) => ({
+    certification_id: certification,
+    certification_group_id: certificationGroupId,
+  }));
+  const { data, error: certificationsError } = await supabase
+    .from("certification_has_certificationgroup")
+    .insert(certificationsRelations)
+    .select();
+
+  if (certificationsError) return { data: null, error: certificationsError };
+
+  return { data, error: null };
+}
+
 // aux functions
 async function insertCertificationImage(
   supabase: SupabaseClient<any, "public", any>,
