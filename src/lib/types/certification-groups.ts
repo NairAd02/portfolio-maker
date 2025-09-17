@@ -21,5 +21,8 @@ export const convertCertificationGroupCreateDTO = (
 ): CertificationGroupCreateDTO => {
   return {
     ...certificationGroup,
+    certifications: certificationGroup.certifications.map(
+      (certification) => certification.id
+    ),
   };
 };
