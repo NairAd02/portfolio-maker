@@ -1,10 +1,10 @@
 "use client";
 import { Check, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import useSelectablePerfumes from "./hooks/use-selectable-certifications";
 import { Certification } from "@/lib/types/certifications";
 import CertificationCard from "../certification-card/certification-card";
 import EmptyContent from "@/components/empty-content/empty-content";
+import useSelectableCertifications from "./hooks/use-selectable-certifications";
 
 interface Props {
   certifications: Certification[];
@@ -16,11 +16,11 @@ export default function SelectableCertifications({
   action,
 }: Props) {
   const { selectedCertifications, toggleSelection, handleAction } =
-    useSelectablePerfumes({ action });
+    useSelectableCertifications({ action });
   return (
     <div className="flex flex-col flex-1 h-full gap-4 p-2">
       <h3 className="font-medium text-lg mb-3">
-        Seleccione los perfumes que desea
+        Seleccione las certificaciones que desea
       </h3>
       <div className="flex flex-col flex-1 gap-4 justify-between h-full">
         {certifications.length > 0 ? (
