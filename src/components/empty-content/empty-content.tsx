@@ -36,7 +36,7 @@ export default function EmptyContent({
   };
 
   return (
-    <div className="flex w-full flex-col items-center justify-center rounded-lg border border-dashed border-gray-300 bg-muted p-8 text-center dark:border-gray-800 dark:bg-gray-950/50">
+    <div className="flex w-full h-full flex-col items-center justify-center rounded-lg border border-dashed border-gray-300 bg-background p-8 text-center dark:border-gray-800 dark:bg-gray-950/50">
       <motion.div
         className="rounded-full bg-primary p-4 dark:bg-white"
         initial="hidden"
@@ -48,11 +48,11 @@ export default function EmptyContent({
           animate="animate"
           variants={floatAnimation}
         >
-          <SearchX className="h-12 w-12 text-secondary" />
+          <SearchX className="h-12 w-12 text-background" />
         </motion.div>
       </motion.div>
       <motion.h3
-        className="mt-4 text-secondary text-lg sm:text-3xl font-bold"
+        className="mt-4 text-foreground text-lg sm:text-3xl font-bold"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
@@ -60,7 +60,7 @@ export default function EmptyContent({
         {title}
       </motion.h3>
       <motion.p
-        className="mt-6 text-sm sm:text-xl text-secondary"
+        className="mt-6 text-sm sm:text-xl text-foreground"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
