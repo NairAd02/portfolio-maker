@@ -75,7 +75,7 @@ export default function RHFSelectableCardListField<T extends { id: string }>({
       </div>
 
       {selectedValues.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[42vh] p-2 overflow-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-2">
           {selectedValues.map((selectedValue, index) => (
             <DeselectionMask
               key={index}
