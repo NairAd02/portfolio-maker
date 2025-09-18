@@ -47,13 +47,24 @@ export default function CertificationCard({ data: certification }: Props) {
           </span>
         </div>
 
-        <NavigationComponent
-          href={paths.certificationDetails({ id: certification.id }).root}
-        >
-          <Button className="w-full" variant="outline">
-            Ver Detalles
-          </Button>
-        </NavigationComponent>
+        <div className="z-30">
+          <div className="relative z-20">
+            <NavigationComponent
+              href={paths.certificationDetails({ id: certification.id }).root}
+            >
+              <Button
+                className="w-full"
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+                type="button"
+                variant="outline"
+              >
+                Ver Detalles
+              </Button>
+            </NavigationComponent>
+          </div>
+        </div>
       </CardContent>
     </Card>
   );
