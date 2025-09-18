@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { paths } from "../path";
 import {
+  BookOpenText,
   BriefcaseBusiness,
   ChartNetwork,
   Cpu,
@@ -58,6 +59,11 @@ export const groupRoutes: GroupRoute[] = [
             path: paths.certifications.root,
           },
         ],
+      },
+      {
+        title: "Publicaciones",
+        icon: <BookOpenText />,
+        path: paths.blogs.root,
       },
     ],
   },
