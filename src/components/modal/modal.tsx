@@ -69,7 +69,7 @@ export default function Modal({
             <XIcon className="w-4 h-4 cursor-pointer hover:text-destructive" />
           </DialogClose>
         </DialogHeader>
-        <div className="flex-1 flex flex-col h-full p-4">
+        <div className="flex-1 flex flex-col h-full overflow-auto p-4">
           {children}
         </div>
       </DialogContent>
