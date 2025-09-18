@@ -1,6 +1,3 @@
-"use client"
-import NavigationComponent from "@/components/navigation-component/navigation-component";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,9 +7,9 @@ import {
 } from "@/components/ui/card";
 import { formatDate } from "@/lib/format-date";
 import { Certification } from "@/lib/types/certifications";
-import { paths } from "@/routes/path";
 import { Award, Building2, Calendar } from "lucide-react";
 import React from "react";
+import ViewDetailsCertificationButton from "./components/view-certification-details-button";
 
 interface Props {
   data: Certification;
@@ -50,20 +47,9 @@ export default function CertificationCard({ data: certification }: Props) {
 
         <div className="z-30">
           <div className="relative z-20">
-            <NavigationComponent
-              href={paths.certificationDetails({ id: certification.id }).root}
-            >
-              <Button
-                className="w-full"
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-                type="button"
-                variant="outline"
-              >
-                Ver Detalles
-              </Button>
-            </NavigationComponent>
+            <ViewDetailsCertificationButton
+              certificationId={certification.id}
+            />
           </div>
         </div>
       </CardContent>
