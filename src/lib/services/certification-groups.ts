@@ -30,6 +30,7 @@ export async function getCertificationGroupsList() {
   return {
     data: certificationGroups.map((certificationGroup) => {
       return {
+        id: certificationGroup.id,
         title: certificationGroup.title,
         certificationTitles:
           certificationGroup.certification_has_certificationgroup.map(
