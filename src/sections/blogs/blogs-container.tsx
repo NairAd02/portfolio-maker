@@ -14,7 +14,7 @@ export default function BlogsContainer() {
         addButton={{
           isModalRedirect: false,
           buttonText: "Nueva Publicación",
-          creationPath: paths.createCertification.root,
+          creationPath: paths.createBlog.root,
         }}
       />
       <BlogsListContainer />
