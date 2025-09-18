@@ -5,14 +5,11 @@ import DashBoardLayoutHeader from "@/sections/dashboard-layout/components/header
 
 export default async function layout({
   children,
-  modal,
 }: Readonly<{
   children: React.ReactNode;
-  modal: React.ReactNode;
 }>) {
   return (
     <SidebarProvider>
-      {modal}
       <DashBoardLayoutAppSidebar />
       <SidebarInset>
         <DashBoardLayoutHeader />

@@ -117,11 +117,11 @@ export const paths: ApplicationPath = {
     isProtected: true,
   },
   createProject: {
-    root: "/dashboard/create-project",
+    root: "/create-project",
     isProtected: true,
   },
   editProject: (params = {}, query = {}) => {
-    const basePath = "/dashboard/edit-project/[id]";
+    const basePath = "/edit-project/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
@@ -139,7 +139,7 @@ export const paths: ApplicationPath = {
     };
   },
   deleteProject: (params = {}, query = {}) => {
-    const basePath = "/dashboard/delete-project/[id]";
+    const basePath = "/delete-project/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
@@ -152,11 +152,11 @@ export const paths: ApplicationPath = {
     isProtected: true,
   },
   createTechnology: {
-    root: "/dashboard/create-technology",
+    root: "/create-technology",
     isProtected: true,
   },
   deleteTechnology: (params = {}, query = {}) => {
-    const basePath = "/dashboard/delete-technology/[id]";
+    const basePath = "/delete-technology/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
@@ -165,7 +165,7 @@ export const paths: ApplicationPath = {
     };
   },
   editTechnology: (params = {}, query = {}) => {
-    const basePath = "/dashboard/edit-technology/[id]";
+    const basePath = "/edit-technology/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
@@ -178,7 +178,7 @@ export const paths: ApplicationPath = {
     isProtected: true,
   },
   experienceDetails: (params = {}, query = {}) => {
-    const basePath = "/dashboard/experience-details/[id]";
+    const basePath = "/experience-details/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
@@ -187,11 +187,11 @@ export const paths: ApplicationPath = {
     };
   },
   createExperience: {
-    root: "/dashboard/create-experience",
+    root: "/create-experience",
     isProtected: true,
   },
   editExperience: (params = {}, query = {}) => {
-    const basePath = "/dashboard/edit-experience/[id]";
+    const basePath = "/edit-experience/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
@@ -200,7 +200,7 @@ export const paths: ApplicationPath = {
     };
   },
   deleteExperience: (params = {}, query = {}) => {
-    const basePath = "/dashboard/delete-experience/[id]";
+    const basePath = "/delete-experience/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
@@ -213,7 +213,7 @@ export const paths: ApplicationPath = {
     isProtected: true,
   },
   skillGroupDetails: (params = {}, query = {}) => {
-    const basePath = "/dashboard/skill-group-details/[id]";
+    const basePath = "/skill-group-details/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
@@ -222,11 +222,11 @@ export const paths: ApplicationPath = {
     };
   },
   createSkillGroup: {
-    root: "/dashboard/create-skill-group",
+    root: "/create-skill-group",
     isProtected: true,
   },
   editSkillGroup: (params = {}, query = {}) => {
-    const basePath = "/dashboard/edit-skill-group/[id]";
+    const basePath = "/edit-skill-group/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
@@ -235,7 +235,7 @@ export const paths: ApplicationPath = {
     };
   },
   deleteSkillGroup: (params = {}, query = {}) => {
-    const basePath = "/dashboard/delete-skill-group/[id]";
+    const basePath = "/delete-skill-group/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
@@ -248,7 +248,7 @@ export const paths: ApplicationPath = {
     isProtected: true,
   },
   certificationDetails: (params = {}, query = {}) => {
-    const basePath = "/dashboard/certification-details/[id]";
+    const basePath = "/certification-details/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
@@ -257,11 +257,11 @@ export const paths: ApplicationPath = {
     };
   },
   createCertification: {
-    root: "/dashboard/create-certification",
+    root: "/create-certification",
     isProtected: true,
   },
   editCertification: (params = {}, query = {}) => {
-    const basePath = "/dashboard/edit-certification/[id]";
+    const basePath = "/edit-certification/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
@@ -270,7 +270,7 @@ export const paths: ApplicationPath = {
     };
   },
   deleteCertification: (params = {}, query = {}) => {
-    const basePath = "/dashboard/delete-certification/[id]";
+    const basePath = "/delete-certification/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
@@ -283,7 +283,7 @@ export const paths: ApplicationPath = {
     isProtected: true,
   },
   certificationGroupDetails: (params = {}, query = {}) => {
-    const basePath = "/dashboard/certification-group-details/[id]";
+    const basePath = "/certification-group-details/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
@@ -292,11 +292,11 @@ export const paths: ApplicationPath = {
     };
   },
   createCertificationGroup: {
-    root: "/dashboard/create-certification-group",
+    root: "/create-certification-group",
     isProtected: true,
   },
   editCertificationGroup: (params = {}, query = {}) => {
-    const basePath = "/dashboard/edit-certification-group/[id]";
+    const basePath = "/edit-certification-group/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
@@ -305,7 +305,7 @@ export const paths: ApplicationPath = {
     };
   },
   deleteCertificationGroup: (params = {}, query = {}) => {
-    const basePath = "/dashboard/delete-certification-group/[id]";
+    const basePath = "/delete-certification-group/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
