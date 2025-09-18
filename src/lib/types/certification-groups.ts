@@ -3,11 +3,13 @@ import { Certification } from "./certifications";
 import { CertificationGroupEdit } from "@/sections/certification-groups/form/edit/schemas/certification-group-edit-schema";
 
 export interface CertificationGroup {
+  id: string;
   title: string;
   certificationTitles: string[];
 }
 
 export interface CertificationGroupDetails {
+  id: string;
   title: string;
   certifications: Certification[];
 }
