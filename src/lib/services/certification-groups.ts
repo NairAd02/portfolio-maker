@@ -4,8 +4,10 @@ import { createClient } from "../supabase/server";
 import {
   CertificationGroup,
   CertificationGroupCreateDTO,
+  CertificationGroupDetails,
   CertificationGroupEditDTO,
 } from "../types/certification-groups";
+import { Certification } from "../types/certifications";
 import { getLoggedUser } from "./auth";
 import { insertCertificationsGroups } from "./certifications";
 
@@ -36,6 +38,38 @@ export async function getCertificationGroupsList() {
       };
     }) as CertificationGroup[],
     error,
+  };
+}
+
+export async function getCertificationGroupById(id: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("certificationgroup")
+    .select(
+      `
+      *,
+      certification_has_certificationgroup (
+        certification (*)
+      )
+    `
+    )
+    .eq("id", id)
+    .single();
+
+  if (error) return { data: null, error };
+
+  const { certification_has_certificationgroup, ...rest } = data;
+
+  const certifications = certification_has_certificationgroup.map(
+    (thp: { certification: Certification }) => thp.certification
+  );
+
+  return {
+    data: {
+      ...rest,
+      certifications,
+    } as CertificationGroupDetails,
+    error: null,
   };
 }
 
