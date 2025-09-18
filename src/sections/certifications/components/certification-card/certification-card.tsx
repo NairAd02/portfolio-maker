@@ -1,3 +1,4 @@
+"use client"
 import NavigationComponent from "@/components/navigation-component/navigation-component";
 import { Button } from "@/components/ui/button";
 import {
