@@ -18,6 +18,7 @@ export interface ModalTypes {
   editProyectModal: SectionModal;
   previewImageModal: SectionModal;
   selectableCertificationsModal: SectionModal;
+  certificationDetailsModal: SectionModal;
 }
 
 export const modalTypes: ModalTypes = {
@@ -36,5 +37,9 @@ export const modalTypes: ModalTypes = {
   selectableCertificationsModal: {
     name: "selectableCertificationsModal",
     title: "Selección de Certificaciones",
+  },
+  certificationDetailsModal: {
+    name: "certificationDetailsModal",
+    title: "Detalles de la Certificación",
   },
 };
