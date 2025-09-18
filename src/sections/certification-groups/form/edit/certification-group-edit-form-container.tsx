@@ -39,7 +39,7 @@ export default function CertificationGroupEditFormContainer({
   const form = useForm<CertificationGroupEdit>({
     resolver: zodResolver(certificationGroupEditSchema),
     defaultValues: {
-      title: certificationGroup.id,
+      title: certificationGroup.title,
       certifications: certificationGroup.certifications,
     },
   });
