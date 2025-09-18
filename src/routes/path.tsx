@@ -73,6 +73,10 @@ interface ApplicationPath {
     query?: Record<string, string>
   ) => Path;
   certificationGroups: Path;
+  certificationGroupDetails: (
+    params?: Record<string, string>,
+    query?: Record<string, string>
+  ) => Path;
   createCertificationGroup: Path;
   editCertificationGroup: (
     params?: Record<string, string>,
@@ -277,6 +281,15 @@ export const paths: ApplicationPath = {
   certificationGroups: {
     root: "/dashboard/certification-groups",
     isProtected: true,
+  },
+  certificationGroupDetails: (params = {}, query = {}) => {
+    const basePath = "/dashboard/certification-group-details/[id]";
+    const pathWithParams = replaceParamsInPath(basePath, params);
+    const queryString = buildQueryString(query);
+    return {
+      root: queryString ? `${pathWithParams}?${queryString}` : pathWithParams,
+      isProtected: true,
+    };
   },
   createCertificationGroup: {
     root: "/dashboard/create-certification-group",

@@ -62,7 +62,7 @@ export default function CertificationGroupsList({
                 {
                   label: "Ver Detalles",
                   icon: <EyeIcon />,
-                  href: paths.certificationDetails({
+                  href: paths.certificationGroupDetails({
                     id: row.getValue("id") as string,
                   }).root,
                 },
