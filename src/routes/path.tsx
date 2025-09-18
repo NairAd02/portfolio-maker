@@ -78,6 +78,10 @@ interface ApplicationPath {
     params?: Record<string, string>,
     query?: Record<string, string>
   ) => Path;
+  deleteCertificationGroup: (
+    params?: Record<string, string>,
+    query?: Record<string, string>
+  ) => Path;
   users: Path;
 }
 
@@ -280,6 +284,15 @@ export const paths: ApplicationPath = {
   },
   editCertificationGroup: (params = {}, query = {}) => {
     const basePath = "/dashboard/edit-certification-group/[id]";
+    const pathWithParams = replaceParamsInPath(basePath, params);
+    const queryString = buildQueryString(query);
+    return {
+      root: queryString ? `${pathWithParams}?${queryString}` : pathWithParams,
+      isProtected: true,
+    };
+  },
+  deleteCertificationGroup: (params = {}, query = {}) => {
+    const basePath = "/dashboard/delete-certification-group/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
