@@ -69,7 +69,7 @@ export default function CertificationGroupsList({
                 {
                   label: "Editar",
                   icon: <EditIcon />,
-                  href: paths.editCertification({
+                  href: paths.editCertificationGroup({
                     id: row.getValue("id") as string,
                   }).root,
                 },
