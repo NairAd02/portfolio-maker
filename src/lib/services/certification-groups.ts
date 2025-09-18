@@ -177,3 +177,29 @@ export async function editCertificationGroup(
 
   return { data: updateCertificationGroupData, error: null };
 }
+
+export async function deleteCertificationGroup(id: string) {
+  const supabase = await createClient();
+
+  // find the certification group to delete
+  const { error: certificationGroupFindError } = await supabase
+    .from("certificationgroup")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (certificationGroupFindError)
+    return { data: null, error: certificationGroupFindError };
+
+  const { error } = await supabase
+    .from("certificationgroup")
+    .delete()
+    .eq("id", id);
+
+  if (error) return { data: null, error };
+
+  return {
+    data: { message: "Grupo de Certificaciones eliminado con éxito" },
+    error: null,
+  };
+}
