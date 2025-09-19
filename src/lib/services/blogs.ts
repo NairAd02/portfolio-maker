@@ -84,3 +84,22 @@ export async function editBlog(id: string, blogEditDTO: BlogEditDTO) {
 
   return { data: updateBlogData, error: null };
 }
+
+export async function deleteBlog(id: string) {
+  const supabase = await createClient();
+
+  // find the blog to delete
+  const { error: blogFindError } = await supabase
+    .from("blog")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (blogFindError) return { data: null, error: blogFindError };
+
+  const { error } = await supabase.from("blog").delete().eq("id", id);
+
+  if (error) return { data: null, error };
+
+  return { data: { message: "Publicación eliminada con éxito" }, error: null };
+}
