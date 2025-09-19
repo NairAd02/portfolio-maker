@@ -85,7 +85,7 @@ export default function BlogsList({ blogs }: Props) {
                 {
                   label: "Editar",
                   icon: <EditIcon />,
-                  href: paths.editCertification({
+                  href: paths.editBlog({
                     id: row.getValue("id") as string,
                   }).root,
                 },

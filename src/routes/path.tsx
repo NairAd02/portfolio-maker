@@ -88,6 +88,10 @@ interface ApplicationPath {
   ) => Path;
   blogs: Path;
   createBlog: Path;
+  editBlog: (
+    params?: Record<string, string>,
+    query?: Record<string, string>
+  ) => Path;
   users: Path;
 }
 
@@ -322,6 +326,15 @@ export const paths: ApplicationPath = {
   createBlog: {
     root: "/create-blog",
     isProtected: true,
+  },
+  editBlog: (params = {}, query = {}) => {
+    const basePath = "/edit-blog/[id]";
+    const pathWithParams = replaceParamsInPath(basePath, params);
+    const queryString = buildQueryString(query);
+    return {
+      root: queryString ? `${pathWithParams}?${queryString}` : pathWithParams,
+      isProtected: true,
+    };
   },
   users: {
     root: "/dashboard/user",
