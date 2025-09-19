@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "../supabase/server";
-import { Blog, BlogCreateDTO } from "../types/blogs";
+import { Blog, BlogCreateDTO, BlogEditDTO } from "../types/blogs";
 import { getLoggedUser } from "./auth";
 
 export async function getBlogsList() {
@@ -40,4 +40,29 @@ export async function createBlog(blogCreateDTO: BlogCreateDTO) {
   if (createBlogError) return { data: null, error: createBlogError };
 
   return { data: createBlogData, error: null };
+}
+
+export async function editBlog(id: string, blogEditDTO: BlogEditDTO) {
+  const supabase = await createClient();
+
+  // find the blog to edit
+  const { error: blogFindError } = await supabase
+    .from("blog")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (blogFindError) return { data: null, error: blogFindError };
+
+  const { data: updateBlogData, error: updateBlogError } = await supabase
+    .from("blog")
+    .update({
+      ...blogEditDTO,
+    })
+    .eq("id", id)
+    .select()
+    .single();
+  if (updateBlogError) return { data: null, error: updateBlogError };
+
+  return { data: updateBlogData, error: null };
 }
