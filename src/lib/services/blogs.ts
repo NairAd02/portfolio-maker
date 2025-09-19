@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "../supabase/server";
-import { Blog, BlogCreateDTO, BlogEditDTO } from "../types/blogs";
+import { Blog, BlogCreateDTO, BlogDetails, BlogEditDTO } from "../types/blogs";
 import { getLoggedUser } from "./auth";
 
 export async function getBlogsList() {
@@ -10,6 +10,24 @@ export async function getBlogsList() {
   const blogs = blogsData as Blog[];
 
   return { data: blogs, error };
+}
+
+export async function getBlogById(id: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("blog")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) return { data: null, error };
+
+  const blog = data as BlogDetails;
+
+  return {
+    data: blog,
+    error: null,
+  };
 }
 
 export async function createBlog(blogCreateDTO: BlogCreateDTO) {
