@@ -78,7 +78,7 @@ export default function BlogsList({ blogs }: Props) {
                 {
                   label: "Ver Detalles",
                   icon: <EyeIcon />,
-                  href: paths.certificationDetails({
+                  href: paths.blogDetails({
                     id: row.getValue("id") as string,
                   }).root,
                 },
