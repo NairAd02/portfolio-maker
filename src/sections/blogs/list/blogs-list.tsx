@@ -92,7 +92,7 @@ export default function BlogsList({ blogs }: Props) {
                 {
                   label: "Eliminar",
                   icon: <Trash2 />,
-                  href: paths.deleteCertification({
+                  href: paths.deleteBlog({
                     id: row.getValue("id") as string,
                   }).root,
                 },

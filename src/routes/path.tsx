@@ -92,6 +92,10 @@ interface ApplicationPath {
     params?: Record<string, string>,
     query?: Record<string, string>
   ) => Path;
+  deleteBlog: (
+    params?: Record<string, string>,
+    query?: Record<string, string>
+  ) => Path;
   users: Path;
 }
 
@@ -329,6 +333,15 @@ export const paths: ApplicationPath = {
   },
   editBlog: (params = {}, query = {}) => {
     const basePath = "/edit-blog/[id]";
+    const pathWithParams = replaceParamsInPath(basePath, params);
+    const queryString = buildQueryString(query);
+    return {
+      root: queryString ? `${pathWithParams}?${queryString}` : pathWithParams,
+      isProtected: true,
+    };
+  },
+  deleteBlog: (params = {}, query = {}) => {
+    const basePath = "/delete-blog/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
