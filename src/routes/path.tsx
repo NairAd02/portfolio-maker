@@ -6,7 +6,9 @@ interface Path {
 interface ApplicationPath {
   landing: Path;
   sign_in: Path;
-  generalData: Path;
+  generalData: Path & {
+    personalInformation: string;
+  };
   projects: Path;
   createProject: Path;
   editProject: (
@@ -129,6 +131,7 @@ export const paths: ApplicationPath = {
   },
   generalData: {
     root: "/dashboard/general-data",
+    personalInformation: "/@personal-information",
     isProtected: true,
   },
   projects: {
