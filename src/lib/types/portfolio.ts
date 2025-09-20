@@ -1,3 +1,5 @@
+import { PersonalInformationSchema } from "@/sections/general-data/personal-information-section/form/schemas/personal-information-schema";
+
 export interface Portfolio {
   id: string;
   contact_name: string;
@@ -11,3 +13,16 @@ export interface Portfolio {
   blog_and_post_text: string;
   contact_text: string;
 }
+
+export interface PersonalInformationDTO {
+  contact_name: string;
+  introductory_phrase: string;
+}
+
+export const convertPersonalInformationDTO = (
+  personalInformation: Omit<PersonalInformationSchema, "contact_image">
+): PersonalInformationDTO => {
+  return {
+    ...personalInformation,
+  };
+};
