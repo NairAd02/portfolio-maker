@@ -31,6 +31,7 @@ export default function PersonalInformationForm({ imageRecived }: Props) {
           name="contact_image"
           label="Foto de contacto"
           variant="avatar"
+          avatarSize={190}
           {...(imageRecived && { loading: imageRecived.loading })}
         />
       </div>
