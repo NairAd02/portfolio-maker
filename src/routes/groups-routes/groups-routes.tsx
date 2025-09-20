@@ -29,6 +29,11 @@ export const groupRoutes: GroupRoute[] = [
     title: "Administración",
     navigationRoutes: [
       {
+        title: "Información General",
+        icon: <User />,
+        path: paths.generalData.root,
+      },
+      {
         title: "Proyectos",
         icon: <FolderGit2 />,
         path: paths.projects.root,
