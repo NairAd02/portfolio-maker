@@ -3,7 +3,7 @@ import { z } from "zod";
 export interface PersonalInformationSchema {
   contact_name: string;
   introductory_phrase: string;
-  contact_image: File;
+  contact_image?: File;
 }
 
 export const personalInformationSchema = z.object({
