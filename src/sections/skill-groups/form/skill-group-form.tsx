@@ -25,47 +25,51 @@ export default function SkillGroupForm({
   mode = "create",
 }: Props) {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <FileTextIcon className="w-5 h-5" />
-          Información General
-        </CardTitle>
-        <CardDescription>Información del Grupo de Habilidad</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="flex items-center gap-8">
-          <RHFImageUpload
-            name="icon"
-            label="Icono del Grupo de Habilidades"
-            variant="avatar"
-            avatarIcon={
-              <Aperture
-                className="text-secondary dark:text-secondary"
-                size={120 * 0.4}
-              />
+    <div className="flex-1 overflow-auto flex flex-col max-h-[79vh] p-2">
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <FileTextIcon className="w-5 h-5" />
+            Información General
+          </CardTitle>
+          <CardDescription>Información del Grupo de Habilidad</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-center gap-8">
+            <RHFImageUpload
+              name="icon"
+              label="Icono del Grupo de Habilidades"
+              variant="avatar"
+              avatarIcon={
+                <Aperture
+                  className="text-secondary dark:text-secondary"
+                  size={120 * 0.4}
+                />
+              }
+              {...(imageRecived && { loading: imageRecived.loading })}
+            />
+            <RHFTextField
+              name="name"
+              label="Nombre del Grupo de Habilidad *"
+              placeholder="Ingrese el nombre del grupo..."
+              fullWidth
+            />
+          </div>
+          <RHFListField<SkillCreate>
+            name="skills"
+            label="Habilidades"
+            StackComponent={
+              mode === "create"
+                ? SkillGroupSkillStack
+                : SkillGroupSkillEditStack
             }
-            {...(imageRecived && { loading: imageRecived.loading })}
+            newItem={{
+              name: "",
+              level: LevelEnum.BASIC,
+            }}
           />
-          <RHFTextField
-            name="name"
-            label="Nombre del Grupo de Habilidad *"
-            placeholder="Ingrese el nombre del grupo..."
-            fullWidth
-          />
-        </div>
-        <RHFListField<SkillCreate>
-          name="skills"
-          label="Habilidades"
-          StackComponent={
-            mode === "create" ? SkillGroupSkillStack : SkillGroupSkillEditStack
-          }
-          newItem={{
-            name: "",
-            level: LevelEnum.BASIC,
-          }}
-        />
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
