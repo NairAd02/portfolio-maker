@@ -18,7 +18,31 @@ export async function urlToFile(
     }
     const blob = await response.blob();
 
-    const finalFileName = fileName || imageUrl.split("/").pop() || "image";
+    // Extraer el nombre del archivo de la URL
+    const urlFileName = imageUrl.split("/").pop() || "image";
+    
+    // Extraer la extensión del nombre del archivo de la URL
+    const urlExtension = urlFileName.includes(".")
+      ? urlFileName.split(".").pop()?.toLowerCase()
+      : null;
+
+    // Determinar la extensión final
+    let fileExtension = urlExtension || "png";
+    
+    // Si el blob tiene un tipo MIME válido, usar su extensión correspondiente
+    if (blob.type && blob.type !== "application/octet-stream") {
+      const mimeExtension = blob.type.split("/").pop();
+      if (mimeExtension) fileExtension = mimeExtension;
+    }
+
+    // Crear el nombre del archivo final
+    const finalFileName = fileName 
+      ? fileName.includes(".")
+        ? fileName
+        : `${fileName}.${fileExtension}`
+      : urlFileName.includes(".")
+        ? urlFileName
+        : `${urlFileName}.${fileExtension}`;
 
     const file = new File([blob], finalFileName, {
       type: blob.type || "image/png",
