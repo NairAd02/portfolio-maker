@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export interface CertificationSchema {
-  id: string | number;
+  id: string;
   title: string;
   description: string;
   institution: string;
@@ -12,7 +12,7 @@ export interface CertificationSchema {
 }
 
 export const certificationSchema = z.object({
-  id: z.union([z.string(), z.number()]),
+  id: z.string(),
   title: z.string(),
   description: z.string(),
   institution: z.string(),
