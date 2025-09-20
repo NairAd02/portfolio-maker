@@ -12,6 +12,7 @@ import { generateStorageFilePath } from "../images";
 import { insertExperienceTechnologies } from "./technologies";
 import { getLoggedUser } from "./auth";
 import { Technology } from "../types/technologies";
+import { v4 as uuidv4 } from "uuid";
 
 export async function getExperiencesList() {
   const supabase = await createClient();
@@ -92,13 +93,11 @@ export async function createExperience(
 
   if (portfolioError) return { data: null, error: portfolioError };
 
+  const newExperienceId = uuidv4();
+
   // insert the main image
   const { data: mainImageUploadData, error: mainImageUploadError } =
-    await insertExperienceMainImage(
-      supabase,
-      formData,
-      experienceCreateDTO.company
-    );
+    await insertExperienceMainImage(supabase, formData, newExperienceId);
 
   if (mainImageUploadError) return { data: null, error: mainImageUploadError };
 
@@ -106,6 +105,7 @@ export async function createExperience(
     await supabase
       .from("experience")
       .insert({
+        id: newExperienceId,
         ...restExperienceCreateDTO,
         mainImage: mainImageUploadData,
         portfolio_id: portfolio.id,
@@ -157,11 +157,7 @@ export async function editExperience(
 
   // insert the mainImage
   const { data: mainImageUploadData, error: mainImageUploadError } =
-    await insertExperienceMainImage(
-      supabase,
-      formData,
-      experienceEntity.company
-    );
+    await insertExperienceMainImage(supabase, formData, experienceEntity.id);
 
   if (mainImageUploadError) return { data: null, error: mainImageUploadError };
 
@@ -235,14 +231,14 @@ export async function deleteExperience(id: string) {
 async function insertExperienceMainImage(
   supabase: SupabaseClient<any, "public", any>,
   formData: FormData,
-  experienceName: string
+  experienceId: string
 ) {
   const mainImage = formData.get("mainImage") as File;
   if (!mainImage) return { data: null, error: null };
 
   const iconPath = generateStorageFilePath(
     mainImage,
-    `experiences/${experienceName}/mainImage`
+    `experiences/${experienceId}/mainImage`
   );
 
   const uploadIconError = await uploadFileToSupabase(

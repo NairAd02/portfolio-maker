@@ -11,6 +11,7 @@ import {
 import { getLoggedUser } from "./auth";
 import { getImageUrlOrThrow, uploadFileToSupabase } from "./supabase-storage";
 import { generateStorageFilePath } from "../images";
+import { v4 as uuidv4 } from "uuid";
 
 export async function getCertificationsList() {
   const supabase = await createClient();
@@ -78,13 +79,11 @@ export async function createCertification(
 
   if (portfolioError) return { data: null, error: portfolioError };
 
+  const newCertificationId = uuidv4();
+
   // insert the image
   const { data: imageUploadData, error: imageUploadError } =
-    await insertCertificationImage(
-      supabase,
-      formData,
-      certificationCreateDTO.title
-    );
+    await insertCertificationImage(supabase, formData, newCertificationId);
 
   if (imageUploadError) return { data: null, error: imageUploadError };
 
@@ -92,6 +91,7 @@ export async function createCertification(
     await supabase
       .from("certification")
       .insert({
+        id: newCertificationId,
         ...certificationCreateDTO,
         image: imageUploadData,
         portfolio_id: portfolio.id,
@@ -129,11 +129,7 @@ export async function editCertification(
 
   // insert the icon
   const { data: imageUploadData, error: imageUploadError } =
-    await insertCertificationImage(
-      supabase,
-      formData,
-      certificationEditDTO.title
-    );
+    await insertCertificationImage(supabase, formData, certification.id);
 
   if (imageUploadError) return { data: null, error: imageUploadError };
 
@@ -204,14 +200,14 @@ export async function insertCertificationsGroups(
 async function insertCertificationImage(
   supabase: SupabaseClient<any, "public", any>,
   formData: FormData,
-  certificationName: string
+  certificationId: string
 ) {
   const image = formData.get("image") as File;
   if (!image) return { data: null, error: null };
 
   const imagePath = generateStorageFilePath(
     image,
-    `certifications/${certificationName}/image`
+    `certifications/${certificationId}/image`
   );
 
   const uploadImageError = await uploadFileToSupabase(

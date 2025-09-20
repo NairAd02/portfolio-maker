@@ -15,6 +15,7 @@ import { uploadFileToSupabase } from "./supabase-storage";
 import { insertProjectTechnologies } from "./technologies";
 import { Technology } from "../types/technologies";
 import { StorageError } from "@supabase/storage-js";
+import { v4 as uuidv4 } from "uuid";
 
 export async function getProjectsList(projectFilters: ProjectsFiltersDTO) {
   const supabase = await createClient();
@@ -169,12 +170,6 @@ export async function createProject(
   const supabase = await createClient();
 
   // find the portfolio user
-  const { data: imagesData, error: insertImagesError } =
-    await insertProjectImages(supabase, restProjectCreateDTO.name, formData);
-
-  if (!imagesData || insertImagesError)
-    return { data: null, error: insertImagesError };
-
   // get the session
   const { data: sessionData, error: loggedUserError } = await getLoggedUser();
 
@@ -188,8 +183,17 @@ export async function createProject(
 
   if (portfolioError) return { data: null, error: portfolioError };
 
+  const newProjectId = uuidv4();
+
+  const { data: imagesData, error: insertImagesError } =
+    await insertProjectImages(supabase, newProjectId, formData);
+
+  if (!imagesData || insertImagesError)
+    return { data: null, error: insertImagesError };
+
   // Preparar el objeto para insertar
   const insertData = {
+    id: newProjectId,
     ...restProjectCreateDTO,
     mainImage: imagesData.mainImage,
     images: imagesData.images,
@@ -249,7 +253,7 @@ export async function editProject(
 
   // insert the images
   const { data: imagesData, error: insertImagesError } =
-    await insertProjectImages(supabase, restProjectEditDTO.name, formData);
+    await insertProjectImages(supabase, projectEntity.id, formData);
 
   if (!imagesData || insertImagesError)
     return { data: null, error: insertImagesError };
@@ -326,7 +330,7 @@ export async function deleteProject(id: string) {
 
 async function insertProjectImages(
   supabase: SupabaseClient<any, "public", any>,
-  projectName: string,
+  projectId: string,
   formData: FormData
 ) {
   // Procesar mainImage
@@ -335,7 +339,7 @@ async function insertProjectImages(
   if (mainImage) {
     mainImagePath = generateStorageFilePath(
       mainImage,
-      `projects/${projectName}/mainImage`
+      `projects/${projectId}/mainImage`
     );
     const mainImageError = await uploadFileToSupabase(
       supabase,
@@ -357,7 +361,7 @@ async function insertProjectImages(
         images.map(async (image) => {
           const imagePath = generateStorageFilePath(
             image,
-            `projects/${projectName}/images`
+            `projects/${projectId}/images`
           );
           const uploadError = await uploadFileToSupabase(
             supabase,

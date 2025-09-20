@@ -10,6 +10,7 @@ import {
 import { getLoggedUser } from "./auth";
 import { generateStorageFilePath } from "../images";
 import { getImageUrlOrThrow, uploadFileToSupabase } from "./supabase-storage";
+import { v4 as uuidv4 } from "uuid";
 
 export async function getTechnologiesList() {
   const supabase = await createClient();
@@ -77,9 +78,11 @@ export async function createTechnology(
 
   if (portfolioError) return { data: null, error: portfolioError };
 
+  const newTechnologyId = uuidv4();
+
   // insert the icon
   const { data: iconUploadData, error: iconUploadError } =
-    await insertTechnologyIcon(supabase, formData, technologyDTO.name);
+    await insertTechnologyIcon(supabase, formData, newTechnologyId);
 
   if (iconUploadError) return { data: null, error: iconUploadError };
 
@@ -87,6 +90,7 @@ export async function createTechnology(
     await supabase
       .from("technology")
       .insert({
+        id: newTechnologyId,
         ...technologyDTO,
         icon: iconUploadData,
         portfolio_id: portfolio.id,
@@ -126,7 +130,7 @@ export async function editTechnology(
 
   // insert the icon
   const { data: iconUploadData, error: iconUploadError } =
-    await insertTechnologyIcon(supabase, formData, technologyEditDTO.name);
+    await insertTechnologyIcon(supabase, formData, technologyEntity.id);
 
   if (iconUploadError) return { data: null, error: iconUploadError };
 
@@ -215,14 +219,14 @@ export async function deleteTechnology(id: string) {
 async function insertTechnologyIcon(
   supabase: SupabaseClient<any, "public", any>,
   formData: FormData,
-  technologyName: string
+  technologyId: string
 ) {
   const icon = formData.get("icon") as File;
   if (!icon) return { data: null, error: null };
 
   const iconPath = generateStorageFilePath(
     icon,
-    `technologies/${technologyName}/icon`
+    `technologies/${technologyId}/icon`
   );
 
   const uploadIconError = await uploadFileToSupabase(
