@@ -131,7 +131,7 @@ export const paths: ApplicationPath = {
   },
   generalData: {
     root: "/dashboard/general-data",
-    personalInformation: "/@personal-information",
+    personalInformation: "/@personal_information",
     isProtected: true,
   },
   projects: {
