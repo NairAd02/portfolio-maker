@@ -17,6 +17,7 @@ import {
 } from "./schemas/personal-information-schema";
 import { PersonalInformationReport } from "@/lib/types/portfolio";
 import useImageForm from "@/components/form/hooks/use-image-form";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 interface Props {
   personalInformationReport: PersonalInformationReport;
@@ -68,8 +69,8 @@ export default function PersonalInformationFormContainer({
         <Separator className="bg-border/50" />
         <div className="flex justify-end">
           <Button className="flex gap-2" disabled={submitLoading}>
-            <Save className="w-4 h-4" />
-            Guardar información personal
+            {submitLoading ? <LoadingSpinner /> : <Save className="w-4 h-4" />}
+            Actualizar información personal
           </Button>
         </div>
       </form>
