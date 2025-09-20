@@ -21,7 +21,7 @@ export async function getPersonalInformationReport() {
 
   const { data: portfolio, error: portfolioError } = await supabase
     .from("portfolio")
-    .select("id")
+    .select("*")
     .eq("user_id", sessionData.user.id)
     .single();
 
