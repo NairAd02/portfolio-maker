@@ -7,6 +7,7 @@ import {
   PersonalInformationDTO,
   PersonalInformationReport,
   Portfolio,
+  ProjectsSectionDTO,
   ProjectsSectionReport,
 } from "../types/portfolio";
 import { getImageUrlOrThrow, uploadFileToSupabase } from "./supabase-storage";
@@ -116,6 +117,40 @@ export async function editPersonalInformation(
       .update({
         ...personalInformationDTO,
         contact_image: contactImageUploadData,
+      })
+      .eq("id", portfolioEntity.id)
+      .select()
+      .single();
+  if (updatePortfolioError) return { data: null, error: updatePortfolioError };
+
+  return { data: updatePortfolioData, error: null };
+}
+
+export async function editProjectsSection(
+  projectsSectionDTO: ProjectsSectionDTO
+) {
+  const supabase = await createClient();
+
+  // get the session
+  const { data: sessionData, error: loggedUserError } = await getLoggedUser();
+
+  if (!sessionData || loggedUserError) return { data: null, loggedUserError };
+
+  const { data: portfolio, error: portfolioError } = await supabase
+    .from("portfolio")
+    .select("id")
+    .eq("user_id", sessionData.user.id)
+    .single();
+
+  if (portfolioError) return { data: null, error: portfolioError };
+
+  const portfolioEntity = portfolio as Portfolio;
+
+  const { data: updatePortfolioData, error: updatePortfolioError } =
+    await supabase
+      .from("portfolio")
+      .update({
+        ...projectsSectionDTO,
       })
       .eq("id", portfolioEntity.id)
       .select()
