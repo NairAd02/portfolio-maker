@@ -1,7 +1,5 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Save } from "lucide-react";
 import React from "react";
 import PersonalInformationForm from "./personal-information-form";
 import { FormProvider, useForm } from "react-hook-form";
@@ -17,7 +15,7 @@ import {
 } from "./schemas/personal-information-schema";
 import { PersonalInformationReport } from "@/lib/types/portfolio";
 import useImageForm from "@/components/form/hooks/use-image-form";
-import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import SubmitButton from "@/components/form/components/submit-button";
 
 interface Props {
   personalInformationReport: PersonalInformationReport;
@@ -66,12 +64,12 @@ export default function PersonalInformationFormContainer({
         <PersonalInformationForm
           imageRecived={{ loading: loadingImage, error: errorImage }}
         />
-        <Separator className="bg-border/50" />
+        <Separator className="bg-primary" />
         <div className="flex justify-end">
-          <Button className="flex gap-2" disabled={submitLoading}>
-            {submitLoading ? <LoadingSpinner /> : <Save className="w-4 h-4" />}
-            Actualizar información personal
-          </Button>
+          <SubmitButton
+            text="Actualizar información personal"
+            submitLoading={submitLoading}
+          />
         </div>
       </form>
     </FormProvider>
