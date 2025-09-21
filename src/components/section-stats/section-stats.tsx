@@ -28,7 +28,7 @@ export function SectionStats({
       className={`${variantStyles[variant]} border transition-colors hover:bg-opacity-80`}
     >
       <CardContent className="p-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-current/10 rounded-lg flex items-center justify-center">
               <Icon className="w-4 h-4" />
