@@ -162,6 +162,17 @@ export async function getProjectById(id: string) {
   };
 }
 
+export async function getProjectsCount() {
+  const supabase = await createClient();
+  const { count, error } = await supabase
+    .from("project")
+    .select("*", { count: "exact", head: true });
+
+  if (error) return { data: null, error };
+
+  return { data: count || 0, error: null };
+}
+
 export async function createProject(
   projectCreateDTO: ProjectCreateDTO,
   formData: FormData
