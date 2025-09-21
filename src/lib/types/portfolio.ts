@@ -24,6 +24,7 @@ export interface PersonalInformationReport {
 
 // Projects Section Report
 export interface ProjectsSectionReport {
+  portfolioId: string;
   feature_project_text: string;
   projectsCount: number;
 }
