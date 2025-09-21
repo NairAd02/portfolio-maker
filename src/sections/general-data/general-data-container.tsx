@@ -26,9 +26,13 @@ import SectionsHeader from "@/components/sections-header/sections-header";
 
 interface Props {
   personalInformation: ReactNode;
+  projectsSection: ReactNode;
 }
 
-export default function GeneralDataContainer({ personalInformation }: Props) {
+export default function GeneralDataContainer({
+  personalInformation,
+  projectsSection,
+}: Props) {
   return (
     <div className="flex flex-col gap-4">
       <SectionsHeader
@@ -135,45 +139,13 @@ export default function GeneralDataContainer({ personalInformation }: Props) {
           </Card>
 
           {/* Proyectos Destacados */}
-          <Card className="border-border/50 shadow-sm">
-            <CardHeader className="pb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <Briefcase className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <CardTitle className="text-lg">
-                    Proyectos Destacados
-                  </CardTitle>
-                  <CardDescription>
-                    Texto introductorio para tus proyectos principales
-                  </CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-2">
-                <Label
-                  htmlFor="feature_projecttext"
-                  className="text-sm font-medium"
-                >
-                  Texto de proyectos destacados
-                </Label>
-                <Textarea
-                  id="feature_projecttext"
-                  placeholder="Descripción que aparecerá en la sección de proyectos destacados..."
-                  className="bg-input border-border focus:ring-primary/20 min-h-[100px]"
-                />
-              </div>
-              <Separator className="bg-border/50" />
-              <div className="flex justify-end">
-                <Button className="gap-2 bg-primary hover:bg-primary/90">
-                  <Save className="w-4 h-4" />
-                  Guardar proyectos
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          <Suspense
+            fallback={
+              <div>Fallback de carga de la sección de proyectos...</div>
+            }
+          >
+            {projectsSection}
+          </Suspense>
 
           {/* Experiencia Laboral */}
           <Card className="border-border/50 shadow-sm">

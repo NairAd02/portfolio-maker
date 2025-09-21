@@ -8,6 +8,7 @@ interface ApplicationPath {
   sign_in: Path;
   generalData: Path & {
     personalInformation: string;
+    projectsSection: string;
   };
   projects: Path;
   createProject: Path;
@@ -132,6 +133,7 @@ export const paths: ApplicationPath = {
   generalData: {
     root: "/dashboard/general-data",
     personalInformation: "/@personal_information",
+    projectsSection: "/@projects",
     isProtected: true,
   },
   projects: {
