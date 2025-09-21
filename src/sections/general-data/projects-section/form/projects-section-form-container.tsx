@@ -1,7 +1,6 @@
 "use client";
 import SubmitButton from "@/components/form/components/submit-button";
 import { AlertDestructive } from "@/components/ui/alert-destructive";
-import { Separator } from "@/components/ui/separator";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import ProjectsSectionForm from "./projects-section-form";
@@ -47,13 +46,12 @@ export default function ProjectsSectionFormContainer({
     <FormProvider {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full flex flex-1 flex-col justify-between gap-8 h-full"
+        className="w-full flex flex-col gap-8 h-full"
       >
         {editProjectsSectionError && (
           <AlertDestructive title={editProjectsSectionError} />
         )}
         <ProjectsSectionForm />
-        <Separator className="bg-border/50" />
         <div className="flex justify-end">
           <SubmitButton
             text="Actualizar Sección de Proyectos"
