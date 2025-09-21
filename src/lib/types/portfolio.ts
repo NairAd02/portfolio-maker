@@ -6,8 +6,8 @@ export interface Portfolio {
   contact_image?: string;
   introductory_phrase: string;
   about_text: string;
-  feature_projecttext: string;
-  work_experiencetext: string;
+  feature_project_text: string;
+  work_experience_text: string;
   technologies_and_skills_text: string;
   education_and_certifications_text: string;
   blog_and_post_text: string;
@@ -20,6 +20,12 @@ export interface PersonalInformationReport {
   contact_name: string;
   contact_image?: string;
   introductory_phrase: string;
+}
+
+// Projects Section Report
+export interface ProjectsSectionReport {
+  feature_project_text: string;
+  projectsCount: number;
 }
 
 export interface PersonalInformationDTO {
