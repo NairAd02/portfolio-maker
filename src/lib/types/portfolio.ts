@@ -1,4 +1,5 @@
 import { PersonalInformationSchema } from "@/sections/general-data/personal-information/form/schemas/personal-information-schema";
+import { ProjectsSectionSchema } from "@/sections/general-data/projects-section/form/schemas/projects-section-schema";
 
 export interface Portfolio {
   id: string;
@@ -28,6 +29,18 @@ export interface ProjectsSectionReport {
   feature_project_text: string;
   projectsCount: number;
 }
+
+export interface ProjectsSectionDTO {
+  feature_project_text: string;
+}
+
+export const convertProjectsSectionDTO = (
+  projectsSection: ProjectsSectionSchema
+): ProjectsSectionDTO => {
+  return {
+    ...projectsSection,
+  };
+};
 
 export interface PersonalInformationDTO {
   contact_name: string;
