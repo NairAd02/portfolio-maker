@@ -7,9 +7,11 @@ import {
   PersonalInformationDTO,
   PersonalInformationReport,
   Portfolio,
+  ProjectsSectionReport,
 } from "../types/portfolio";
 import { getImageUrlOrThrow, uploadFileToSupabase } from "./supabase-storage";
 import { getLoggedUser } from "./auth";
+import { getProjectsCount } from "./projects";
 
 export async function getPersonalInformationReport() {
   const supabase = await createClient();
@@ -38,6 +40,39 @@ export async function getPersonalInformationReport() {
         : undefined,
       introductory_phrase: portfolioEntity.introductory_phrase,
     } as PersonalInformationReport,
+  };
+}
+
+export async function getProjectsSectionReport() {
+  const supabase = await createClient();
+
+  // get the session
+  const { data: sessionData, error: loggedUserError } = await getLoggedUser();
+
+  if (!sessionData || loggedUserError) return { data: null, loggedUserError };
+
+  const { data: portfolio, error: portfolioError } = await supabase
+    .from("portfolio")
+    .select("*")
+    .eq("user_id", sessionData.user.id)
+    .single();
+
+  if (portfolioError) return { data: null, error: portfolioError };
+
+  const portfolioEntity = portfolio as Portfolio;
+
+  // get projects count
+  const { data: projectsCountData, error: projectsCountError } =
+    await getProjectsCount();
+
+  if (projectsCountError) return { data: null, error: projectsCountError };
+
+  return {
+    data: {
+      portfolioId: portfolioEntity.id,
+      feature_project_text: portfolioEntity.feature_project_text,
+      projectsCount: projectsCountData,
+    } as ProjectsSectionReport,
   };
 }
 
