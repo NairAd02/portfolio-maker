@@ -30,6 +30,13 @@ export interface ProjectsSectionReport {
   projectsCount: number;
 }
 
+// Experiences Section Report
+export interface ExperiencesSectionReport {
+  portfolioId: string;
+  work_experience_text: string;
+  experiencesCount: number;
+}
+
 export interface ProjectsSectionDTO {
   feature_project_text: string;
 }
