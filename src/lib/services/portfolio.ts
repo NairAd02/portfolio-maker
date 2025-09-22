@@ -4,6 +4,7 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import { generateStorageFilePath } from "../images";
 import { createClient } from "../supabase/server";
 import {
+  ExperiencesSectionReport,
   PersonalInformationDTO,
   PersonalInformationReport,
   Portfolio,
@@ -13,6 +14,7 @@ import {
 import { getImageUrlOrThrow, uploadFileToSupabase } from "./supabase-storage";
 import { getLoggedUser } from "./auth";
 import { getProjectsCount } from "./projects";
+import { getExperiencesCount } from "./experiences";
 
 export async function getPersonalInformationReport() {
   const supabase = await createClient();
@@ -74,6 +76,40 @@ export async function getProjectsSectionReport() {
       feature_project_text: portfolioEntity.feature_project_text,
       projectsCount: projectsCountData,
     } as ProjectsSectionReport,
+  };
+}
+
+export async function getExperiencesSectionReport() {
+  const supabase = await createClient();
+
+  // get the session
+  const { data: sessionData, error: loggedUserError } = await getLoggedUser();
+
+  if (!sessionData || loggedUserError) return { data: null, loggedUserError };
+
+  const { data: portfolio, error: portfolioError } = await supabase
+    .from("portfolio")
+    .select("*")
+    .eq("user_id", sessionData.user.id)
+    .single();
+
+  if (portfolioError) return { data: null, error: portfolioError };
+
+  const portfolioEntity = portfolio as Portfolio;
+
+  // get experiences count
+  const { data: experiencesCountData, error: experiencesCountError } =
+    await getExperiencesCount();
+
+  if (experiencesCountError)
+    return { data: null, error: experiencesCountError };
+
+  return {
+    data: {
+      portfolioId: portfolioEntity.id,
+      work_experience_text: portfolioEntity.work_experience_text,
+      experiencesCount: experiencesCountData,
+    } as ExperiencesSectionReport,
   };
 }
 
