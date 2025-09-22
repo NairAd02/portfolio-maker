@@ -72,6 +72,17 @@ export async function getExperienceById(id: string) {
   };
 }
 
+export async function getExperiencesCount() {
+  const supabase = await createClient();
+  const { count, error } = await supabase
+    .from("experience")
+    .select("*", { count: "exact", head: true });
+
+  if (error) return { data: null, error };
+
+  return { data: count || 0, error: null };
+}
+
 export async function createExperience(
   experienceCreateDTO: ExperienceCreateDTO,
   formData: FormData
