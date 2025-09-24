@@ -1,6 +1,7 @@
 import { ExperiencesSectionSchema } from "@/sections/general-data/experiences-section/form/schemas/experiences-section-schema";
 import { PersonalInformationSchema } from "@/sections/general-data/personal-information/form/schemas/personal-information-schema";
 import { ProjectsSectionSchema } from "@/sections/general-data/projects-section/form/schemas/projects-section-schema";
+import { SkillsSectionSchema } from "@/sections/general-data/skills-section/form/schemas/skills-section-schema";
 
 export interface Portfolio {
   id: string;
@@ -67,6 +68,18 @@ export const convertExperiencesSectionDTO = (
 ): ExperiencesSectionDTO => {
   return {
     ...experiencesSection,
+  };
+};
+
+export interface SkillsSectionDTO {
+  technologies_and_skills_text: string;
+}
+
+export const convertSkillsSectionDTO = (
+  skillsSection: SkillsSectionSchema
+): SkillsSectionDTO => {
+  return {
+    ...skillsSection,
   };
 };
 
