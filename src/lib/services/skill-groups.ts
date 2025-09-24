@@ -77,6 +77,27 @@ export async function getSkillGroupById(id: string) {
   };
 }
 
+export async function getSkillsAndSkillGroupsCount() {
+  const supabase = await createClient();
+  const {
+    data: skillGroupsData,
+    count,
+    error,
+  } = await supabase
+    .from("project")
+    .select("*", { count: "exact", head: false });
+
+  const skillGroups = skillGroupsData as SkillGroup[];
+  let skillsCount = 0;
+  skillGroups.forEach((skillGroup) => {
+    skillsCount += skillGroup.skills.length;
+  });
+
+  if (error) return { data: null, error };
+
+  return { data: { skillGroupsCount: count || 0, skillsCount }, error: null };
+}
+
 export async function createSkillGroup(
   skillGroupCreateDTO: SkillGroupCreateDTO,
   formData: FormData
