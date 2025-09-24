@@ -38,6 +38,14 @@ export interface ExperiencesSectionReport {
   experiencesCount: number;
 }
 
+// Skills Section Report
+export interface SkillsSectionReport {
+  portfolioId: string;
+  technologies_and_skills_text: string;
+  skillsCount: number;
+  skillGroupsCount: number;
+}
+
 export interface ProjectsSectionDTO {
   feature_project_text: string;
 }
