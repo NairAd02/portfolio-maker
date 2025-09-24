@@ -11,11 +11,13 @@ import {
   Portfolio,
   ProjectsSectionDTO,
   ProjectsSectionReport,
+  SkillsSectionReport,
 } from "../types/portfolio";
 import { getImageUrlOrThrow, uploadFileToSupabase } from "./supabase-storage";
 import { getLoggedUser } from "./auth";
 import { getProjectsCount } from "./projects";
 import { getExperiencesCount } from "./experiences";
+import { getSkillsAndSkillGroupsCount } from "./skill-groups";
 
 export async function getPersonalInformationReport() {
   const supabase = await createClient();
@@ -111,6 +113,44 @@ export async function getExperiencesSectionReport() {
       work_experience_text: portfolioEntity.work_experience_text,
       experiencesCount: experiencesCountData,
     } as ExperiencesSectionReport,
+  };
+}
+
+export async function getSkillsSectionReport() {
+  const supabase = await createClient();
+
+  // get the session
+  const { data: sessionData, error: loggedUserError } = await getLoggedUser();
+
+  if (!sessionData || loggedUserError) return { data: null, loggedUserError };
+
+  const { data: portfolio, error: portfolioError } = await supabase
+    .from("portfolio")
+    .select("*")
+    .eq("user_id", sessionData.user.id)
+    .single();
+
+  if (portfolioError) return { data: null, error: portfolioError };
+
+  const portfolioEntity = portfolio as Portfolio;
+
+  // get skills and skillGroups count
+  const {
+    data: skillsAndSkillGroupsCountData,
+    error: skillsAndSkillGroupsError,
+  } = await getSkillsAndSkillGroupsCount();
+
+  if (skillsAndSkillGroupsError)
+    return { data: null, error: skillsAndSkillGroupsError };
+
+  return {
+    data: {
+      portfolioId: portfolioEntity.id,
+      technologies_and_skills_text:
+        portfolioEntity.technologies_and_skills_text,
+      skillGroupsCount: skillsAndSkillGroupsCountData.skillGroupsCount,
+      skillsCount: skillsAndSkillGroupsCountData.skillsCount,
+    } as SkillsSectionReport,
   };
 }
 
