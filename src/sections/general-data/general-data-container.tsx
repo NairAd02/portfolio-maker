@@ -16,7 +16,6 @@ import {
   User,
   Mail,
   FileText,
-  Code,
   GraduationCap,
   BookOpen,
   Save,
@@ -27,12 +26,14 @@ interface Props {
   personalInformation: ReactNode;
   projectsSection: ReactNode;
   experiencesSection: ReactNode;
+  skillsSection: ReactNode;
 }
 
 export default function GeneralDataContainer({
   personalInformation,
   projectsSection,
   experiencesSection,
+  skillsSection,
 }: Props) {
   return (
     <div className="flex flex-col gap-4">
@@ -160,45 +161,13 @@ export default function GeneralDataContainer({
           </Suspense>
 
           {/* Tecnologías y Habilidades */}
-          <Card className="border-border/50 shadow-sm">
-            <CardHeader className="pb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <Code className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <CardTitle className="text-lg">
-                    Tecnologías y Habilidades
-                  </CardTitle>
-                  <CardDescription>
-                    Descripción de tus competencias técnicas
-                  </CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-2">
-                <Label
-                  htmlFor="technologies_and_skills_text"
-                  className="text-sm font-medium"
-                >
-                  Texto de tecnologías y habilidades
-                </Label>
-                <Textarea
-                  id="technologies_and_skills_text"
-                  placeholder="Descripción que aparecerá en la sección de tecnologías y habilidades..."
-                  className="bg-input border-border focus:ring-primary/20 min-h-[100px]"
-                />
-              </div>
-              <Separator className="bg-border/50" />
-              <div className="flex justify-end">
-                <Button className="gap-2 bg-primary hover:bg-primary/90">
-                  <Save className="w-4 h-4" />
-                  Guardar habilidades
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          <Suspense
+            fallback={
+              <div>Fallback de carga de la sección de habilidades...</div>
+            }
+          >
+            {skillsSection}
+          </Suspense>
 
           {/* Educación y Certificaciones */}
           <Card className="border-border/50 shadow-sm">

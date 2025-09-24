@@ -10,6 +10,7 @@ interface ApplicationPath {
     personalInformation: string;
     projectsSection: string;
     experiencesSection: string;
+    skillsSection: string;
   };
   projects: Path;
   createProject: Path;
@@ -136,6 +137,7 @@ export const paths: ApplicationPath = {
     personalInformation: "/@personal_information",
     projectsSection: "/@projects",
     experiencesSection: "/@experiences",
+    skillsSection: "@/skills",
     isProtected: true,
   },
   projects: {
