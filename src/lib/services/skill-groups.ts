@@ -84,7 +84,7 @@ export async function getSkillsAndSkillGroupsCount() {
     count,
     error,
   } = await supabase
-    .from("project")
+    .from("skillgroup")
     .select("*", { count: "exact", head: false });
 
   const skillGroups = skillGroupsData as SkillGroup[];
