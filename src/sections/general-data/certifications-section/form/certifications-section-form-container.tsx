@@ -55,7 +55,7 @@ export default function CertificationsSectionFormContainer({
         <CertificationsSectionForm />
         <div className="flex justify-end">
           <SubmitButton
-            text="Actualizar Sección de Habilidades"
+            text="Actualizar Sección de Certificaciones"
             submitLoading={submitLoading}
           />
         </div>
