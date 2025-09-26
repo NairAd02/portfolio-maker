@@ -15,7 +15,7 @@ interface Props {
   variant?: "simple" | "complex";
 }
 
-export default function CertificationsSectionSkeleton({
+export default function SectionSkeleton({
   sectionTitle,
   sectionDescription,
   variant = "simple",
