@@ -74,6 +74,17 @@ export async function getCertificationGroupById(id: string) {
   };
 }
 
+export async function getCertificationGroupsCount() {
+  const supabase = await createClient();
+  const { count, error } = await supabase
+    .from("certificationgroup")
+    .select("*", { count: "exact", head: true });
+
+  if (error) return { data: null, error };
+
+  return { data: count || 0, error: null };
+}
+
 export async function createCertificationGroup(
   certificationGroupCreateDTO: CertificationGroupCreateDTO
 ) {

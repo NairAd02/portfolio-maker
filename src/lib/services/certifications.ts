@@ -60,6 +60,17 @@ export async function getCertificationById(id: string) {
   };
 }
 
+export async function getCertificationsCount() {
+  const supabase = await createClient();
+  const { count, error } = await supabase
+    .from("certification")
+    .select("*", { count: "exact", head: true });
+
+  if (error) return { data: null, error };
+
+  return { data: count || 0, error: null };
+}
+
 export async function createCertification(
   certificationCreateDTO: CertificationCreateDTO,
   formData: FormData
