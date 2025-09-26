@@ -10,16 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-
 import { Separator } from "@/components/ui/separator";
-import {
-  User,
-  Mail,
-  FileText,
-  GraduationCap,
-  BookOpen,
-  Save,
-} from "lucide-react";
+import { User, Mail, FileText, BookOpen, Save } from "lucide-react";
 import SectionsHeader from "@/components/sections-header/sections-header";
 
 interface Props {
@@ -27,6 +19,7 @@ interface Props {
   projectsSection: ReactNode;
   experiencesSection: ReactNode;
   skillsSection: ReactNode;
+  certificationsSection: ReactNode;
 }
 
 export default function GeneralDataContainer({
@@ -34,6 +27,7 @@ export default function GeneralDataContainer({
   projectsSection,
   experiencesSection,
   skillsSection,
+  certificationsSection,
 }: Props) {
   return (
     <div className="flex flex-col gap-4">
@@ -170,45 +164,13 @@ export default function GeneralDataContainer({
           </Suspense>
 
           {/* Educación y Certificaciones */}
-          <Card className="border-border/50 shadow-sm">
-            <CardHeader className="pb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <GraduationCap className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <CardTitle className="text-lg">
-                    Educación y Certificaciones
-                  </CardTitle>
-                  <CardDescription>
-                    Tu formación académica y certificaciones
-                  </CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-2">
-                <Label
-                  htmlFor="education_and_certifications_text"
-                  className="text-sm font-medium"
-                >
-                  Texto de educación y certificaciones
-                </Label>
-                <Textarea
-                  id="education_and_certifications_text"
-                  placeholder="Descripción que aparecerá en la sección de educación y certificaciones..."
-                  className="bg-input border-border focus:ring-primary/20 min-h-[100px]"
-                />
-              </div>
-              <Separator className="bg-border/50" />
-              <div className="flex justify-end">
-                <Button className="gap-2 bg-primary hover:bg-primary/90">
-                  <Save className="w-4 h-4" />
-                  Guardar educación
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          <Suspense
+            fallback={
+              <div>Fallback de carga de la sección de certificaciones...</div>
+            }
+          >
+            {certificationsSection}
+          </Suspense>
 
           {/* Blog y Posts */}
           <Card className="border-border/50 shadow-sm">
