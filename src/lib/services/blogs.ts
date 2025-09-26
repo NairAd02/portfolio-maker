@@ -30,6 +30,17 @@ export async function getBlogById(id: string) {
   };
 }
 
+export async function getBlogsCount() {
+  const supabase = await createClient();
+  const { count, error } = await supabase
+    .from("blog")
+    .select("*", { count: "exact", head: true });
+
+  if (error) return { data: null, error };
+
+  return { data: count || 0, error: null };
+}
+
 export async function createBlog(blogCreateDTO: BlogCreateDTO) {
   const supabase = await createClient();
 
