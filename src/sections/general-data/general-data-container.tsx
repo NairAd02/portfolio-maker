@@ -146,6 +146,7 @@ export default function GeneralDataContainer({
               <SectionSkeleton
                 sectionTitle="Proyectos Realizados"
                 sectionDescription="Texto introductorio para la sección donde mostrarás tus proyectos"
+                variant="complex"
               />
             }
           >
@@ -158,6 +159,7 @@ export default function GeneralDataContainer({
               <SectionSkeleton
                 sectionTitle="Experiencia Laboral"
                 sectionDescription="Información sobre tu trayectoria profesional"
+                variant="complex"
               />
             }
           >
@@ -170,6 +172,7 @@ export default function GeneralDataContainer({
               <SectionSkeleton
                 sectionTitle="Tecnologías y Habilidades"
                 sectionDescription="Descripción de tus competencias técnicas"
+                variant="complex"
               />
             }
           >
@@ -182,6 +185,7 @@ export default function GeneralDataContainer({
               <SectionSkeleton
                 sectionTitle="Educación y Certificaciones"
                 sectionDescription="Tu formación académica y certificaciones"
+                variant="complex"
               />
             }
           >
