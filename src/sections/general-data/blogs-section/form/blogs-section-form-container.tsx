@@ -54,7 +54,7 @@ export default function BlogsSectionFormContainer({
         <BlogsSectionForm />
         <div className="flex justify-end">
           <SubmitButton
-            text="Actualizar Sección de Post y Publicaciones"
+            text="Actualizar Sección de Blog y Posts"
             submitLoading={submitLoading}
           />
         </div>
