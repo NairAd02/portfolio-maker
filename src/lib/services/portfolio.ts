@@ -4,6 +4,7 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import { generateStorageFilePath } from "../images";
 import { createClient } from "../supabase/server";
 import {
+  BlogsSectionReport,
   CertificationsSectionDTO,
   CertificationsSectionReport,
   ExperiencesSectionDTO,
@@ -23,6 +24,7 @@ import { getExperiencesCount } from "./experiences";
 import { getSkillsAndSkillGroupsCount } from "./skill-groups";
 import { getCertificationGroupsCount } from "./certification-groups";
 import { getCertificationsCount } from "./certifications";
+import { getBlogsCount } from "./blogs";
 
 export async function getPersonalInformationReport() {
   const supabase = await createClient();
@@ -201,6 +203,39 @@ export async function getCertificationsSectionReport() {
       certificationGroupsCount: certificationGroupsCountData,
       certificationsCount: certificationsCountData,
     } as CertificationsSectionReport,
+  };
+}
+
+export async function getBlogsSectionReport() {
+  const supabase = await createClient();
+
+  // get the session
+  const { data: sessionData, error: loggedUserError } = await getLoggedUser();
+
+  if (!sessionData || loggedUserError) return { data: null, loggedUserError };
+
+  const { data: portfolio, error: portfolioError } = await supabase
+    .from("portfolio")
+    .select("*")
+    .eq("user_id", sessionData.user.id)
+    .single();
+
+  if (portfolioError) return { data: null, error: portfolioError };
+
+  const portfolioEntity = portfolio as Portfolio;
+
+  // get blogs count
+  const { data: blogsCountData, error: blogsCountError } =
+    await getBlogsCount();
+
+  if (blogsCountError) return { data: null, error: blogsCountError };
+
+  return {
+    data: {
+      portfolioId: portfolioEntity.id,
+      blog_and_post_text: portfolioEntity.blog_and_post_text,
+      blogsCount: blogsCountData,
+    } as BlogsSectionReport,
   };
 }
 
