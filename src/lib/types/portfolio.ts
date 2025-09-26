@@ -56,6 +56,13 @@ export interface CertificationsSectionReport {
   certificationGroupsCount: number;
 }
 
+// Blogs Section Report
+export interface BlogsSectionReport {
+  portfolioId: string;
+  blog_and_post_text: string;
+  blogsCount: number;
+}
+
 export interface ProjectsSectionDTO {
   feature_project_text: string;
 }
