@@ -1,3 +1,4 @@
+import { CertificationsSectionSchema } from "@/sections/general-data/certifications-section/form/schemas/certifications-section-schema";
 import { ExperiencesSectionSchema } from "@/sections/general-data/experiences-section/form/schemas/experiences-section-schema";
 import { PersonalInformationSchema } from "@/sections/general-data/personal-information/form/schemas/personal-information-schema";
 import { ProjectsSectionSchema } from "@/sections/general-data/projects-section/form/schemas/projects-section-schema";
@@ -88,6 +89,18 @@ export const convertSkillsSectionDTO = (
 ): SkillsSectionDTO => {
   return {
     ...skillsSection,
+  };
+};
+
+export interface CertificationsSectionDTO {
+  education_and_certifications_text: string;
+}
+
+export const convertCertificationsSectionDTO = (
+  certificationsSection: CertificationsSectionSchema
+): CertificationsSectionDTO => {
+  return {
+    ...certificationsSection,
   };
 };
 
