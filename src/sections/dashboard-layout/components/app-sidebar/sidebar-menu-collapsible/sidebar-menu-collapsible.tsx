@@ -46,6 +46,7 @@ export default function SidebarMenuCollapsible({ item }: Props) {
                     title={subItem.title}
                     icon={subItem.icon}
                     path={subItem.path}
+                    scroll={subItem.scroll}
                   />
                 </SidebarMenuSubItem>
               )

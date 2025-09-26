@@ -16,7 +16,9 @@ interface Props {
 export default function SidebarGroupNavigation({ group }: Props) {
   return (
     <SidebarGroup>
-      <SidebarGroupLabel className="text-base text-white" >{group.title}</SidebarGroupLabel>
+      <SidebarGroupLabel className="text-base text-white">
+        {group.title}
+      </SidebarGroupLabel>
       <SidebarMenu className="text-white">
         {group.navigationRoutes.map((navigationRoute, index) =>
           navigationRoute.children ? (
@@ -27,6 +29,7 @@ export default function SidebarGroupNavigation({ group }: Props) {
                 title={navigationRoute.title}
                 icon={navigationRoute.icon}
                 path={navigationRoute.path}
+                scroll={navigationRoute.scroll}
               />
             </SidebarMenuItem>
           )

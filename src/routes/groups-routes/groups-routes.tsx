@@ -22,6 +22,7 @@ export interface NavigationRoute {
   icon?: ReactNode;
   isActive?: boolean;
   children?: NavigationRoute[];
+  scroll?: boolean;
 }
 
 export const groupRoutes: GroupRoute[] = [
@@ -32,6 +33,7 @@ export const groupRoutes: GroupRoute[] = [
         title: "Información General",
         icon: <User />,
         path: paths.generalData.root,
+        scroll: false,
       },
       {
         title: "Proyectos",
