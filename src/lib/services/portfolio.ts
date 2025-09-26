@@ -4,6 +4,7 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import { generateStorageFilePath } from "../images";
 import { createClient } from "../supabase/server";
 import {
+  BlogsSectionDTO,
   BlogsSectionReport,
   CertificationsSectionDTO,
   CertificationsSectionReport,
@@ -413,6 +414,38 @@ export async function editCertificationsSection(
       .from("portfolio")
       .update({
         ...certificationsSectionDTO,
+      })
+      .eq("id", portfolioEntity.id)
+      .select()
+      .single();
+  if (updatePortfolioError) return { data: null, error: updatePortfolioError };
+
+  return { data: updatePortfolioData, error: null };
+}
+
+export async function editBlogsSection(blogsSectionDTO: BlogsSectionDTO) {
+  const supabase = await createClient();
+
+  // get the session
+  const { data: sessionData, error: loggedUserError } = await getLoggedUser();
+
+  if (!sessionData || loggedUserError) return { data: null, loggedUserError };
+
+  const { data: portfolio, error: portfolioError } = await supabase
+    .from("portfolio")
+    .select("id")
+    .eq("user_id", sessionData.user.id)
+    .single();
+
+  if (portfolioError) return { data: null, error: portfolioError };
+
+  const portfolioEntity = portfolio as Portfolio;
+
+  const { data: updatePortfolioData, error: updatePortfolioError } =
+    await supabase
+      .from("portfolio")
+      .update({
+        ...blogsSectionDTO,
       })
       .eq("id", portfolioEntity.id)
       .select()
