@@ -13,6 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import { User, Mail, FileText, BookOpen, Save } from "lucide-react";
 import SectionsHeader from "@/components/sections-header/sections-header";
+import SectionSkeleton from "./components/section-skeleton";
 
 interface Props {
   personalInformation: ReactNode;
@@ -40,7 +41,12 @@ export default function GeneralDataContainer({
         <div className="grid gap-8 max-w-4xl mx-auto">
           {/* Información Personal */}
           <Suspense
-            fallback={<div>Fallback de carga de información personal...</div>}
+            fallback={
+              <SectionSkeleton
+                sectionTitle="Información Personal"
+                sectionDescription="Configura tu nombre, foto y frase introductoria"
+              />
+            }
           >
             {personalInformation}
           </Suspense>
@@ -137,7 +143,10 @@ export default function GeneralDataContainer({
           {/* Proyectos Destacados */}
           <Suspense
             fallback={
-              <div>Fallback de carga de la sección de proyectos...</div>
+              <SectionSkeleton
+                sectionTitle="Proyectos Realizados"
+                sectionDescription="Texto introductorio para la sección donde mostrarás tus proyectos"
+              />
             }
           >
             {projectsSection}
@@ -146,9 +155,10 @@ export default function GeneralDataContainer({
           {/* Experiencia Laboral */}
           <Suspense
             fallback={
-              <div>
-                Fallback de carga de la sección de experiencias laborales...
-              </div>
+              <SectionSkeleton
+                sectionTitle="Experiencia Laboral"
+                sectionDescription="Información sobre tu trayectoria profesional"
+              />
             }
           >
             {experiencesSection}
@@ -157,7 +167,10 @@ export default function GeneralDataContainer({
           {/* Tecnologías y Habilidades */}
           <Suspense
             fallback={
-              <div>Fallback de carga de la sección de habilidades...</div>
+              <SectionSkeleton
+                sectionTitle="Tecnologías y Habilidades"
+                sectionDescription="Descripción de tus competencias técnicas"
+              />
             }
           >
             {skillsSection}
@@ -166,7 +179,10 @@ export default function GeneralDataContainer({
           {/* Educación y Certificaciones */}
           <Suspense
             fallback={
-              <div>Fallback de carga de la sección de certificaciones...</div>
+              <SectionSkeleton
+                sectionTitle="Educación y Certificaciones"
+                sectionDescription="Tu formación académica y certificaciones"
+              />
             }
           >
             {certificationsSection}
