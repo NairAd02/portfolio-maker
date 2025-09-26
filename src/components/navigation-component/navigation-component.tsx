@@ -6,6 +6,7 @@ interface Props {
   href: string;
   inAnotherTab?: boolean;
   className?: string;
+  scroll?: boolean;
 }
 
 export default function NavigationComponent({
@@ -13,10 +14,12 @@ export default function NavigationComponent({
   href,
   inAnotherTab = false,
   className,
+  scroll = true,
 }: Props) {
   return (
     <Link
       href={href}
+      scroll={scroll}
       {...(inAnotherTab && {
         target: "_blank",
         rel: "noopener noreferrer",
