@@ -4,6 +4,7 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import { generateStorageFilePath } from "../images";
 import { createClient } from "../supabase/server";
 import {
+  CertificationsSectionReport,
   ExperiencesSectionDTO,
   ExperiencesSectionReport,
   PersonalInformationDTO,
@@ -19,6 +20,8 @@ import { getLoggedUser } from "./auth";
 import { getProjectsCount } from "./projects";
 import { getExperiencesCount } from "./experiences";
 import { getSkillsAndSkillGroupsCount } from "./skill-groups";
+import { getCertificationGroupsCount } from "./certification-groups";
+import { getCertificationsCount } from "./certifications";
 
 export async function getPersonalInformationReport() {
   const supabase = await createClient();
@@ -152,6 +155,51 @@ export async function getSkillsSectionReport() {
       skillGroupsCount: skillsAndSkillGroupsCountData.skillGroupsCount,
       skillsCount: skillsAndSkillGroupsCountData.skillsCount,
     } as SkillsSectionReport,
+  };
+}
+
+export async function getCertificationsSectionReport() {
+  const supabase = await createClient();
+
+  // get the session
+  const { data: sessionData, error: loggedUserError } = await getLoggedUser();
+
+  if (!sessionData || loggedUserError) return { data: null, loggedUserError };
+
+  const { data: portfolio, error: portfolioError } = await supabase
+    .from("portfolio")
+    .select("*")
+    .eq("user_id", sessionData.user.id)
+    .single();
+
+  if (portfolioError) return { data: null, error: portfolioError };
+
+  const portfolioEntity = portfolio as Portfolio;
+
+  // get certificationsGroupsCount
+  const {
+    data: certificationGroupsCountData,
+    error: certificationGroupsCountError,
+  } = await getCertificationGroupsCount();
+
+  if (certificationGroupsCountError)
+    return { data: null, error: certificationGroupsCountError };
+
+  // get certificationsCount
+  const { data: certificationsCountData, error: certificationsCountError } =
+    await getCertificationsCount();
+
+  if (certificationsCountError)
+    return { data: null, error: certificationsCountError };
+
+  return {
+    data: {
+      portfolioId: portfolioEntity.id,
+      education_and_certifications_text:
+        portfolioEntity.education_and_certifications_text,
+      certificationGroupsCount: certificationGroupsCountData,
+      certificationsCount: certificationsCountData,
+    } as CertificationsSectionReport,
   };
 }
 
