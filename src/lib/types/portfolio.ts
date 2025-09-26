@@ -47,6 +47,14 @@ export interface SkillsSectionReport {
   skillGroupsCount: number;
 }
 
+// Certifications Section Report
+export interface CertificationsSectionReport {
+  portfolioId: string;
+  education_and_certifications_text: string;
+  certificationsCount: number;
+  certificationGroupsCount: number;
+}
+
 export interface ProjectsSectionDTO {
   feature_project_text: string;
 }
