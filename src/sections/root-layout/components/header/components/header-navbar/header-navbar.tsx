@@ -36,7 +36,7 @@ export default function HeaderNavbar() {
               </Button>
             </NavigationComponent>
           )}
-          <NavigationComponent href={paths.projects.root}>
+          <NavigationComponent href={paths.generalData.root} scroll={false}>
             <Button
               className="text-xs sm:text-base"
               size="sm"
