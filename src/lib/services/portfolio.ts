@@ -4,6 +4,7 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import { generateStorageFilePath } from "../images";
 import { createClient } from "../supabase/server";
 import {
+  AboutSectionReport,
   BlogsSectionDTO,
   BlogsSectionReport,
   CertificationsSectionDTO,
@@ -237,6 +238,32 @@ export async function getBlogsSectionReport() {
       blog_and_post_text: portfolioEntity.blog_and_post_text,
       blogsCount: blogsCountData,
     } as BlogsSectionReport,
+  };
+}
+
+export async function getAboutSectionReport() {
+  const supabase = await createClient();
+
+  // get the session
+  const { data: sessionData, error: loggedUserError } = await getLoggedUser();
+
+  if (!sessionData || loggedUserError) return { data: null, loggedUserError };
+
+  const { data: portfolio, error: portfolioError } = await supabase
+    .from("portfolio")
+    .select("*")
+    .eq("user_id", sessionData.user.id)
+    .single();
+
+  if (portfolioError) return { data: null, error: portfolioError };
+
+  const portfolioEntity = portfolio as Portfolio;
+
+  return {
+    data: {
+      portfolioId: portfolioEntity.id,
+      about_text: portfolioEntity.about_text,
+    } as AboutSectionReport,
   };
 }
 

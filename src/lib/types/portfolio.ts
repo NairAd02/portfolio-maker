@@ -64,6 +64,12 @@ export interface BlogsSectionReport {
   blogsCount: number;
 }
 
+// About Section Report
+export interface AboutSectionReport {
+  portfolioId: string;
+  about_text: string;
+}
+
 export interface ProjectsSectionDTO {
   feature_project_text: string;
 }
