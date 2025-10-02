@@ -1,3 +1,4 @@
+import { AboutSectionSchema } from "@/sections/general-data/about-section/form/schemas/about-section-schema";
 import { BlogsSectionSchema } from "@/sections/general-data/blogs-section/form/schemas/blogs-section-schema";
 import { CertificationsSectionSchema } from "@/sections/general-data/certifications-section/form/schemas/certifications-section-schema";
 import { ExperiencesSectionSchema } from "@/sections/general-data/experiences-section/form/schemas/experiences-section-schema";
@@ -127,6 +128,18 @@ export const convertBlogsSectionDTO = (
 ): BlogsSectionDTO => {
   return {
     ...blogsSection,
+  };
+};
+
+export interface AboutSectionDTO {
+  about_text: string;
+}
+
+export const convertAboutSectionDTO = (
+  aboutSection: AboutSectionSchema
+): AboutSectionDTO => {
+  return {
+    ...aboutSection,
   };
 };
 
