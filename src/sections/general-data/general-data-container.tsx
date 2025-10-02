@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
-import { User, Mail, FileText, Save } from "lucide-react";
+import { User, Mail, Save } from "lucide-react";
 import SectionsHeader from "@/components/sections-header/sections-header";
 import SectionSkeleton from "./components/section-skeleton";
 
@@ -22,6 +22,7 @@ interface Props {
   skillsSection: ReactNode;
   certificationsSection: ReactNode;
   blogsSection: ReactNode;
+  aboutSection: ReactNode;
 }
 
 export default function GeneralDataContainer({
@@ -31,6 +32,7 @@ export default function GeneralDataContainer({
   skillsSection,
   certificationsSection,
   blogsSection,
+  aboutSection,
 }: Props) {
   return (
     <div className="flex flex-col gap-4">
@@ -107,40 +109,16 @@ export default function GeneralDataContainer({
           </Card>
 
           {/* Sección Acerca de */}
-          <Card className="border-border/50 shadow-sm">
-            <CardHeader className="pb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <FileText className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <CardTitle className="text-lg">Acerca de</CardTitle>
-                  <CardDescription>
-                    Tu presentación personal y profesional
-                  </CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="about_text" className="text-sm font-medium">
-                  Texto de presentación
-                </Label>
-                <Textarea
-                  id="about_text"
-                  placeholder="Cuéntanos sobre ti, tu experiencia y tus objetivos profesionales..."
-                  className="bg-input border-border focus:ring-primary/20 min-h-[120px]"
-                />
-              </div>
-              <Separator className="bg-border/50" />
-              <div className="flex justify-end">
-                <Button className="gap-2 bg-primary hover:bg-primary/90">
-                  <Save className="w-4 h-4" />
-                  Guardar presentación
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          <Suspense
+            fallback={
+              <SectionSkeleton
+                sectionTitle="Acerca de"
+                sectionDescription="Tu presentación personal y profesional"
+              />
+            }
+          >
+            {aboutSection}
+          </Suspense>
 
           {/* Proyectos Destacados */}
           <Suspense

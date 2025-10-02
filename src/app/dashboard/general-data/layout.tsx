@@ -8,6 +8,7 @@ interface Props {
   skills: ReactNode;
   certifications: ReactNode;
   blogs: ReactNode;
+  about: ReactNode;
 }
 
 export default function GeneralDataLayout({
@@ -17,6 +18,7 @@ export default function GeneralDataLayout({
   skills: skillsSection,
   certifications: certificationsSection,
   blogs: blogsSection,
+  about: aboutSection,
 }: Props) {
   return (
     <>
@@ -27,6 +29,7 @@ export default function GeneralDataLayout({
         skillsSection={skillsSection}
         certificationsSection={certificationsSection}
         blogsSection={blogsSection}
+        aboutSection={aboutSection}
       />
     </>
   );
