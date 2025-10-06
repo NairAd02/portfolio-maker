@@ -6,7 +6,7 @@ import BlogsListContainer from "./list/blogs-list-container";
 
 export default function BlogsContainer() {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-6">
       <SectionsHeader
         sectionIcon={<BookOpenText />}
         sectionTitle="Gestión de Publicaciones"

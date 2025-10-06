@@ -11,7 +11,7 @@ interface Props {
 
 export default function ProjectsContainer({ projectsFilters }: Props) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-6">
       <SectionsHeader
         sectionIcon={<FolderGit2 />}
         sectionTitle="Gestión de Proyectos"

@@ -6,7 +6,7 @@ import CertificationGroupsListContainer from "./list/certification-groups-list-c
 
 export default function CertificationGroupsContainer() {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-6">
       <SectionsHeader
         sectionIcon={<Files />}
         sectionTitle="Gestión de Grupos de Certificaciones"

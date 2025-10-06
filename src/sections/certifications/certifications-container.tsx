@@ -6,7 +6,7 @@ import CertificationsListContainer from "./list/certifications-list-container";
 
 export default function CertificationsContainer() {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-6">
       <SectionsHeader
         sectionIcon={<ScrollText />}
         sectionTitle="Gestión de Certificaciones"

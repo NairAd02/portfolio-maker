@@ -55,7 +55,7 @@ export default function CertificationGroupsList({
       id: "actions",
       cell: ({ row }) => {
         return (
-          <div className="flex justify-end">
+          <div className="flex justify-start">
             <TableMenu
               titleTableMenu="Acciones"
               links={[
@@ -89,7 +89,7 @@ export default function CertificationGroupsList({
   ];
 
   return (
-    <div className="p-6 mb-6 bg-white flex flex-col gap-2 rounded-lg shadow-sm">
+    <div className="px-6 py-3 bg-white flex flex-col gap-2 rounded-lg shadow-sm">
       <div className="flex flex-col gap-4">
         <DataTable
           columns={columns}

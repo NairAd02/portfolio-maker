@@ -6,7 +6,7 @@ import ExperiencesListContainer from "./list/experiences-list-container";
 
 export default function ExperiencesContainer() {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-6">
       <SectionsHeader
         sectionIcon={<BriefcaseBusiness />}
         sectionTitle="Gestión de Experiencias Laborales"
