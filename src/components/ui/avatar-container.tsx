@@ -5,13 +5,21 @@ interface Props {
   image?: string;
   fallback: string;
   className?: string;
+  avatarFallbackClassName?: string;
 }
 
-export default function AvatarContainer({ image, fallback, className }: Props) {
+export default function AvatarContainer({
+  image,
+  fallback,
+  className,
+  avatarFallbackClassName,
+}: Props) {
   return (
     <Avatar className={className}>
       {image && <AvatarImage src={image} />}
-      <AvatarFallback>{fallback}</AvatarFallback>
+      <AvatarFallback className={avatarFallbackClassName}>
+        {fallback}
+      </AvatarFallback>
     </Avatar>
   );
 }
