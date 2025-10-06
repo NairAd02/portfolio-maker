@@ -19,7 +19,7 @@ export default function SectionsHeader({
   addButton,
 }: Props) {
   return (
-    <div className="flex flex-col sm:flex-row justify-between items-center gap-4 p-6 mb-6 bg-white rounded-lg shadow-sm">
+    <div className="flex flex-col sm:flex-row justify-between items-center gap-4 p-6 bg-white rounded-lg shadow-sm">
       <div className="flex items-start gap-4">
         <div className="flex items-center justify-center p-3 text-white bg-primary rounded-lg">
           {sectionIcon}
