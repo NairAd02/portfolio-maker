@@ -27,6 +27,7 @@ export default function TechnologiesList({ technologies }: Props) {
         return (
           <AvatarContainer
             className="h-12 w-12"
+            avatarFallbackClassName="bg-primary text-white"
             image={icon}
             fallback={techName.charAt(0)}
           />
