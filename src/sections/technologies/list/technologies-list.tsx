@@ -3,11 +3,10 @@
 import { DataTable } from "@/components/ui/data-table";
 import { ColumnDef } from "@tanstack/react-table";
 import TableMenu from "@/components/ui/table-menu";
-import PreviewImage from "@/components/preview-image/preview-image";
 import { paths } from "@/routes/path";
 import { EditIcon, Trash2 } from "lucide-react";
 import { Technology } from "@/lib/types/technologies";
-import { principalPlaceHolder } from "@/lib/place-holders";
+import AvatarContainer from "@/components/ui/avatar-container";
 
 interface Props {
   technologies: Technology[];
@@ -22,14 +21,17 @@ export default function TechnologiesList({ technologies }: Props) {
     {
       accessorKey: "icon",
       header: "Icono",
-      cell: ({ row }) => (
-        <PreviewImage
-          preview={row.getValue("icon") || principalPlaceHolder}
-          height={46}
-          width={46}
-          rounded="2xl"
-        />
-      ),
+      cell: ({ row }) => {
+        const icon = row.getValue("icon") as string | undefined;
+        const techName = row.getValue("name") as string;
+        return (
+          <AvatarContainer
+            className="h-12 w-12"
+            image={icon}
+            fallback={techName.charAt(0)}
+          />
+        );
+      },
     },
     {
       accessorKey: "name",
