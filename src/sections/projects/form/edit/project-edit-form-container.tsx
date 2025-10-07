@@ -31,7 +31,6 @@ export default function ProjectEditFormContainer({ project }: Props) {
       toast.success("Proyecto editado con éxito");
       revalidateServerPath(paths.projects.root);
       handleClose();
-      router.refresh();
     },
   });
   const form = useForm<ProjectEdit>({
@@ -67,7 +66,7 @@ export default function ProjectEditFormContainer({ project }: Props) {
   });
 
   const handleClose = () => {
-    router.back();
+    router.push(paths.projects.root);
   };
 
   function onSubmit(project: ProjectEdit) {
