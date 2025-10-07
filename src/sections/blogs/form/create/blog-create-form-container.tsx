@@ -23,7 +23,6 @@ export default function BlogCreateFormContainer() {
       toast.success("Blog creado con éxito");
       revalidateServerPath(paths.blogs.root);
       handleClose();
-      router.refresh();
     },
   });
   const form = useForm<BlogCreate>({
@@ -36,7 +35,7 @@ export default function BlogCreateFormContainer() {
   });
 
   const handleClose = () => {
-    router.back();
+    router.push(paths.blogs.root);
   };
 
   function onSubmit(blog: BlogCreate) {
