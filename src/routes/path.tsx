@@ -348,7 +348,7 @@ export const paths: ApplicationPath = {
     isProtected: true,
   },
   blogDetails: (params = {}, query = {}) => {
-    const basePath = "/blog-details/[id]";
+    const basePath = "/dashboard/blogs/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
