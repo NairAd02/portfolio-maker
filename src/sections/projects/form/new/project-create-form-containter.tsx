@@ -26,7 +26,6 @@ export default function ProjectCreateFormContainer() {
       toast.success("Proyecto creado con éxito");
       revalidateServerPath(paths.projects.root);
       handleClose();
-      router.refresh();
     },
   });
   const form = useForm<ProjectCreate>({
@@ -46,7 +45,7 @@ export default function ProjectCreateFormContainer() {
   });
 
   const handleClose = () => {
-    router.back();
+    router.push(paths.projects.root);
   };
 
   function onSubmit(project: ProjectCreate) {
