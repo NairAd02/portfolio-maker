@@ -147,7 +147,7 @@ export const paths: ApplicationPath = {
     isProtected: true,
   },
   createProject: {
-    root: "/create-project",
+    root: "/dashboard/projects/create",
     isProtected: true,
   },
   editProject: (params = {}, query = {}) => {
