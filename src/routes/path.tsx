@@ -357,7 +357,7 @@ export const paths: ApplicationPath = {
     };
   },
   createBlog: {
-    root: "/create-blog",
+    root: "/dashboard/blogs/create",
     isProtected: true,
   },
   editBlog: (params = {}, query = {}) => {
