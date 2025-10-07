@@ -169,7 +169,7 @@ export const paths: ApplicationPath = {
     };
   },
   deleteProject: (params = {}, query = {}) => {
-    const basePath = "/delete-project/[id]";
+    const basePath = "/dashboard/projects/delete/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
