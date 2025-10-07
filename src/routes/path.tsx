@@ -151,7 +151,7 @@ export const paths: ApplicationPath = {
     isProtected: true,
   },
   editProject: (params = {}, query = {}) => {
-    const basePath = "/edit-project/[id]";
+    const basePath = "/dashboard/projects/edit/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
