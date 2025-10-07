@@ -370,7 +370,7 @@ export const paths: ApplicationPath = {
     };
   },
   deleteBlog: (params = {}, query = {}) => {
-    const basePath = "/delete-blog/[id]";
+    const basePath = "/dashboard/blogs/delete/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
