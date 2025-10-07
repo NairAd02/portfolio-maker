@@ -20,11 +20,10 @@ export default function ProjectDeleteContainer({ id }: Props) {
       toast.success("Proyecto eliminado con éxito");
       revalidateServerPath(paths.projects.root);
       handleClose();
-      router.refresh();
     },
   });
   const handleClose = useCallback(() => {
-    router.back();
+    router.push(paths.projects.root);
   }, [router]);
   return (
     <ConfirmationPanel
