@@ -29,7 +29,6 @@ export default function BlogEditFormContainer({ blog }: Props) {
       toast.success("Blog editado con éxito");
       revalidateServerPath(paths.blogs.root);
       handleClose();
-      router.refresh();
     },
   });
   const form = useForm<BlogEdit>({
@@ -43,7 +42,7 @@ export default function BlogEditFormContainer({ blog }: Props) {
   });
 
   const handleClose = () => {
-    router.back();
+    router.push(paths.blogs.root);
   };
 
   function onSubmit(blog: BlogEdit) {
