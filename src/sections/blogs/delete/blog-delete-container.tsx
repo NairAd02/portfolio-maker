@@ -20,11 +20,10 @@ export default function BlogDeleteContainer({ id }: Props) {
       toast.success("Publicación eliminada con éxito");
       revalidateServerPath(paths.blogs.root);
       handleClose();
-      router.refresh();
     },
   });
   const handleClose = useCallback(() => {
-    router.back();
+    router.push(paths.blogs.root);
   }, [router]);
   return (
     <ConfirmationPanel
