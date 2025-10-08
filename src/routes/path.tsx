@@ -326,7 +326,7 @@ export const paths: ApplicationPath = {
     isProtected: true,
   },
   editCertificationGroup: (params = {}, query = {}) => {
-    const basePath = "/edit-certification-group/[id]";
+    const basePath = "/dashboard/certification-groups/edit/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
