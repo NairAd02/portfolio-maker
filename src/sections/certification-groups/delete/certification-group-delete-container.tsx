@@ -21,11 +21,10 @@ export default function CertificationGroupDeleteContainer({ id }: Props) {
         toast.success("Grupo de Certificaciones eliminado con éxito");
         revalidateServerPath(paths.certificationGroups.root);
         handleClose();
-        router.refresh();
       },
     });
   const handleClose = useCallback(() => {
-    router.back();
+    router.push(paths.certificationGroups.root);
   }, [router]);
   return (
     <ConfirmationPanel
