@@ -335,7 +335,7 @@ export const paths: ApplicationPath = {
     };
   },
   deleteCertificationGroup: (params = {}, query = {}) => {
-    const basePath = "/delete-certification-group/[id]";
+    const basePath = "/dashboard/certification-groups/delete/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
