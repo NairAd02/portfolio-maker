@@ -5,6 +5,7 @@ import DashBoardLayoutHeader from "@/sections/dashboard-layout/components/header
 import Modal from "@/components/modal/modal";
 import CertificationDetailsModalContainer from "@/sections/certifications/details/certification-details-modal-container";
 import { modalTypes } from "@/components/modal/types/modalTypes";
+import SelectableCertificationsModalContainer from "@/sections/certifications/components/selectable-certifications/selectable-certifications-modal-container";
 
 export default async function layout({
   children,
@@ -17,12 +18,20 @@ export default async function layout({
       <SidebarInset>
         <DashBoardLayoutHeader />
         <div className="container bg-background mx-auto p-2">{children}</div>
+        {/* certifications modals */}
         <Modal
           className="max-h-[88vh]"
           maxWidth="max-w-xl"
           formPath={modalTypes.certificationDetailsModal.name}
         >
           <CertificationDetailsModalContainer />
+        </Modal>
+        <Modal
+          formPath={modalTypes.selectableCertificationsModal.name}
+          maxWidth="max-w-2xl"
+          className="min-h-[90vh]"
+        >
+          <SelectableCertificationsModalContainer />
         </Modal>
       </SidebarInset>
     </SidebarProvider>
