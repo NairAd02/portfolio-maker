@@ -33,7 +33,6 @@ export default function CertificationGroupEditFormContainer({
       toast.success("Grupo de certificaciones editado con éxito");
       revalidateServerPath(paths.certificationGroups.root);
       handleClose();
-      router.refresh();
     },
   });
   const form = useForm<CertificationGroupEdit>({
@@ -45,7 +44,7 @@ export default function CertificationGroupEditFormContainer({
   });
 
   const handleClose = () => {
-    router.back();
+    router.push(paths.certificationGroups.root);
   };
 
   function onSubmit(certificationGroup: CertificationGroupEdit) {
