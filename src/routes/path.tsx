@@ -322,7 +322,7 @@ export const paths: ApplicationPath = {
     };
   },
   createCertificationGroup: {
-    root: "/create-certification-group",
+    root: "/dashboard/certification-groups/create",
     isProtected: true,
   },
   editCertificationGroup: (params = {}, query = {}) => {
