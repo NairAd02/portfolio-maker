@@ -26,7 +26,6 @@ export default function CertificationGroupCreateFormContainer() {
       toast.success("Grupo de certificaciones creado con éxito");
       revalidateServerPath(paths.certificationGroups.root);
       handleClose();
-      router.refresh();
     },
   });
   const form = useForm<CertificationGroupCreate>({
@@ -38,7 +37,7 @@ export default function CertificationGroupCreateFormContainer() {
   });
 
   const handleClose = () => {
-    router.back();
+    router.push(paths.certificationGroups.root);
   };
 
   function onSubmit(certificationGroup: CertificationGroupCreate) {
