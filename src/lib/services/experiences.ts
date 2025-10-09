@@ -56,8 +56,13 @@ export async function getExperienceById(id: string) {
 
   const { experience_has_technology, ...rest } = data;
 
-  const technologies = experience_has_technology.map(
-    (thp: { technology: Technology }) => thp.technology
+  const technologies = await Promise.all(
+    experience_has_technology.map(async (thp: { technology: Technology }) => ({
+      ...thp.technology,
+      icon: thp.technology.icon
+        ? await getImageUrlOrThrow(supabase, thp.technology.icon)
+        : undefined,
+    }))
   );
 
   return {
