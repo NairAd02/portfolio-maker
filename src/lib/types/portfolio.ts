@@ -1,6 +1,7 @@
 import { AboutSectionSchema } from "@/sections/general-data/about-section/form/schemas/about-section-schema";
 import { BlogsSectionSchema } from "@/sections/general-data/blogs-section/form/schemas/blogs-section-schema";
 import { CertificationsSectionSchema } from "@/sections/general-data/certifications-section/form/schemas/certifications-section-schema";
+import { ContactSectionSchema } from "@/sections/general-data/contact-section/form/schemas/contact-section-schema";
 import { ExperiencesSectionSchema } from "@/sections/general-data/experiences-section/form/schemas/experiences-section-schema";
 import { PersonalInformationSchema } from "@/sections/general-data/personal-information/form/schemas/personal-information-schema";
 import { ProjectsSectionSchema } from "@/sections/general-data/projects-section/form/schemas/projects-section-schema";
@@ -148,6 +149,19 @@ export const convertAboutSectionDTO = (
 ): AboutSectionDTO => {
   return {
     ...aboutSection,
+  };
+};
+
+export interface ContactSectionDTO {
+  contact_text: string;
+  contact_email: string;
+}
+
+export const convertContactSectionDTO = (
+  contactSection: ContactSectionSchema
+): ContactSectionDTO => {
+  return {
+    ...contactSection,
   };
 };
 
