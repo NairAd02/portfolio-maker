@@ -10,6 +10,7 @@ import {
   BlogsSectionReport,
   CertificationsSectionDTO,
   CertificationsSectionReport,
+  ContactSectionReport,
   ExperiencesSectionDTO,
   ExperiencesSectionReport,
   PersonalInformationDTO,
@@ -56,6 +57,33 @@ export async function getPersonalInformationReport() {
         : undefined,
       introductory_phrase: portfolioEntity.introductory_phrase,
     } as PersonalInformationReport,
+  };
+}
+
+export async function getContactSectionReport() {
+  const supabase = await createClient();
+
+  // get the session
+  const { data: sessionData, error: loggedUserError } = await getLoggedUser();
+
+  if (!sessionData || loggedUserError) return { data: null, loggedUserError };
+
+  const { data: portfolio, error: portfolioError } = await supabase
+    .from("portfolio")
+    .select("*")
+    .eq("user_id", sessionData.user.id)
+    .single();
+
+  if (portfolioError) return { data: null, error: portfolioError };
+
+  const portfolioEntity = portfolio as Portfolio;
+
+  return {
+    data: {
+      portfolioId: portfolioEntity.id,
+      contact_text: portfolioEntity.contact_text,
+      contact_email: portfolioEntity.contact_email,
+    } as ContactSectionReport,
   };
 }
 
