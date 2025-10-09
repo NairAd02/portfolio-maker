@@ -109,14 +109,6 @@ export async function getProjectsList(projectFilters: ProjectsFiltersDTO) {
 
         return {
           ...project,
-          technologies: await Promise.all(
-            project.technologies.map(async (technology) => ({
-              ...technology,
-              icon: technology.icon
-                ? await getImageUrlOrThrow(supabase, technology.icon)
-                : undefined,
-            }))
-          ),
           mainImage,
           images,
         };
