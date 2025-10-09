@@ -33,7 +33,6 @@ export default function SkillGroupEditFormContainer({ skillGroup }: Props) {
       toast.success("Grupo de habilidad editado con éxito");
       revalidateServerPath(paths.skillGroups.root);
       handleClose();
-      router.refresh();
     },
   });
   const form = useForm<SkillGroupEdit>({
@@ -56,7 +55,7 @@ export default function SkillGroupEditFormContainer({ skillGroup }: Props) {
   });
 
   const handleClose = () => {
-    router.back();
+    router.push(paths.skillGroups.root);
   };
 
   function onSubmit(skillGroup: SkillGroupEdit) {
