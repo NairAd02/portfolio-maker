@@ -186,7 +186,7 @@ export const paths: ApplicationPath = {
     isProtected: true,
   },
   deleteTechnology: (params = {}, query = {}) => {
-    const basePath = "/delete-technology/[id]";
+    const basePath = "/dashboard/technologies/delete/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
