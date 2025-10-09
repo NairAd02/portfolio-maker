@@ -221,7 +221,7 @@ export const paths: ApplicationPath = {
     isProtected: true,
   },
   editExperience: (params = {}, query = {}) => {
-    const basePath = "/edit-experience/[id]";
+    const basePath = "/dashboard/experiences/edit/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
