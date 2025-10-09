@@ -182,7 +182,7 @@ export const paths: ApplicationPath = {
     isProtected: true,
   },
   createTechnology: {
-    root: "/create-technology",
+    root: "/dashboard/technologies/create",
     isProtected: true,
   },
   deleteTechnology: (params = {}, query = {}) => {
