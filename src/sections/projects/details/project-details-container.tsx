@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import InfoDetailsCard from "./components/info-details-card/info-details-card";
+import AvatarContainer from "@/components/ui/avatar-container";
 
 interface Props {
   project: ProjectDetails;
@@ -64,7 +65,13 @@ export function ProjectDetailsContainer({ project }: Props) {
         <div className="flex flex-wrap gap-2">
           {project.technologies.map((tech) => (
             <Badge key={tech.id} variant="secondary" className="px-3 py-1">
-              {tech.icon && <span className="mr-1">{tech.icon}</span>}
+              {tech.icon && (
+                <AvatarContainer
+                  className="h-6 w-6"
+                  image={tech.icon}
+                  fallback="tech"
+                />
+              )}
               {tech.name}
             </Badge>
           ))}
