@@ -1,17 +1,5 @@
 import React, { ReactNode, Suspense } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Separator } from "@/components/ui/separator";
-import { User, Mail, Save } from "lucide-react";
+import { User } from "lucide-react";
 import SectionsHeader from "@/components/sections-header/sections-header";
 import SectionSkeleton from "./components/section-skeleton";
 
@@ -23,6 +11,7 @@ interface Props {
   certificationsSection: ReactNode;
   blogsSection: ReactNode;
   aboutSection: ReactNode;
+  contactSection: ReactNode;
 }
 
 export default function GeneralDataContainer({
@@ -33,6 +22,7 @@ export default function GeneralDataContainer({
   certificationsSection,
   blogsSection,
   aboutSection,
+  contactSection,
 }: Props) {
   return (
     <div className="flex flex-col gap-4">
@@ -55,58 +45,16 @@ export default function GeneralDataContainer({
             {personalInformation}
           </Suspense>
           {/* Información de Contacto */}
-          <Card className="border-border/50 shadow-sm">
-            <CardHeader className="pb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <Mail className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <CardTitle className="text-lg">
-                    Información de Contacto
-                  </CardTitle>
-                  <CardDescription>
-                    Email y texto de la sección de contacto
-                  </CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label
-                    htmlFor="contact_email"
-                    className="text-sm font-medium"
-                  >
-                    Email de contacto
-                  </Label>
-                  <Input
-                    id="contact_email"
-                    type="email"
-                    placeholder="tu@email.com"
-                    className="bg-input border-border focus:ring-primary/20"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="contact_text" className="text-sm font-medium">
-                    Texto de contacto
-                  </Label>
-                  <Textarea
-                    id="contact_text"
-                    placeholder="Descripción para la sección de contacto"
-                    className="bg-input border-border focus:ring-primary/20 min-h-[100px]"
-                  />
-                </div>
-              </div>
-              <Separator className="bg-border/50" />
-              <div className="flex justify-end">
-                <Button className="gap-2 bg-primary hover:bg-primary/90">
-                  <Save className="w-4 h-4" />
-                  Guardar contacto
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          <Suspense
+            fallback={
+              <SectionSkeleton
+                sectionTitle="Información de Contacto"
+                sectionDescription="Email y texto de la sección de contacto"
+              />
+            }
+          >
+            {contactSection}
+          </Suspense>
 
           {/* Sección Acerca de */}
           <Suspense

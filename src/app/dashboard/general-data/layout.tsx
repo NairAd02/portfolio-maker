@@ -9,6 +9,7 @@ interface Props {
   certifications: ReactNode;
   blogs: ReactNode;
   about: ReactNode;
+  contact: ReactNode;
 }
 
 export default function GeneralDataLayout({
@@ -19,6 +20,7 @@ export default function GeneralDataLayout({
   certifications: certificationsSection,
   blogs: blogsSection,
   about: aboutSection,
+  contact: contactSection,
 }: Props) {
   return (
     <>
@@ -30,6 +32,7 @@ export default function GeneralDataLayout({
         certificationsSection={certificationsSection}
         blogsSection={blogsSection}
         aboutSection={aboutSection}
+        contactSection={contactSection}
       />
     </>
   );
