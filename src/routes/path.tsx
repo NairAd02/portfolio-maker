@@ -230,7 +230,7 @@ export const paths: ApplicationPath = {
     };
   },
   deleteExperience: (params = {}, query = {}) => {
-    const basePath = "/delete-experience/[id]";
+    const basePath = "/dashboard/experiences/delete/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
