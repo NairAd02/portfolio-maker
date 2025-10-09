@@ -287,7 +287,7 @@ export const paths: ApplicationPath = {
     };
   },
   createCertification: {
-    root: "/create-certification",
+    root: "/dashboard/certifications/create",
     isProtected: true,
   },
   editCertification: (params = {}, query = {}) => {
