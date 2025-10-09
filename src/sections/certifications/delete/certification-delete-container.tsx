@@ -20,11 +20,10 @@ export default function CertificationDeleteContainer({ id }: Props) {
       toast.success("Certificación eliminada con éxito");
       revalidateServerPath(paths.certifications.root);
       handleClose();
-      router.refresh();
     },
   });
   const handleClose = useCallback(() => {
-    router.back();
+    router.push(paths.certifications.root);
   }, [router]);
   return (
     <ConfirmationPanel
