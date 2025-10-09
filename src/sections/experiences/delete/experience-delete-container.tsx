@@ -20,11 +20,10 @@ export default function ExperienceDeleteContainer({ id }: Props) {
       toast.success("Experiencia Laboral eliminada con éxito");
       revalidateServerPath(paths.experiences.root);
       handleClose();
-      router.refresh();
     },
   });
   const handleClose = useCallback(() => {
-    router.back();
+    router.push(paths.experiences.root);
   }, [router]);
   return (
     <ConfirmationPanel
