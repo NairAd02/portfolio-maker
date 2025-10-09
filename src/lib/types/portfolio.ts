@@ -29,6 +29,13 @@ export interface PersonalInformationReport {
   introductory_phrase: string;
 }
 
+// Contact Section Report
+export interface ContactSectionReport {
+  portfolioId: string;
+  contact_text: string;
+  contact_email: string;
+}
+
 // Projects Section Report
 export interface ProjectsSectionReport {
   portfolioId: string;
