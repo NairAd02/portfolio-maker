@@ -217,7 +217,7 @@ export const paths: ApplicationPath = {
     };
   },
   createExperience: {
-    root: "/create-experience",
+    root: "/dashboard/experiences/create",
     isProtected: true,
   },
   editExperience: (params = {}, query = {}) => {
