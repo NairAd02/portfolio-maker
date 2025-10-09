@@ -12,7 +12,10 @@ export default async function ProjectsListContainer({
 }: Props) {
   const res = await getProjectsList(projectsFilters);
 
-  if (res.error) throw new Error("Error fetching projects");
+  if (res.error) {
+    console.log(res.error);
+    throw new Error("Error fetching projects");
+  }
   const projects = res.data as Project[];
   return <ProjectsList projects={projects} />;
 }
