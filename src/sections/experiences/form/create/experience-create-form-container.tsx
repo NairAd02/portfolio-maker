@@ -26,7 +26,6 @@ export default function ExperienceCreateFormContainer() {
       toast.success("Experiencia creada con éxito");
       revalidateServerPath(paths.experiences.root);
       handleClose();
-      router.refresh();
     },
   });
   const form = useForm<ExperienceCreate>({
@@ -41,7 +40,7 @@ export default function ExperienceCreateFormContainer() {
   });
 
   const handleClose = () => {
-    router.back();
+    router.push(paths.experiences.root);
   };
 
   function onSubmit(experience: ExperienceCreate) {
