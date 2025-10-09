@@ -243,7 +243,7 @@ export const paths: ApplicationPath = {
     isProtected: true,
   },
   skillGroupDetails: (params = {}, query = {}) => {
-    const basePath = "/skill-group-details/[id]";
+    const basePath = "/dashboard/skill-groups/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
