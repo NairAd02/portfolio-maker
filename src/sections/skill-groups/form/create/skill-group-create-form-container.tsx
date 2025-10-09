@@ -26,7 +26,6 @@ export default function SkillGroupCreateFormContainer() {
       toast.success("Grupo de habilidad creado con éxito");
       revalidateServerPath(paths.skillGroups.root);
       handleClose();
-      router.refresh();
     },
   });
   const form = useForm<SkillGroupCreate>({
@@ -38,7 +37,7 @@ export default function SkillGroupCreateFormContainer() {
   });
 
   const handleClose = () => {
-    router.back();
+    router.push(paths.skillGroups.root);
   };
 
   function onSubmit(skillGroup: SkillGroupCreate) {
