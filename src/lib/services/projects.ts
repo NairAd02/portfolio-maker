@@ -109,6 +109,14 @@ export async function getProjectsList(projectFilters: ProjectsFiltersDTO) {
 
         return {
           ...project,
+          technologies: await Promise.all(
+            project.technologies.map(async (technology) => ({
+              ...technology,
+              icon: technology.icon
+                ? await getImageUrlOrThrow(supabase, technology.icon)
+                : undefined,
+            }))
+          ),
           mainImage,
           images,
         };
@@ -139,8 +147,13 @@ export async function getProjectById(id: string) {
 
   const { technology_has_proyect, ...rest } = data;
 
-  const technologies = technology_has_proyect.map(
-    (thp: { technology: Technology }) => thp.technology
+  const technologies = await Promise.all(
+    technology_has_proyect.map(async (thp: { technology: Technology }) => ({
+      ...thp.technology,
+      icon: thp.technology.icon
+        ? await getImageUrlOrThrow(supabase, thp.technology.icon)
+        : undefined,
+    }))
   );
 
   return {
