@@ -55,7 +55,14 @@ export async function getProjectsList(projectFilters: ProjectsFiltersDTO) {
   };
 
   // Start base query and apply text filters
-  let baseQuery = applyTextFilters(supabase.from("project").select("*"));
+  let baseQuery = applyTextFilters(
+    supabase.from("project").select(`
+      *,
+      technology_has_proyect (
+        technology (*)
+      )
+    `)
+  );
 
   // If technology filters are present, enforce INTERSECTION (project must contain ALL provided technologies)
   if (Array.isArray(technologies) && technologies.length > 0) {
@@ -88,7 +95,9 @@ export async function getProjectsList(projectFilters: ProjectsFiltersDTO) {
   const { data, error } = await baseQuery;
   if (error) return { data: null, error };
 
-  const projects = data as Project[];
+  const projects = data as (Project & {
+    technology_has_proyect: { technology: Technology }[];
+  })[];
 
   try {
     const mappedProjects = await Promise.all(
@@ -107,8 +116,20 @@ export async function getProjectsList(projectFilters: ProjectsFiltersDTO) {
           );
         }
 
+        const technologies = await Promise.all(
+          project.technology_has_proyect.map(
+            async (thp: { technology: Technology }) => ({
+              ...thp.technology,
+              icon: thp.technology.icon
+                ? await getImageUrlOrThrow(supabase, thp.technology.icon)
+                : undefined,
+            })
+          )
+        );
+
         return {
           ...project,
+          technologies,
           mainImage,
           images,
         };
