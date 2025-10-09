@@ -195,7 +195,7 @@ export const paths: ApplicationPath = {
     };
   },
   editTechnology: (params = {}, query = {}) => {
-    const basePath = "/edit-technology/[id]";
+    const basePath = "/dashboard/technologies/edit/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
