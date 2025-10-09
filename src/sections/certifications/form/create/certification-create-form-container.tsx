@@ -26,7 +26,6 @@ export default function CertificationCreateFormContainer() {
       toast.success("Certificación creada con éxito");
       revalidateServerPath(paths.certifications.root);
       handleClose();
-      router.refresh();
     },
   });
   const form = useForm<CertificationCreate>({
@@ -40,7 +39,7 @@ export default function CertificationCreateFormContainer() {
   });
 
   const handleClose = () => {
-    router.back();
+    router.push(paths.certifications.root);
   };
 
   function onSubmit(certification: CertificationCreate) {
