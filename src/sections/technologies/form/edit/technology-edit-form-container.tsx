@@ -33,7 +33,6 @@ export default function TechnologyEditFormContainer({ technology }: Props) {
       toast.success("Tecnología editada con éxito");
       revalidateServerPath(paths.technologies.root);
       handleClose();
-      router.refresh();
     },
   });
   const form = useForm<TechnologyEdit>({
@@ -44,7 +43,7 @@ export default function TechnologyEditFormContainer({ technology }: Props) {
   });
 
   const handleClose = () => {
-    router.back();
+    router.push(paths.technologies.root);
   };
 
   function onSubmit(technology: TechnologyEdit) {
