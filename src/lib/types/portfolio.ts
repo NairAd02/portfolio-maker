@@ -18,6 +18,7 @@ export interface Portfolio {
   education_and_certifications_text: string;
   blog_and_post_text: string;
   contact_text: string;
+  contact_email: string;
 }
 
 // PersonalInformationReport
