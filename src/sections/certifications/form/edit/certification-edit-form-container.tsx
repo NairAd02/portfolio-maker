@@ -35,7 +35,6 @@ export default function CertificationEditFormContainer({
       toast.success("Certificación editada con éxito");
       revalidateServerPath(paths.certifications.root);
       handleClose();
-      router.refresh();
     },
   });
   const form = useForm<CertificationEdit>({
@@ -51,7 +50,7 @@ export default function CertificationEditFormContainer({
   });
 
   const handleClose = () => {
-    router.back();
+    router.push(paths.certifications.root);
   };
 
   function onSubmit(certification: CertificationEdit) {
