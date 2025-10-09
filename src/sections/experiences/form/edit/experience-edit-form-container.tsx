@@ -33,7 +33,6 @@ export default function ExperienceEditFormContainer({ experience }: Props) {
       toast.success("Experiencia editada con éxito");
       revalidateServerPath(paths.experiences.root);
       handleClose();
-      router.refresh();
     },
   });
   const form = useForm<ExperienceEdit>({
@@ -54,7 +53,7 @@ export default function ExperienceEditFormContainer({ experience }: Props) {
   });
 
   const handleClose = () => {
-    router.back();
+    router.push(paths.experiences.root);
   };
 
   function onSubmit(experience: ExperienceEdit) {
