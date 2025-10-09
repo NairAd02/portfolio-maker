@@ -20,11 +20,10 @@ export default function TechnologyDeleteContainer({ id }: Props) {
       toast.success("Tecnología eliminada con éxito");
       revalidateServerPath(paths.technologies.root);
       handleClose();
-      router.refresh();
     },
   });
   const handleClose = useCallback(() => {
-    router.back();
+    router.push(paths.technologies.root);
   }, [router]);
   return (
     <ConfirmationPanel
