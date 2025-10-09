@@ -265,7 +265,7 @@ export const paths: ApplicationPath = {
     };
   },
   deleteSkillGroup: (params = {}, query = {}) => {
-    const basePath = "/delete-skill-group/[id]";
+    const basePath = "/dashboard/skill-groups/delete/[id]";
     const pathWithParams = replaceParamsInPath(basePath, params);
     const queryString = buildQueryString(query);
     return {
