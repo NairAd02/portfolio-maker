@@ -252,7 +252,7 @@ export const paths: ApplicationPath = {
     };
   },
   createSkillGroup: {
-    root: "/create-skill-group",
+    root: "/dashboard/skill-groups/create",
     isProtected: true,
   },
   editSkillGroup: (params = {}, query = {}) => {
