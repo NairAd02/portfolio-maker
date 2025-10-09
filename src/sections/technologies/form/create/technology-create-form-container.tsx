@@ -26,7 +26,6 @@ export default function TechnologyCreateFormContainer() {
       toast.success("Tecnología creada con éxito");
       revalidateServerPath(paths.technologies.root);
       handleClose();
-      router.refresh();
     },
   });
   const form = useForm<TechnologyCreate>({
@@ -37,7 +36,7 @@ export default function TechnologyCreateFormContainer() {
   });
 
   const handleClose = () => {
-    router.back();
+    router.push(paths.technologies.root);
   };
 
   function onSubmit(technology: TechnologyCreate) {
