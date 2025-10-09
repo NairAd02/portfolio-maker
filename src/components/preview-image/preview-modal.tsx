@@ -16,7 +16,7 @@ export default function PreviewModal() {
       formPath={modalTypes.previewImageModal.name}
       maxWidth="max-w-xl"
     >
-      <div className="flex items-center max-h-[86vh] justify-center p-2">
+      <div className="flex items-center max-h-[85vh] justify-center p-2">
         <Image
           src={preview}
           alt="Testimonial author"
