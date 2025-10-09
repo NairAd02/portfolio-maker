@@ -10,6 +10,7 @@ import {
   BlogsSectionReport,
   CertificationsSectionDTO,
   CertificationsSectionReport,
+  ContactSectionDTO,
   ContactSectionReport,
   ExperiencesSectionDTO,
   ExperiencesSectionReport,
@@ -336,6 +337,38 @@ export async function editPersonalInformation(
       .update({
         ...personalInformationDTO,
         contact_image: contactImageUploadData,
+      })
+      .eq("id", portfolioEntity.id)
+      .select()
+      .single();
+  if (updatePortfolioError) return { data: null, error: updatePortfolioError };
+
+  return { data: updatePortfolioData, error: null };
+}
+
+export async function editContactSection(contactSectionDTO: ContactSectionDTO) {
+  const supabase = await createClient();
+
+  // get the session
+  const { data: sessionData, error: loggedUserError } = await getLoggedUser();
+
+  if (!sessionData || loggedUserError) return { data: null, loggedUserError };
+
+  const { data: portfolio, error: portfolioError } = await supabase
+    .from("portfolio")
+    .select("id")
+    .eq("user_id", sessionData.user.id)
+    .single();
+
+  if (portfolioError) return { data: null, error: portfolioError };
+
+  const portfolioEntity = portfolio as Portfolio;
+
+  const { data: updatePortfolioData, error: updatePortfolioError } =
+    await supabase
+      .from("portfolio")
+      .update({
+        ...contactSectionDTO,
       })
       .eq("id", portfolioEntity.id)
       .select()
