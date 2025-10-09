@@ -1,3 +1,4 @@
+import AvatarContainer from "@/components/ui/avatar-container";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/format-date";
 import { principalPlaceHolder } from "@/lib/place-holders";
@@ -104,7 +105,13 @@ export default function ExperienceDetailsContainer({ experience }: Props) {
                   variant="default"
                   className="hover:bg-accent hover:text-accent-foreground transition-colors"
                 >
-                  {tech.icon && <span className="mr-1">{tech.icon}</span>}
+                  {tech.icon && (
+                    <AvatarContainer
+                      className="h-6 w-6"
+                      image={tech.icon}
+                      fallback="tech"
+                    />
+                  )}
                   {tech.name}
                 </Badge>
               ))}
