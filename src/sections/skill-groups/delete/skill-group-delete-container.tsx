@@ -20,11 +20,10 @@ export default function SkillGroupDeleteContainer({ id }: Props) {
       toast.success("Grupo de habilidades eliminado con éxito");
       revalidateServerPath(paths.skillGroups.root);
       handleClose();
-      router.refresh();
     },
   });
   const handleClose = useCallback(() => {
-    router.back();
+    router.push(paths.skillGroups.root);
   }, [router]);
   return (
     <ConfirmationPanel
