@@ -29,7 +29,7 @@ export default function ContactSectionFormContainer({
   } = useEditContactSection({
     onEditAction: () => {
       toast.success("Sección de proyectos editada con éxito");
-      revalidateServerPath(paths.generalData.projectsSection);
+      revalidateServerPath(paths.generalData.contactSection);
     },
   });
   const form = useForm<ContactSectionSchema>({

@@ -29,7 +29,7 @@ export default function BlogsSectionFormContainer({
   } = useEditBlogsSection({
     onEditAction: () => {
       toast.success("Sección de blogs editada con éxito");
-      revalidateServerPath(paths.generalData.certificationsSection);
+      revalidateServerPath(paths.generalData.blogsSection);
     },
   });
   const form = useForm<BlogsSectionSchema>({
