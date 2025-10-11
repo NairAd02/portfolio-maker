@@ -34,6 +34,13 @@ export default function ProjectsList({ projects }: Props) {
     {
       accessorKey: "name",
       header: "Nombre",
+      cell: ({ row }) => {
+        return (
+          <p className="text-sm line-clamp-3 break-words max-w-[300px] whitespace-pre-wrap leading-relaxed">
+            {row.getValue("name")}
+          </p>
+        );
+      },
     },
     {
       accessorKey: "description",
