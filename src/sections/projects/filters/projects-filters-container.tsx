@@ -16,6 +16,7 @@ export default function ProjectsFiltersContainer() {
     handleResetFilters,
   } = useProjectsFilters({ urlPagination: true });
   const { technologies, loadingData: loadingDataTechs } = useTechnologies();
+  const activeFiltersCount = getActiveFiltersCount();
   return (
     <div className="flex flex-col gap-4">
       <div className="flex gap-2">
@@ -38,11 +39,11 @@ export default function ProjectsFiltersContainer() {
           />
         </SheetContainer>
       </div>
-      {getActiveFiltersCount() > 0 && (
+      {activeFiltersCount > 0 && (
         <ProjectsActiveFilters
           filters={filters}
           handleChangeFilters={handleChangeFilters}
-          getActiveFiltersCount={getActiveFiltersCount}
+          activeFiltersCount={activeFiltersCount}
           handleResetFilters={handleResetFilters}
         />
       )}

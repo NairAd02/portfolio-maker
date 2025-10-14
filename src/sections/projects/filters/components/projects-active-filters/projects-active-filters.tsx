@@ -9,14 +9,14 @@ import { ProjectsFilters } from "../../hooks/use-projects-filters";
 interface Props {
   filters: ProjectsFilters;
   handleChangeFilters: (filters: Partial<ProjectsFilters>) => void;
-  getActiveFiltersCount: () => number;
+  activeFiltersCount: number;
   handleResetFilters: () => void;
 }
 
 export default function ProjectsActiveFilters({
   filters,
   handleChangeFilters,
-  getActiveFiltersCount,
+  activeFiltersCount,
   handleResetFilters,
 }: Props) {
   return (
@@ -24,22 +24,20 @@ export default function ProjectsActiveFilters({
       <div className="space-y-4">
         <div className="flex gap-2 items-center">
           <Label>Filtros Activos</Label>
-          {getActiveFiltersCount() > 0 && (
-            <Badge variant="default" className="ml-2">
-              {getActiveFiltersCount()}
-            </Badge>
-          )}
-          {getActiveFiltersCount() > 0 && (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleResetFilters}
-              className="h-8"
-            >
-              <RotateCcwIcon className="h-4 w-4 mr-1" />
-              Limpiar
-            </Button>
-          )}
+
+          <Badge variant="default" className="ml-2">
+            {activeFiltersCount}
+          </Badge>
+
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleResetFilters}
+            className="h-8"
+          >
+            <RotateCcwIcon className="h-4 w-4 mr-1" />
+            Limpiar
+          </Button>
         </div>
 
         <div className="flex flex-wrap gap-2">
