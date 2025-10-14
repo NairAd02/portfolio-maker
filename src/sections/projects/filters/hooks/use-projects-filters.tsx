@@ -3,7 +3,8 @@
 import useUrlFilters from "@/hooks/use-url-filters";
 import { Pagination } from "@/lib/types/pagination";
 import { convertProjectsFiltersDTO } from "@/lib/types/projects";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 export interface ProjectsFilters {
   name?: string;
@@ -27,7 +28,27 @@ export default function useProjectsFilters({
   urlPagination = false,
 }: Props) {
   const { updateFiltersInUrl } = useUrlFilters();
+  const searchParams = useSearchParams();
   const [filters, setFilters] = useState<ProjectsFilters>(defaultsFilters);
+
+  useEffect(() => {
+    const name = searchParams.get("name");
+    const description = searchParams.get("description");
+    const problem = searchParams.get("problem");
+    const solution = searchParams.get("solution");
+    const impact = searchParams.get("impact");
+    const teachings = searchParams.get("teachings");
+
+    setFilters((oldFilters) => ({
+      ...oldFilters,
+      name: name || "",
+      description: description || "",
+      impact: impact || "",
+      problem: problem || "",
+      solution: solution || "",
+      teachings: teachings || "",
+    }));
+  }, [searchParams]);
 
   async function handleChangeFilters(updatedFilters: Partial<ProjectsFilters>) {
     const newFilters = {
