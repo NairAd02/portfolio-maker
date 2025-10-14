@@ -41,12 +41,12 @@ export default function useProjectsFilters({
 
     setFilters((oldFilters) => ({
       ...oldFilters,
-      name: name || "",
-      description: description || "",
-      impact: impact || "",
-      problem: problem || "",
-      solution: solution || "",
-      teachings: teachings || "",
+      name: name || undefined,
+      description: description || undefined,
+      impact: impact || undefined,
+      problem: problem || undefined,
+      solution: solution || undefined,
+      teachings: teachings || undefined,
     }));
   }, [searchParams]);
 
