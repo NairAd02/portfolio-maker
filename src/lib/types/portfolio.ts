@@ -22,7 +22,7 @@ export interface Portfolio {
   contact_email: string;
   contact_phone: string;
   location: string;
-  cv_doc: string;
+  cv_doc?: string;
 }
 
 // PersonalInformationReport
