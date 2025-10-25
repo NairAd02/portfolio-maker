@@ -31,20 +31,20 @@ export default function ContactSectionForm({ fileReceived }: Props) {
           label="Ubicación"
           placeholder="Ciudad, País"
         />
-        <RHFFileUpload
-          name="cv_doc"
-          label="CV / Documento"
-          {...(fileReceived && {
-            loading: fileReceived.loading,
-          })}
-          acceptedFormats={[".pdf", ".doc", ".docx"]}
-          maxSize={10 * 1024 * 1024} // 10MB
+        <RHFTextAreaField
+          name="contact_text"
+          label="Texto de contacto"
+          placeholder="Descripción para la sección de contacto"
         />
       </div>
-      <RHFTextAreaField
-        name="contact_text"
-        label="Texto de contacto"
-        placeholder="Descripción para la sección de contacto"
+      <RHFFileUpload
+        name="cv_doc"
+        label="CV / Documento"
+        {...(fileReceived && {
+          loading: fileReceived.loading,
+        })}
+        acceptedFormats={[".pdf", ".doc", ".docx"]}
+        maxSize={10 * 1024 * 1024} // 10MB
       />
     </div>
   );
