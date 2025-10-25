@@ -56,6 +56,78 @@ export async function urlToFile(
   }
 }
 
+export async function urlToDocumentFile(
+  fileUrl: string,
+  fileName?: string
+): Promise<File> {
+  try {
+    const response = await fetch(fileUrl);
+    if (!response.ok) {
+      throw new Error(
+        `Error al obtener el archivo: ${response.status} ${response.statusText}`
+      );
+    }
+    const blob = await response.blob();
+
+    // Extraer el nombre del archivo de la URL
+    const urlFileName = fileUrl.split("/").pop() || "document";
+    
+    // Extraer la extensión del nombre del archivo de la URL
+    const urlExtension = urlFileName.includes(".")
+      ? urlFileName.split(".").pop()?.toLowerCase()
+      : null;
+
+    // Determinar la extensión final basada en el tipo MIME del blob
+    let fileExtension = urlExtension;
+    
+    // Mapeo de tipos MIME a extensiones
+    const mimeToExtension: { [key: string]: string } = {
+      'application/pdf': 'pdf',
+      'application/msword': 'doc',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'docx',
+      'text/plain': 'txt',
+      'application/vnd.ms-excel': 'xls',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx',
+      'application/vnd.ms-powerpoint': 'ppt',
+      'application/vnd.openxmlformats-officedocument.presentationml.presentation': 'pptx',
+    };
+
+    // Si el blob tiene un tipo MIME válido, usar su extensión correspondiente
+    if (blob.type && blob.type !== "application/octet-stream") {
+      const mimeExtension = mimeToExtension[blob.type];
+      if (mimeExtension) {
+        fileExtension = mimeExtension;
+      } else {
+        // Si no está en nuestro mapeo, usar la extensión del tipo MIME
+        const mimeTypeExtension = blob.type.split("/").pop();
+        if (mimeTypeExtension) fileExtension = mimeTypeExtension;
+      }
+    }
+
+    // Si no tenemos extensión, usar 'pdf' como fallback
+    if (!fileExtension) fileExtension = 'pdf';
+
+    // Crear el nombre del archivo final
+    const finalFileName = fileName 
+      ? fileName.includes(".")
+        ? fileName
+        : `${fileName}.${fileExtension}`
+      : urlFileName.includes(".")
+        ? urlFileName
+        : `${urlFileName}.${fileExtension}`;
+
+    const file = new File([blob], finalFileName, {
+      type: blob.type || "application/pdf",
+      lastModified: new Date().getTime(),
+    });
+
+    return file;
+  } catch (error) {
+    console.error("Error en urlToDocumentFile:", error);
+    throw error;
+  }
+}
+
 interface CompressOptions {
   quality?: number;
   maxWidth?: number;
