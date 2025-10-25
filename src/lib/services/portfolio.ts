@@ -84,6 +84,11 @@ export async function getContactSectionReport() {
       portfolioId: portfolioEntity.id,
       contact_text: portfolioEntity.contact_text,
       contact_email: portfolioEntity.contact_email,
+      contact_phone: portfolioEntity.contact_phone,
+      location: portfolioEntity.location,
+      cv_doc: portfolioEntity.cv_doc
+        ? await getImageUrlOrThrow(supabase, portfolioEntity.cv_doc)
+        : undefined, // obtener la url del documento
     } as ContactSectionReport,
   };
 }
