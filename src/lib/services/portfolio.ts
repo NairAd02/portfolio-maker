@@ -351,7 +351,10 @@ export async function editPersonalInformation(
   return { data: updatePortfolioData, error: null };
 }
 
-export async function editContactSection(contactSectionDTO: ContactSectionDTO) {
+export async function editContactSection(
+  contactSectionDTO: ContactSectionDTO,
+  formData: FormData
+) {
   const supabase = await createClient();
 
   // get the session
@@ -369,11 +372,24 @@ export async function editContactSection(contactSectionDTO: ContactSectionDTO) {
 
   const portfolioEntity = portfolio as Portfolio;
 
+  // delete the current cv doc
+  if (portfolioEntity.cv_doc)
+    await supabase.storage
+      .from("portfolio-maker")
+      .remove([portfolioEntity.cv_doc]);
+
+  // insert the contact cv doc
+  const { data: contactCvDocData, error: contactCvDocError } =
+    await insertPortfolioCvDoc(supabase, formData, portfolioEntity.id);
+
+  if (contactCvDocError) return { data: null, error: contactCvDocError };
+
   const { data: updatePortfolioData, error: updatePortfolioError } =
     await supabase
       .from("portfolio")
       .update({
         ...contactSectionDTO,
+        cv_doc: contactCvDocData,
       })
       .eq("id", portfolioEntity.id)
       .select()
@@ -607,4 +623,31 @@ async function insertPortfolioContactImage(
     return { data: null, error: uploadContactImageError };
 
   return { data: contactImagePath, error: null };
+}
+
+async function insertPortfolioCvDoc(
+  supabase: SupabaseClient<any, "public", any>,
+  formData: FormData,
+  portfolioId: string
+) {
+  const cv_doc = formData.get("cv_doc") as File;
+  if (!cv_doc) return { data: null, error: null };
+
+  const contactCvDocPath = generateStorageFilePath(
+    cv_doc,
+    `portfolios/${portfolioId}/cv_doc`
+  );
+
+  const uploadContactCvDocError = await uploadFileToSupabase(
+    supabase,
+    "portfolio-maker",
+    contactCvDocPath,
+    cv_doc,
+    "3600",
+    false
+  );
+  if (uploadContactCvDocError)
+    return { data: null, error: uploadContactCvDocError };
+
+  return { data: contactCvDocPath, error: null };
 }
