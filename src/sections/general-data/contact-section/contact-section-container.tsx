@@ -10,6 +10,7 @@ import React from "react";
 import { getContactSectionReport } from "@/lib/services/portfolio";
 import ContactSectionFormContainer from "./form/contact-section-form-container";
 
+
 export default async function ContactSectionContainer() {
   const res = await getContactSectionReport();
 
@@ -33,7 +34,7 @@ export default async function ContactSectionContainer() {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="flex flex-col space-y-6 h-full">
         <ContactSectionFormContainer
           contactSectionReport={contactSectionReport}
         />

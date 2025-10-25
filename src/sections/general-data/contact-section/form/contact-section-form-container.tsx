@@ -62,8 +62,9 @@ export default function ContactSectionFormContainer({
         {editContactSectionError && (
           <AlertDestructive title={editContactSectionError} />
         )}
-        <ContactSectionForm 
+        <ContactSectionForm
           fileReceived={{ loading: loadingFile, error: errorFile }}
+          cv_doc={contactSectionReport.cv_doc}
         />
         <div className="flex justify-end">
           <SubmitButton
