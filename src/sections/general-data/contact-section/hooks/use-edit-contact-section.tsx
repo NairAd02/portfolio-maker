@@ -17,8 +17,15 @@ export default function useEditContactSection({ onEditAction }: Props) {
       setLoading(true);
       setError(null);
 
+      const { cv_doc, ...restContactSection } = contactSection;
+
+      // create form data for contact image
+      const formData = new FormData();
+      if (cv_doc) formData.append("cv_doc", cv_doc);
+
       const res = await editContactSectionService(
-        convertContactSectionDTO(contactSection)
+        convertContactSectionDTO(restContactSection),
+        formData
       );
 
       if (res.error) {
