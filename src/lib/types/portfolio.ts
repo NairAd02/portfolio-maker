@@ -164,7 +164,7 @@ export interface ContactSectionDTO {
 }
 
 export const convertContactSectionDTO = (
-  contactSection: ContactSectionSchema
+  contactSection: Omit<ContactSectionSchema, "cv_doc">
 ): ContactSectionDTO => {
   return {
     ...contactSection,
