@@ -20,6 +20,9 @@ export interface Portfolio {
   blog_and_post_text: string;
   contact_text: string;
   contact_email: string;
+  contact_phone: string;
+  location: string;
+  cv_doc: string;
 }
 
 // PersonalInformationReport
@@ -35,6 +38,9 @@ export interface ContactSectionReport {
   portfolioId: string;
   contact_text: string;
   contact_email: string;
+  contact_phone: string;
+  location: string;
+  cv_doc: string;
 }
 
 // Projects Section Report
