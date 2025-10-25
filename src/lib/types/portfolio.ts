@@ -161,6 +161,8 @@ export const convertAboutSectionDTO = (
 export interface ContactSectionDTO {
   contact_text: string;
   contact_email: string;
+  contact_phone: string;
+  location: string;
 }
 
 export const convertContactSectionDTO = (
