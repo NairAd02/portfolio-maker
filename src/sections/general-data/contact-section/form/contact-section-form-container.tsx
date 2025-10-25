@@ -14,6 +14,7 @@ import {
   ContactSectionSchema,
 } from "./schemas/contact-section-schema";
 import ContactSectionForm from "./contact-section-form";
+import useFileForm from "@/components/form/hooks/use-file-form";
 
 interface Props {
   contactSectionReport: ContactSectionReport;
@@ -37,7 +38,16 @@ export default function ContactSectionFormContainer({
     defaultValues: {
       contact_email: contactSectionReport.contact_email || "",
       contact_text: contactSectionReport.contact_text || "",
+      contact_phone: contactSectionReport.contact_phone || "",
+      location: contactSectionReport.location || "",
     },
+  });
+
+  const { loading: loadingFile, error: errorFile } = useFileForm({
+    form,
+    fileUrl: contactSectionReport.cv_doc,
+    fileName: contactSectionReport.portfolioId || "cv",
+    fieldName: "cv_doc",
   });
 
   function onSubmit(contactSection: ContactSectionSchema) {
@@ -52,7 +62,9 @@ export default function ContactSectionFormContainer({
         {editContactSectionError && (
           <AlertDestructive title={editContactSectionError} />
         )}
-        <ContactSectionForm />
+        <ContactSectionForm 
+          fileReceived={{ loading: loadingFile, error: errorFile }}
+        />
         <div className="flex justify-end">
           <SubmitButton
             text="Actualizar Sección de Contacto"
