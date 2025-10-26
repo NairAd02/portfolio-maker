@@ -1,10 +1,15 @@
 import { z } from "zod";
 import { SkillCreate, skillCreateSchema } from "./skill-create-schema";
+import {
+  MasteredTechnologyCreate,
+  masteredTechnologyCreateSchema,
+} from "./mastered-technology-create-schema";
 
 export interface SkillGroupCreate {
   name: string;
   icon?: File;
   skills: SkillCreate[];
+  masteredTechnologies: MasteredTechnologyCreate[];
 }
 
 export const skillGroupCreateSchema = z.object({
@@ -26,5 +31,9 @@ export const skillGroupCreateSchema = z.object({
     ),
   skills: z.array(skillCreateSchema).min(1, {
     message: "Mínimo debe de introducir una habilidad para este grupo",
+  }),
+  masteredTechnologies: z.array(masteredTechnologyCreateSchema).min(1, {
+    message:
+      "Mínimo debe de introducir una tecnología dominada para este grupo",
   }),
 });
