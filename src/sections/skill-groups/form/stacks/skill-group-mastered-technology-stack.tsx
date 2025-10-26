@@ -9,7 +9,7 @@ interface Props {
   index: number;
 }
 
-export default function SkillGroupSkillStack({ index }: Props) {
+export default function SkillGroupMasteredTechnologyStack({ index }: Props) {
   const { technologies, loadingData: loadingDataTechnologies } =
     useTechnologies();
   return (
