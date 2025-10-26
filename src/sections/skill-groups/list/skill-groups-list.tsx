@@ -7,7 +7,12 @@ import PreviewImage from "@/components/preview-image/preview-image";
 import { paths } from "@/routes/path";
 import { Dot, EditIcon, EyeIcon, Trash2 } from "lucide-react";
 import { principalPlaceHolder } from "@/lib/place-holders";
-import { Skill, SkillGroup } from "@/lib/types/skill-groups";
+import {
+  MasteredTechnology,
+  Skill,
+  SkillGroup,
+} from "@/lib/types/skill-groups";
+import AvatarContainer from "@/components/ui/avatar-container";
 
 interface Props {
   skillGroups: SkillGroup[];
@@ -39,6 +44,30 @@ export default function SkillGroupsList({ skillGroups }: Props) {
           <p className="text-sm line-clamp-3 break-words max-w-[300px] whitespace-pre-wrap leading-relaxed">
             {row.getValue("name")}
           </p>
+        );
+      },
+    },
+    {
+      accessorKey: "masteredTechnologies",
+      header: "Tecnologías Dominadas",
+      cell: ({ row }) => {
+        const masteredTechnologies = row.getValue(
+          "masteredTechnologies"
+        ) as MasteredTechnology[];
+        return (
+          <div className="flex flex-col gap-2">
+            {masteredTechnologies.map((masteredTech, index) => (
+              <div key={index} className="flex items-center gap-2">
+                <AvatarContainer
+                  image={masteredTech.technology.icon}
+                  fallback={masteredTech.technology.name.charAt(0)}
+                />
+                <p className="text-sm line-clamp-3 break-words max-w-[300px] whitespace-pre-wrap leading-relaxed">
+                  {masteredTech.technology.name}
+                </p>
+              </div>
+            ))}
+          </div>
         );
       },
     },
