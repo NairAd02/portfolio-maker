@@ -8,7 +8,7 @@ export interface MasteredTechnologyCreate {
 
 export const masteredTechnologyCreateSchema = z.object({
   technologyId: z.string().min(1, {
-    message: "El nombre de la habilidad no puede estar vacío",
+    message: "Debe de ser seleccionada una tecnología",
   }),
   level: z.enum([LevelEnum.ADVANCED, LevelEnum.INTERMEDIATE, LevelEnum.BASIC]),
 });
