@@ -22,7 +22,7 @@ export default function SkillGroupMasteredTechnologyStack({ index }: Props) {
             value: tech.id,
           }))}
           loading={loadingDataTechnologies}
-          placeholder="Introduzca la tecnología dominada..."
+          placeholder="tecnología..."
           fullWidth
         />
         <RHFSelectField
@@ -41,7 +41,7 @@ export default function SkillGroupMasteredTechnologyStack({ index }: Props) {
               value: LevelEnum.BASIC,
             },
           ]}
-          placeholder="Introduzca el nivel de dominio de la tecnología..."
+          placeholder="dominio..."
           fullWidth
         />
       </div>
