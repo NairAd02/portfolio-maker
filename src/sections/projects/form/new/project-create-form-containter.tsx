@@ -33,6 +33,7 @@ export default function ProjectCreateFormContainer() {
     defaultValues: {
       name: "",
       description: "",
+      technical_information: "",
       deploymentUrl: "",
       impact: "",
       problem: "",

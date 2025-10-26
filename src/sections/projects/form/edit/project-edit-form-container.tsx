@@ -38,6 +38,7 @@ export default function ProjectEditFormContainer({ project }: Props) {
     defaultValues: {
       name: project.name,
       description: project.description,
+      technical_information: project.technical_information,
       deploymentUrl: project.deploymentUrl || "",
       impact: project.impact,
       problem: project.problem,

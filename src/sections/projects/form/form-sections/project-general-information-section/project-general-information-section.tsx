@@ -40,6 +40,12 @@ export default function ProjectGeneralInformationSection({
           description="Describa brevemente el proyecto"
           fullWidth
         />
+        <RHFTextAreaField
+          name="technical_information"
+          label="Información Técnica *"
+          description="Proyecte la información técnica de dicho proyecto"
+          fullWidth
+        />
         <RHFImageUpload
           name="mainImage"
           label="Imagen del Proyecto"

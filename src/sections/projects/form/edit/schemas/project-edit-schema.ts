@@ -3,6 +3,7 @@ import { z } from "zod";
 export interface ProjectEdit {
   name: string;
   description: string;
+  technical_information: string;
   mainImage?: File;
   sourceCodeUrl: string;
   deploymentUrl: string;
@@ -21,6 +22,9 @@ export const projectEditSchema = z.object({
   description: z
     .string()
     .min(1, { message: "La descripción del proyecto es requerida" }),
+  technical_information: z
+    .string()
+    .min(1, { message: "La información técnica del proyecto es requerida" }),
   mainImage: z
     .instanceof(File, {
       message: "Por favor selecciona una imagen.",
