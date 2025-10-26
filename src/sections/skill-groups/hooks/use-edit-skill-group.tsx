@@ -22,9 +22,6 @@ export default function useEditSkillGroup({ id, onEditAction }: Props) {
       // create form data for icons
       const formData = new FormData();
       if (icon) formData.append("icon", icon);
-      restSkillGroup.skills.forEach((skill) => {
-        if (skill.icon) formData.append("skillIcons[]", skill.icon);
-      });
 
       const res = await editSkillGroupService(
         id,

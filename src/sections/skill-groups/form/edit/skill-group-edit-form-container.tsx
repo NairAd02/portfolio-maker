@@ -39,11 +39,7 @@ export default function SkillGroupEditFormContainer({ skillGroup }: Props) {
     resolver: zodResolver(skillGroupEditSchema),
     defaultValues: {
       name: skillGroup.name,
-      skills: skillGroup.skills.map((skill) => ({
-        name: skill.name,
-        level: skill.level,
-        iconPath: skill.icon,
-      })),
+      skills: skillGroup.skills,
     },
   });
 
@@ -72,7 +68,6 @@ export default function SkillGroupEditFormContainer({ skillGroup }: Props) {
         )}
         <SkillGroupForm
           imageRecived={{ loading: loadingIcon, error: errorIcon }}
-          mode="edit"
         />
         <FormActionButtons
           submitLoading={submitLoading}

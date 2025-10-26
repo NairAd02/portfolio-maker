@@ -12,18 +12,12 @@ import { Aperture, FileTextIcon } from "lucide-react";
 import React from "react";
 import { SkillCreate } from "./create/schemas/skill-create-schema";
 import SkillGroupSkillStack from "./stacks/skill-group-skill-stack";
-import { LevelEnum } from "@/lib/types/skill-groups";
-import SkillGroupSkillEditStack from "./stacks/skill-group-skill-edit-stack";
 
 interface Props {
   imageRecived?: { loading: boolean; error: string | null };
-  mode?: "create" | "edit";
 }
 
-export default function SkillGroupForm({
-  imageRecived,
-  mode = "create",
-}: Props) {
+export default function SkillGroupForm({ imageRecived }: Props) {
   return (
     <div className="flex-1 overflow-auto flex flex-col max-h-[79vh] p-2">
       <Card>
@@ -58,14 +52,9 @@ export default function SkillGroupForm({
           <RHFListField<SkillCreate>
             name="skills"
             label="Habilidades"
-            StackComponent={
-              mode === "create"
-                ? SkillGroupSkillStack
-                : SkillGroupSkillEditStack
-            }
+            StackComponent={SkillGroupSkillStack}
             newItem={{
               name: "",
-              level: LevelEnum.BASIC,
             }}
           />
         </CardContent>

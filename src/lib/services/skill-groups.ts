@@ -11,7 +11,6 @@ import {
 import { getLoggedUser } from "./auth";
 import { getImageUrlOrThrow, uploadFileToSupabase } from "./supabase-storage";
 import { generateStorageFilePath } from "../images";
-import { StorageError } from "@supabase/storage-js";
 import { v4 as uuidv4 } from "uuid";
 
 export async function getSkillGroupsList() {
@@ -29,14 +28,6 @@ export async function getSkillGroupsList() {
           icon: skillGroup.icon
             ? await getImageUrlOrThrow(supabase, skillGroup.icon)
             : undefined,
-          skills: await Promise.all(
-            skillGroup.skills.map(async (skill) => ({
-              ...skill,
-              icon: skill.icon
-                ? await getImageUrlOrThrow(supabase, skill.icon)
-                : undefined,
-            }))
-          ),
         };
       })
     );
@@ -64,14 +55,6 @@ export async function getSkillGroupById(id: string) {
       icon: skillGroup.icon
         ? await getImageUrlOrThrow(supabase, skillGroup.icon)
         : undefined,
-      skills: await Promise.all(
-        skillGroup.skills.map(async (skill) => ({
-          ...skill,
-          icon: skill.icon
-            ? await getImageUrlOrThrow(supabase, skill.icon)
-            : undefined,
-        }))
-      ),
     },
     error: null,
   };
@@ -125,13 +108,6 @@ export async function createSkillGroup(
 
   if (iconUploadError) return { data: null, error: iconUploadError };
 
-  // insert the skills icons
-  const { data: skillIconsData, error: insertSkillIconsError } =
-    await insertSkillIcons(supabase, formData, newSkillGroupId);
-
-  if (insertSkillIconsError)
-    return { data: null, error: insertSkillIconsError };
-
   const { data: createSkillGroupData, error: createSkillGroupError } =
     await supabase
       .from("skillgroup")
@@ -139,17 +115,6 @@ export async function createSkillGroup(
         id: newSkillGroupId,
         ...skillGroupCreateDTO,
         icon: iconUploadData,
-        skills: skillGroupCreateDTO.skills.map((skill) => {
-          // find the icon skill
-          const skillIcon = skill.icon
-            ? skillIconsData.find((skillIcon) => skillIcon.id === skill.icon)
-            : undefined;
-
-          return {
-            ...skill,
-            icon: skillIcon ? skillIcon.path : undefined,
-          };
-        }),
         portfolio_id: portfolio.id,
       })
       .select()
@@ -185,27 +150,11 @@ export async function editSkillGroup(
       .from("portfolio-maker")
       .remove([skillGroupEntity.icon]);
 
-  // delete the skills icons
-  if (skillGroupEntity.skills && skillGroupEntity.skills.length > 0)
-    await Promise.all(
-      skillGroupEntity.skills.map(async (skill) => {
-        if (skill.icon)
-          await supabase.storage.from("portfolio-maker").remove([skill.icon]);
-      })
-    );
-
   // insert the skill group icon
   const { data: iconUploadData, error: iconUploadError } =
     await insertSkillGroupIcon(supabase, formData, skillGroupEntity.id);
 
   if (iconUploadError) return { data: null, error: iconUploadError };
-
-  // insert the skills icons
-  const { data: skillIconsData, error: insertSkillIconsError } =
-    await insertSkillIcons(supabase, formData, skillGroupEntity.id);
-
-  if (insertSkillIconsError)
-    return { data: null, error: insertSkillIconsError };
 
   const { data: updateSkillGroupData, error: updateSkillGroupError } =
     await supabase
@@ -213,16 +162,6 @@ export async function editSkillGroup(
       .update({
         ...skillGroupEditDTO,
         icon: iconUploadData,
-        skills: skillGroupEditDTO.skills.map((skill) => {
-          // find the icon skill
-          const skillIcon = skill.icon
-            ? skillIconsData.find((skillIcon) => skillIcon.id === skill.icon)
-            : undefined;
-          return {
-            ...skill,
-            icon: skillIcon ? skillIcon.path : undefined,
-          };
-        }),
       })
       .eq("id", id)
       .select()
@@ -281,14 +220,6 @@ export async function deleteSkillGroup(id: string) {
       .from("portfolio-maker")
       .remove([skillGroupEntity.icon]);
 
-  // delete the skills icons
-  Promise.all(
-    skillGroupEntity.skills.map(async (skill) => {
-      if (skill.icon)
-        await supabase.storage.from("portfolio-maker").remove([skill.icon]);
-    })
-  );
-
   const { error } = await supabase.from("skillgroup").delete().eq("id", id);
 
   if (error) return { data: null, error };
@@ -297,38 +228,4 @@ export async function deleteSkillGroup(id: string) {
     data: { message: "Grupo de habilidades eliminada con éxito" },
     error: null,
   };
-}
-
-async function insertSkillIcons(
-  supabase: SupabaseClient<any, "public", any>,
-  formData: FormData,
-  skillGroupId: string
-) {
-  const skillIcons = formData.getAll("skillIcons[]") as File[];
-  let skillIconsPath: { id: string; path: string }[] = [];
-  if (skillIcons && skillIcons.length > 0) {
-    try {
-      skillIconsPath = await Promise.all(
-        skillIcons.map(async (skillIcon) => {
-          const skillIconPath = generateStorageFilePath(
-            skillIcon,
-            `projects/${skillGroupId}/skillIcons`
-          );
-          const uploadError = await uploadFileToSupabase(
-            supabase,
-            "portfolio-maker",
-            skillIconPath,
-            skillIcon,
-            "3600",
-            false
-          );
-          if (uploadError) throw uploadError;
-          return { id: skillIcon.name, path: skillIconPath };
-        })
-      );
-    } catch (error) {
-      return { data: null, error: error as StorageError };
-    }
-  }
-  return { data: skillIconsPath };
 }

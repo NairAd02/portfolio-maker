@@ -2,9 +2,7 @@
 import { useCallback, useState } from "react";
 import { SkillGroupCreate } from "../form/create/schemas/skill-group-create-schema";
 import { createSkillGroup as createSkillGroupService } from "@/lib/services/skill-groups";
-import {
-  convertSkillGroupCreateDTO,
-} from "@/lib/types/skill-groups";
+import { convertSkillGroupCreateDTO } from "@/lib/types/skill-groups";
 
 interface Props {
   onCreateAction: () => void;
@@ -24,9 +22,6 @@ export default function useCreateSkillGroup({ onCreateAction }: Props) {
       // create form data for icon
       const formData = new FormData();
       if (icon) formData.append("icon", icon);
-      restSkillGroup.skills.forEach((skill) => {
-        if (skill.icon) formData.append("skillIcons[]", skill.icon);
-      });
 
       const res = await createSkillGroupService(
         convertSkillGroupCreateDTO(restSkillGroup),

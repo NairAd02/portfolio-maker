@@ -63,20 +63,14 @@ export const getLevelText = (level: LevelEnum): string => {
 
 export interface Skill {
   name: string;
-  level: LevelEnum;
-  icon?: string;
 }
 
 export interface SkillCreateDTO {
   name: string;
-  level: LevelEnum;
-  icon?: string;
 }
 
 export interface SkillEditDTO {
   name: string;
-  level: LevelEnum;
-  icon?: string;
 }
 
 export interface SkillGroup {
@@ -110,10 +104,6 @@ export const convertSkillGroupCreateDTO = (
 ): SkillGroupCreateDTO => {
   return {
     ...skillGroupCreate,
-    skills: skillGroupCreate.skills.map((skill) => ({
-      ...skill,
-      icon: skill.icon ? skill.icon.name : undefined,
-    })),
   };
 };
 
@@ -122,9 +112,5 @@ export const convertSkillGroupEditDTO = (
 ): SkillGroupCreateDTO => {
   return {
     ...skillGroupCreate,
-    skills: skillGroupCreate.skills.map((skill) => ({
-      ...skill,
-      icon: skill.icon ? skill.icon.name : undefined,
-    })),
   };
 };
