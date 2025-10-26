@@ -1,10 +1,15 @@
 import { z } from "zod";
 import { SkillEdit, skillEditSchema } from "./skill-edit-schema";
+import {
+  MasteredTechnologyEdit,
+  masteredTechnologyEditSchema,
+} from "./mastered-technology-edit-schema";
 
 export interface SkillGroupEdit {
   name: string;
   icon?: File;
   skills: SkillEdit[];
+  masteredTechnologies: MasteredTechnologyEdit[];
 }
 
 export const skillGroupEditSchema = z.object({
@@ -26,5 +31,9 @@ export const skillGroupEditSchema = z.object({
     ),
   skills: z.array(skillEditSchema).min(1, {
     message: "Mínimo debe de introducir una habilidad para este grupo",
+  }),
+  masteredTechnologies: z.array(masteredTechnologyEditSchema).min(1, {
+    message:
+      "Mínimo debe de introducir una tecnología dominada para este grupo",
   }),
 });
