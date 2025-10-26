@@ -5,7 +5,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import TableMenu from "@/components/ui/table-menu";
 import PreviewImage from "@/components/preview-image/preview-image";
 import { paths } from "@/routes/path";
-import { EditIcon, EyeIcon, Trash2 } from "lucide-react";
+import { Dot, EditIcon, EyeIcon, Trash2 } from "lucide-react";
 import { principalPlaceHolder } from "@/lib/place-holders";
 import { Skill, SkillGroup } from "@/lib/types/skill-groups";
 
@@ -51,14 +51,7 @@ export default function SkillGroupsList({ skillGroups }: Props) {
           <div className="flex flex-col gap-2">
             {skills.map((skill, index) => (
               <div key={index} className="flex items-center gap-2">
-                {skill.icon && (
-                  <PreviewImage
-                    preview={skill.icon}
-                    height={25}
-                    width={25}
-                    rounded={"2xl"}
-                  />
-                )}
+                <Dot className="w-6 h-6" />
                 <p className="text-sm line-clamp-3 break-words max-w-[300px] whitespace-pre-wrap leading-relaxed">
                   {skill.name}
                 </p>
