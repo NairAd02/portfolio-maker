@@ -14,7 +14,7 @@ export default function SkillGroupDetailsMasteredTechnologiesList({
     <div>
       <h3 className="font-semibold text-lg mb-4 flex items-center gap-2">
         <Star className="w-5 h-5 text-primary" />
-        Habilidades Detalladas
+        Tenologías Dominadas
       </h3>
       <div className="grid xl:grid-cols-2 gap-3">
         {skillGroup.masteredTechnologies.map((masteredTech, index) => (
