@@ -16,7 +16,7 @@ export default function SkillGroupDetailsMasteredTechnologiesList({
         <Star className="w-5 h-5 text-primary" />
         Habilidades Detalladas
       </h3>
-      <div className="grid gap-3">
+      <div className="grid xl:grid-cols-2 gap-3">
         {skillGroup.masteredTechnologies.map((masteredTech, index) => (
           <MasteredTechnologyCard key={index} masteredTech={masteredTech} />
         ))}
