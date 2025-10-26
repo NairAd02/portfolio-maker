@@ -17,7 +17,7 @@ export default async function EditSkillGroupPage({ params }: Props) {
   const skillGroup = res.data;
 
   return (
-    <ModalWrapper>
+    <ModalWrapper modalClassName="max-w-3xl">
       <SkillGroupEditFormContainer skillGroup={skillGroup} />
     </ModalWrapper>
   );

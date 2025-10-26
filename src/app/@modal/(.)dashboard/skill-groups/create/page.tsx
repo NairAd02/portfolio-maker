@@ -4,7 +4,7 @@ import React from "react";
 
 export default function CreateSkillGroupPage() {
   return (
-    <ModalWrapper>
+    <ModalWrapper modalClassName="max-w-3xl">
       <SkillGroupCreateFormContainer />
     </ModalWrapper>
   );
