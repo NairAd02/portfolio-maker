@@ -5,9 +5,9 @@ import {
   LevelEnum,
   SkillGroupDetails,
 } from "@/lib/types/skill-groups";
-import SkillGroupDetailsSkillsList from "./components/skill-group-details-skills-list";
 import PreviewImage from "@/components/preview-image/preview-image";
 import { principalPlaceHolder } from "@/lib/place-holders";
+import SkillGroupDetailsMasteredTechnologiesList from "./components/skill-group-details-mastered-technologies-list";
 
 interface Props {
   skillGroup: SkillGroupDetails;
@@ -42,8 +42,8 @@ export default function SkillGroupDetailsContainer({ skillGroup }: Props) {
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {Object.values(LevelEnum).map((level) => {
-                const count = skillGroup.skills.filter(
-                  (skill) => skill.level === level
+                const count = skillGroup.masteredTechnologies.filter(
+                  (masteredTech) => masteredTech.level === level
                 ).length;
                 return (
                   <div key={level} className="text-center">
@@ -59,7 +59,7 @@ export default function SkillGroupDetailsContainer({ skillGroup }: Props) {
             </div>
           </CardContent>
         </Card>
-        <SkillGroupDetailsSkillsList skillGroup={skillGroup} />
+        <SkillGroupDetailsMasteredTechnologiesList skillGroup={skillGroup} />
       </div>
     </div>
   );
