@@ -85,6 +85,11 @@ export interface MasteredTechnologyCreateDTO {
   level: LevelEnum;
 }
 
+export interface MasteredTechnologyEditDTO {
+  technologyId: string;
+  level: LevelEnum;
+}
+
 export interface SkillGroup {
   id: string;
   name: string;
@@ -112,6 +117,7 @@ export interface SkillGroupEditDTO {
   name: string;
   icon?: string;
   skills: SkillEditDTO[];
+  masteredTechnologies: MasteredTechnologyEditDTO[];
 }
 
 export const convertSkillGroupCreateDTO = (
