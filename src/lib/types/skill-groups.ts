@@ -1,4 +1,5 @@
 import { SkillGroupCreate } from "@/sections/skill-groups/form/create/schemas/skill-group-create-schema";
+import { Technology } from "./technologies";
 
 export enum LevelEnum {
   BASIC = "basic",
@@ -73,11 +74,17 @@ export interface SkillEditDTO {
   name: string;
 }
 
+export interface MasteredTechnology {
+  technology: Technology;
+  level: LevelEnum;
+}
+
 export interface SkillGroup {
   id: string;
   name: string;
   icon?: string;
   skills: Skill[];
+  masteredTechnologies: MasteredTechnology[];
 }
 
 export interface SkillGroupDetails {
@@ -85,6 +92,7 @@ export interface SkillGroupDetails {
   name: string;
   icon?: string;
   skills: Skill[];
+  masteredTechnologies: MasteredTechnology[];
 }
 
 export interface SkillGroupCreateDTO {
