@@ -7,6 +7,7 @@ import {
   BookOpen,
   ExternalLink,
   Github,
+  Info,
   Lightbulb,
   Target,
   TrendingUp,
@@ -89,6 +90,11 @@ export function ProjectDetailsContainer({ project }: Props) {
           />
         </div>
       )}
+      <InfoDetailsCard
+        title="Información Técnica"
+        content={project.technical_information}
+        icon={<Info className="w-5 h-5 text-primary" />}
+      />
 
       {/* Project Story Grid */}
       <div className="grid md:grid-cols-2 gap-6">
