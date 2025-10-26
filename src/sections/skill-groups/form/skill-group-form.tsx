@@ -12,6 +12,9 @@ import { Aperture, FileTextIcon } from "lucide-react";
 import React from "react";
 import { SkillCreate } from "./create/schemas/skill-create-schema";
 import SkillGroupSkillStack from "./stacks/skill-group-skill-stack";
+import { MasteredTechnologyCreate } from "./create/schemas/mastered-technology-create-schema";
+import { LevelEnum } from "@/lib/types/skill-groups";
+import SkillGroupMasteredTechnologyStack from "./stacks/skill-group-mastered-technology-stack";
 
 interface Props {
   imageRecived?: { loading: boolean; error: string | null };
@@ -49,6 +52,15 @@ export default function SkillGroupForm({ imageRecived }: Props) {
               fullWidth
             />
           </div>
+          <RHFListField<MasteredTechnologyCreate>
+            name="skills"
+            label="Tecnologias Dominadas"
+            StackComponent={SkillGroupMasteredTechnologyStack}
+            newItem={{
+              technologyId: "",
+              level: LevelEnum.INTERMEDIATE,
+            }}
+          />
           <RHFListField<SkillCreate>
             name="skills"
             label="Habilidades"
