@@ -33,6 +33,7 @@ export default function SkillGroupCreateFormContainer() {
     defaultValues: {
       name: "",
       skills: [],
+      masteredTechnologies: [],
     },
   });
 

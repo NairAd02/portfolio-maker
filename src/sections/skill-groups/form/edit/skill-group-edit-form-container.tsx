@@ -40,6 +40,12 @@ export default function SkillGroupEditFormContainer({ skillGroup }: Props) {
     defaultValues: {
       name: skillGroup.name,
       skills: skillGroup.skills,
+      masteredTechnologies: skillGroup.masteredTechnologies.map(
+        (masteredTech) => ({
+          technologyId: masteredTech.technology.id,
+          level: masteredTech.level,
+        })
+      ),
     },
   });
 
