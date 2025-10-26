@@ -60,8 +60,8 @@ export default function SkillGroupDetailsContainer({ skillGroup }: Props) {
             </div>
           </CardContent>
         </Card>
-        <SkillGroupDetailsMasteredTechnologiesList skillGroup={skillGroup} />
         <SkillGroupDetailsSkillsList skillGroup={skillGroup} />
+        <SkillGroupDetailsMasteredTechnologiesList skillGroup={skillGroup} />
       </div>
     </div>
   );
