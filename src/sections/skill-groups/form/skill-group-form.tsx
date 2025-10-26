@@ -53,7 +53,7 @@ export default function SkillGroupForm({ imageRecived }: Props) {
             />
           </div>
           <RHFListField<MasteredTechnologyCreate>
-            name="skills"
+            name="masteredTechnologies"
             label="Tecnologias Dominadas"
             StackComponent={SkillGroupMasteredTechnologyStack}
             newItem={{
