@@ -15,6 +15,7 @@ import { getImageUrlOrThrow, uploadFileToSupabase } from "./supabase-storage";
 import { generateStorageFilePath } from "../images";
 import { v4 as uuidv4 } from "uuid";
 import { Technology } from "../types/technologies";
+import { insertSkillGroupsTechnologies } from "./technologies";
 
 export async function getSkillGroupsList() {
   const supabase = await createClient();
@@ -137,6 +138,8 @@ export async function createSkillGroup(
   skillGroupCreateDTO: SkillGroupCreateDTO,
   formData: FormData
 ) {
+  const { masteredTechnologies, ...restSkillGroupCreateDTO } =
+    skillGroupCreateDTO;
   const supabase = await createClient();
 
   // get the session
@@ -165,7 +168,7 @@ export async function createSkillGroup(
       .from("skillgroup")
       .insert({
         id: newSkillGroupId,
-        ...skillGroupCreateDTO,
+        ...restSkillGroupCreateDTO,
         icon: iconUploadData,
         portfolio_id: portfolio.id,
       })
@@ -175,6 +178,17 @@ export async function createSkillGroup(
   if (createSkillGroupError)
     return { data: null, error: createSkillGroupError };
 
+  // Insertar tecnologías relacionadas
+  if (masteredTechnologies && masteredTechnologies.length > 0) {
+    const { error: technologiesError } = await insertSkillGroupsTechnologies(
+      supabase,
+      createSkillGroupData.id,
+      masteredTechnologies
+    );
+
+    if (technologiesError) return { data: null, error: technologiesError };
+  }
+
   return { data: createSkillGroupData, error: null };
 }
 
@@ -183,6 +197,7 @@ export async function editSkillGroup(
   skillGroupEditDTO: SkillGroupEditDTO,
   formData: FormData
 ) {
+  const { masteredTechnologies, ...restSkillGroupEditDTO } = skillGroupEditDTO;
   const supabase = await createClient();
 
   // find the technology to edit
@@ -212,7 +227,7 @@ export async function editSkillGroup(
     await supabase
       .from("skillgroup")
       .update({
-        ...skillGroupEditDTO,
+        ...restSkillGroupEditDTO,
         icon: iconUploadData,
       })
       .eq("id", id)
@@ -221,6 +236,27 @@ export async function editSkillGroup(
 
   if (updateSkillGroupError)
     return { data: null, error: updateSkillGroupError };
+
+  // first delete current mastered techs
+  const { error: deleteMasteredTechnologiesError } = await supabase
+    .from("skillgroup_has_technology")
+    .delete()
+    .eq("skillgroup_id", skillGroupEntity.id);
+
+  if (deleteMasteredTechnologiesError)
+    return { data: null, error: deleteMasteredTechnologiesError };
+
+  // insert new technologies
+  if (masteredTechnologies.length > 0) {
+    const { error: insertMasteredTechnologiesError } =
+      await insertSkillGroupsTechnologies(
+        supabase,
+        skillGroupEntity.id,
+        masteredTechnologies
+      );
+    if (insertMasteredTechnologiesError)
+      return { data: null, error: insertMasteredTechnologiesError };
+  }
 
   return { data: updateSkillGroupData, error: null };
 }
