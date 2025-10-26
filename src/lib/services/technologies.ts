@@ -11,6 +11,10 @@ import { getLoggedUser } from "./auth";
 import { generateStorageFilePath } from "../images";
 import { getImageUrlOrThrow, uploadFileToSupabase } from "./supabase-storage";
 import { v4 as uuidv4 } from "uuid";
+import {
+  MasteredTechnologyCreateDTO,
+  MasteredTechnologyEditDTO,
+} from "../types/skill-groups";
 
 export async function getTechnologiesList() {
   const supabase = await createClient();
@@ -191,11 +195,15 @@ export async function insertExperienceTechnologies(
 export async function insertSkillGroupsTechnologies(
   supabase: SupabaseClient<any, "public", any>,
   skillGroupId: string,
-  technologies: string[]
+  masteredTechnologies: (
+    | MasteredTechnologyCreateDTO
+    | MasteredTechnologyEditDTO
+  )[]
 ) {
-  const technologiesRelations = technologies.map((technology) => ({
-    technology_id: technology,
+  const technologiesRelations = masteredTechnologies.map((masteredTech) => ({
+    technology_id: masteredTech.technologyId,
     skillgroup_id: skillGroupId,
+    level: masteredTech.level,
   }));
   const { data, error: technologiesError } = await supabase
     .from("skillgroup_has_technology")
