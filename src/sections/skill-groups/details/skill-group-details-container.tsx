@@ -8,6 +8,7 @@ import {
 import PreviewImage from "@/components/preview-image/preview-image";
 import { principalPlaceHolder } from "@/lib/place-holders";
 import SkillGroupDetailsMasteredTechnologiesList from "./components/skill-group-details-mastered-technologies-list";
+import SkillGroupDetailsSkillsList from "./components/skill-group-details-skills-list";
 
 interface Props {
   skillGroup: SkillGroupDetails;
@@ -60,6 +61,7 @@ export default function SkillGroupDetailsContainer({ skillGroup }: Props) {
           </CardContent>
         </Card>
         <SkillGroupDetailsMasteredTechnologiesList skillGroup={skillGroup} />
+        <SkillGroupDetailsSkillsList skillGroup={skillGroup} />
       </div>
     </div>
   );
