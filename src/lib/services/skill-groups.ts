@@ -3,6 +3,8 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "../supabase/server";
 import {
+  LevelEnum,
+  MasteredTechnology,
   SkillGroup,
   SkillGroupCreateDTO,
   SkillGroupDetails,
@@ -12,13 +14,22 @@ import { getLoggedUser } from "./auth";
 import { getImageUrlOrThrow, uploadFileToSupabase } from "./supabase-storage";
 import { generateStorageFilePath } from "../images";
 import { v4 as uuidv4 } from "uuid";
+import { Technology } from "../types/technologies";
 
 export async function getSkillGroupsList() {
   const supabase = await createClient();
-  const { data: skillGroupsData, error } = await supabase
-    .from("skillgroup")
-    .select("*");
-  const skillGroups = skillGroupsData as SkillGroup[];
+  const { data: skillGroupsData, error } = await supabase.from("skillgroup")
+    .select(`
+      *,
+      skillgroup_has_technology (
+        technology (*),
+        level
+      )
+    `);
+
+  const skillGroups = skillGroupsData as (SkillGroup & {
+    skillgroup_has_technology: { technology: Technology; level: LevelEnum }[];
+  })[];
 
   try {
     const skillGroupsMapped = await Promise.all(
@@ -28,6 +39,20 @@ export async function getSkillGroupsList() {
           icon: skillGroup.icon
             ? await getImageUrlOrThrow(supabase, skillGroup.icon)
             : undefined,
+          masteredTechnologies: await Promise.all(
+            skillGroup.skillgroup_has_technology.map(
+              async (sht) =>
+                ({
+                  technology: {
+                    ...sht.technology,
+                    icon: sht.technology.icon
+                      ? await getImageUrlOrThrow(supabase, sht.technology.icon)
+                      : undefined,
+                  },
+                  level: sht.level,
+                } as MasteredTechnology)
+            )
+          ),
         };
       })
     );
@@ -41,20 +66,47 @@ export async function getSkillGroupById(id: string) {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("skillgroup")
-    .select("*")
+    .select(
+      `
+      *,
+      skillgroup_has_technology (
+        technology (*),
+        level
+      )
+    `
+    )
     .eq("id", id)
     .single();
 
   if (error) return { data: null, error };
 
-  const skillGroup = data as SkillGroupDetails;
+  const { skillgroup_has_technology, ...restSkillGroupDetails } =
+    data as SkillGroupDetails & {
+      skillgroup_has_technology: { technology: Technology; level: LevelEnum }[];
+    };
+
+  const masteredTechnologies = await Promise.all(
+    skillgroup_has_technology.map(
+      async (sht) =>
+        ({
+          technology: {
+            ...sht.technology,
+            icon: sht.technology.icon
+              ? await getImageUrlOrThrow(supabase, sht.technology.icon)
+              : undefined,
+          },
+          level: sht.level,
+        } as MasteredTechnology)
+    )
+  );
 
   return {
     data: {
-      ...skillGroup,
-      icon: skillGroup.icon
-        ? await getImageUrlOrThrow(supabase, skillGroup.icon)
+      ...restSkillGroupDetails,
+      icon: restSkillGroupDetails.icon
+        ? await getImageUrlOrThrow(supabase, restSkillGroupDetails.icon)
         : undefined,
+      masteredTechnologies,
     },
     error: null,
   };
