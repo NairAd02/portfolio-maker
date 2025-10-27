@@ -1,4 +1,4 @@
-import { RHFTextField } from "@/components/form/rhf-components/rhf-text-field/rhf-text-field";
+import { RHFTextAreaField } from "@/components/form/rhf-components/rhf-text-area-field/rhf-text-area-field";
 import React from "react";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 export default function ExperienceAchievementStack({ index }: Props) {
   return (
     <div className="flex items-center">
-      <RHFTextField
+      <RHFTextAreaField
         name={`achievements.${index}.name`}
         placeholder="Introduzca un logro que alacanzó en dicha empresa..."
         fullWidth
