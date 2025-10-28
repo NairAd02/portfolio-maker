@@ -5,13 +5,9 @@ import { ColumnDef } from "@tanstack/react-table";
 import TableMenu from "@/components/ui/table-menu";
 import PreviewImage from "@/components/preview-image/preview-image";
 import { paths } from "@/routes/path";
-import { Dot, EditIcon, EyeIcon, Trash2 } from "lucide-react";
+import { EditIcon, EyeIcon, Trash2 } from "lucide-react";
 import { principalPlaceHolder } from "@/lib/place-holders";
-import {
-  MasteredTechnology,
-  Skill,
-  SkillGroup,
-} from "@/lib/types/skill-groups";
+import { MasteredTechnology, SkillGroup } from "@/lib/types/skill-groups";
 import AvatarContainer from "@/components/ui/avatar-container";
 
 interface Props {
@@ -55,7 +51,7 @@ export default function SkillGroupsList({ skillGroups }: Props) {
           "masteredTechnologies"
         ) as MasteredTechnology[];
         return (
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-wrap gap-4">
             {masteredTechnologies.map((masteredTech, index) => (
               <div key={index} className="flex items-center gap-2">
                 <AvatarContainer
@@ -71,25 +67,7 @@ export default function SkillGroupsList({ skillGroups }: Props) {
         );
       },
     },
-    {
-      accessorKey: "skills",
-      header: "Habilidades",
-      cell: ({ row }) => {
-        const skills = row.getValue("skills") as Skill[];
-        return (
-          <div className="flex flex-col gap-2">
-            {skills.map((skill, index) => (
-              <div key={index} className="flex items-center gap-2">
-                <Dot className="w-6 h-6" />
-                <p className="text-sm line-clamp-3 break-words max-w-[300px] whitespace-pre-wrap leading-relaxed">
-                  {skill.name}
-                </p>
-              </div>
-            ))}
-          </div>
-        );
-      },
-    },
+
     {
       id: "actions",
       cell: ({ row }) => {
