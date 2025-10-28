@@ -1,5 +1,6 @@
 import { type ReactNode } from "react";
-import AddButtonSectionsHeader from "./add-button-sections-header/add-button-sections-header";
+import NavigationComponent from "../navigation-component/navigation-component";
+import { Button } from "../ui/button";
 
 interface Props {
   sectionTitle: string;
@@ -8,7 +9,6 @@ interface Props {
   addButton?: {
     buttonText?: string;
     creationPath: string;
-    isModalRedirect?: boolean;
   };
 }
 
@@ -30,11 +30,9 @@ export default function SectionsHeader({
         </div>
       </div>
       {addButton && (
-        <AddButtonSectionsHeader
-          buttonText={addButton.buttonText}
-          creationPath={addButton.creationPath}
-          isModalRedirect={addButton.isModalRedirect}
-        />
+        <NavigationComponent href={addButton.creationPath}>
+          <Button>{addButton.buttonText || "Crear entidad"}</Button>
+        </NavigationComponent>
       )}
     </div>
   );
