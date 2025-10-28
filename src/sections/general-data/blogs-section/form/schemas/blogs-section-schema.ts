@@ -5,5 +5,5 @@ export interface BlogsSectionSchema {
 }
 
 export const blogsSectionSchema = z.object({
-  blog_and_post_text: z.string().min(1, { message: "El campo es obligatorio" }),
+  blog_and_post_text: z.string(),
 });
