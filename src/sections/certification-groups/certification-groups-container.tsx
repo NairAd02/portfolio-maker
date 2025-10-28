@@ -12,7 +12,6 @@ export default function CertificationGroupsContainer() {
         sectionTitle="Gestión de Grupos de Certificaciones"
         sectionDescription="Gestione los grupos certificaciones para organizar sus certificaciones"
         addButton={{
-          isModalRedirect: false,
           buttonText: "Nuevo grupo de certificaciones",
           creationPath: paths.createCertificationGroup.root,
         }}

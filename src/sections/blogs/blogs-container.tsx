@@ -12,7 +12,6 @@ export default function BlogsContainer() {
         sectionTitle="Gestión de Publicaciones"
         sectionDescription="Gestione las publicaciones que ha realizado a lo largo de su trayectoria"
         addButton={{
-          isModalRedirect: false,
           buttonText: "Nueva Publicación",
           creationPath: paths.createBlog.root,
         }}

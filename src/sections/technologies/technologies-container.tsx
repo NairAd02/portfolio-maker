@@ -12,7 +12,6 @@ export default function TechnologiesContainer() {
         sectionTitle="Gestión de Tecnologías"
         sectionDescription="Gestione las tecnologías que quiera incluir en el dominio de su repertorio"
         addButton={{
-          isModalRedirect: false,
           buttonText: "Nueva Tecnología",
           creationPath: paths.createTechnology.root,
         }}

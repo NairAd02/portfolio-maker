@@ -12,7 +12,6 @@ export default function ExperiencesContainer() {
         sectionTitle="Gestión de Experiencias Laborales"
         sectionDescription="Gestione las experiencias laborales que haya vivido como Informático"
         addButton={{
-          isModalRedirect: false,
           buttonText: "Nueva Experiencia",
           creationPath: paths.createExperience.root,
         }}

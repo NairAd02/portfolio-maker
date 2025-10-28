@@ -12,7 +12,6 @@ export default function CertificationsContainer() {
         sectionTitle="Gestión de Certificaciones"
         sectionDescription="Gestione las certificaciones que ha obtenido a lo largo de su trayectoria"
         addButton={{
-          isModalRedirect: false,
           buttonText: "Nueva Certificación",
           creationPath: paths.createCertification.root,
         }}

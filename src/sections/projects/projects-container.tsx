@@ -17,7 +17,6 @@ export default function ProjectsContainer({ projectsFilters }: Props) {
         sectionTitle="Gestión de Proyectos"
         sectionDescription="Gestione los proyectos que ha realizado durante su decursar como profesional"
         addButton={{
-          isModalRedirect: false,
           buttonText: "Nuevo Proyecto",
           creationPath: paths.createProject.root,
         }}

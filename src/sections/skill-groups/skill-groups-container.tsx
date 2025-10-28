@@ -12,7 +12,6 @@ export default function SkillGroupsContainer() {
         sectionTitle="Gestión de Grupos de Habilidades"
         sectionDescription="Gestione los grupos de habilidades de su repertorio"
         addButton={{
-          isModalRedirect: false,
           buttonText: "Nuevo Grupo de Habilidades",
           creationPath: paths.createSkillGroup.root,
         }}
