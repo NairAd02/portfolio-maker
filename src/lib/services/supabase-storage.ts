@@ -9,15 +9,32 @@ export async function getImageUrlOrThrow(
   return data.signedUrl;
 }
 
+// Caché de imágenes
+const imageCache = new Map();
+
 export async function getSignedImageUrl(
   supabase: SupabaseClient<any, "public", any>,
   path: string,
-  seconds: number = 60
+  seconds: number = 3600
 ) {
+  const cacheKey = `${path}-${seconds}`;
+
+  const cached = imageCache.get(cacheKey);
+  if (cached && Date.now() < cached.expires) {
+    return { data: cached.data, error: null };
+  }
+
   const { data, error } = await supabase.storage
     .from("portfolio-maker")
     .createSignedUrl(path, seconds);
+
   if (error) return { data: null, error };
+
+  imageCache.set(cacheKey, {
+    data,
+    expires: Date.now() + seconds * 1000 * 0.8, // 80% del tiempo original
+  });
+
   return { data, error: null };
 }
 
