@@ -84,14 +84,4 @@ export const groupRoutes: GroupRoute[] = [
       },
     ],
   },
-  {
-    title: "Seguridad",
-    navigationRoutes: [
-      {
-        title: "Usuarios",
-        icon: <User />,
-        path: paths.users.root,
-      },
-    ],
-  },
 ];
