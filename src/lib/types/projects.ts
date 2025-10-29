@@ -22,7 +22,7 @@ export interface ProjectDetails {
   id: string;
   name: string;
   description: string;
-  technical_information: string
+  technical_information: string;
   mainImage?: string;
   sourceCodeUrl?: string;
   deploymentUrl?: string;
@@ -47,10 +47,10 @@ export interface ProjectsFiltersDTO {
 export interface ProjectCreateDTO {
   name: string;
   description: string;
-  technical_information: string
+  technical_information: string;
   mainImage?: string;
-  sourceCodeUrl?: string;
-  deploymentUrl?: string;
+  sourceCodeUrl: string | null;
+  deploymentUrl: string | null;
   images: string[];
   problem: string;
   solution: string;
@@ -63,10 +63,10 @@ export interface ProjectCreateDTO {
 export interface ProjectEditDTO {
   name: string;
   description: string;
-  technical_information: string
+  technical_information: string;
   mainImage?: string;
-  sourceCodeUrl?: string;
-  deploymentUrl?: string;
+  sourceCodeUrl: string | null;
+  deploymentUrl: string | null;
   images: string[];
   problem: string;
   solution: string;
@@ -81,8 +81,8 @@ export const convertProjectCreateDTO = (
   return {
     ...projectCreate,
     images: [],
-    sourceCodeUrl: projectCreate.sourceCodeUrl || undefined,
-    deploymentUrl: projectCreate.deploymentUrl || undefined,
+    sourceCodeUrl: projectCreate.sourceCodeUrl || null,
+    deploymentUrl: projectCreate.deploymentUrl || null,
     portfolio_id: "",
   };
 };
@@ -93,8 +93,8 @@ export const convertProjectEditDTO = (
   return {
     ...projectEdit,
     images: [],
-    sourceCodeUrl: projectEdit.sourceCodeUrl || undefined,
-    deploymentUrl: projectEdit.deploymentUrl || undefined,
+    sourceCodeUrl: projectEdit.sourceCodeUrl || null,
+    deploymentUrl: projectEdit.deploymentUrl || null,
   };
 };
 
