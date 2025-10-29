@@ -1,7 +1,8 @@
 import { createServerClient } from "@supabase/ssr";
+import { SupabaseClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 
-let client: ReturnType<typeof createServerClient> | null = null;
+let client: SupabaseClient<any, "public", any> | null = null;
 
 export async function createClient() {
   if (client) return client;
