@@ -85,7 +85,7 @@ export default function ProjectEditFormContainer({ project }: Props) {
           imagesRecived={{ loading: loadingImages, error: errorImages }}
         />
         <FormActionButtons
-          submitLoading={submitLoading}
+          submitLoading={submitLoading || loadingImage || loadingImages}
           submitButtonText="Editar Proyecto"
           handleClose={handleClose}
         />
