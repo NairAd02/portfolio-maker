@@ -4,7 +4,7 @@ export interface ExperienceEdit {
   company: string;
   position: string;
   startdate: Date;
-  enddate: Date;
+  enddate?: Date;
   description: string;
   achievements: { name: string }[];
   mainImage?: File;
@@ -48,15 +48,19 @@ export const experienceEditSchema = z
       }),
     enddate: z
       .date()
-      .refine((date) => date <= new Date(), {
+      .optional() // <-- Cambiado a opcional
+      .refine((date) => !date || date <= new Date(), {
+        // <-- Validación condicional
         message: "La fecha no puede ser futura",
       })
-      .refine((date) => date >= new Date("1900-01-01"), {
+      .refine((date) => !date || date >= new Date("1900-01-01"), {
+        // <-- Validación condicional
         message: "La fecha es demasiado antigua",
       }),
   })
   .refine(
     (data) => {
+      if (!data.enddate) return true;
       return data.startdate <= data.enddate;
     },
     {
