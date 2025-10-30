@@ -79,9 +79,10 @@ export default function ExperiencesList({ experiences }: Props) {
       accessorKey: "enddate",
       header: "Fecha de Finalización",
       cell: ({ row }) => {
+        const enddate = row.getValue("enddate") as string;
         return (
           <p className="text-sm line-clamp-3 break-words max-w-[300px] whitespace-pre-wrap leading-relaxed">
-            {row.getValue("enddate")}
+            {enddate || "Presente"}
           </p>
         );
       },
