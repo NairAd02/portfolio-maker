@@ -4,7 +4,7 @@ export interface ExperienceEdit {
   company: string;
   position: string;
   startdate: Date;
-  enddate?: Date;
+  enddate: Date | null;
   description: string;
   achievements: { name: string }[];
   mainImage?: File;
@@ -48,7 +48,7 @@ export const experienceEditSchema = z
       }),
     enddate: z
       .date()
-      .optional() // <-- Cambiado a opcional
+      .nullable() // <-- Cambiado a opcional
       .refine((date) => !date || date <= new Date(), {
         // <-- Validación condicional
         message: "La fecha no puede ser futura",
