@@ -42,7 +42,7 @@ export default function ExperienceEditFormContainer({ experience }: Props) {
       position: experience.position,
       description: experience.description,
       startdate: new Date(experience.startdate),
-      enddate: new Date(experience.enddate),
+      enddate: experience.enddate ? new Date(experience.enddate) : null,
       achievements: experience.achievements.map((achievement) => ({
         name: achievement,
       })),
