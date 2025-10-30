@@ -14,7 +14,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, X } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -26,6 +26,7 @@ interface Props {
   placeholder?: string;
   description?: string;
   fullWidth?: boolean;
+  allowClear?: boolean; // Nuevo: para habilitar botón "Limpiar"
 }
 
 export function RHFDatePickerField({
@@ -34,6 +35,7 @@ export function RHFDatePickerField({
   placeholder = "Selecciona una fecha",
   description,
   fullWidth = true,
+  allowClear = true,
 }: Props) {
   const { control } = useFormContext();
 
@@ -42,7 +44,9 @@ export function RHFDatePickerField({
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className={`flex flex-col ${fullWidth ? "w-full" : ""}`}>
+        <FormItem
+          className={cn("flex relative flex-col", fullWidth && "w-full")}
+        >
           {label && <FormLabel>{label}</FormLabel>}
           <Popover>
             <PopoverTrigger asChild>
@@ -64,16 +68,47 @@ export function RHFDatePickerField({
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
+            {field.value && allowClear && (
+              <X
+                className="ml-auto absolute right-10 top-8 h-4 w-4 opacity-70 hover:opacity-100"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  field.onChange(null);
+                }}
+              />
+            )}
+            <PopoverContent className="w-auto p-2" align="start">
               <Calendar
                 mode="single"
                 selected={field.value}
-                onSelect={field.onChange}
+                onSelect={(date) => {
+                  // Si se selecciona la misma fecha => deselecciona
+                  if (
+                    field.value &&
+                    date &&
+                    field.value.toDateString() === date.toDateString()
+                  ) {
+                    field.onChange(null);
+                  } else {
+                    field.onChange(date);
+                  }
+                }}
                 disabled={(date) =>
                   date > new Date() || date < new Date("1900-01-01")
                 }
                 initialFocus
               />
+              {allowClear && field.value && (
+                <div className="mt-2 flex justify-end">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => field.onChange(null)}
+                  >
+                    Limpiar
+                  </Button>
+                </div>
+              )}
             </PopoverContent>
           </Popover>
           {description && <FormDescription>{description}</FormDescription>}
