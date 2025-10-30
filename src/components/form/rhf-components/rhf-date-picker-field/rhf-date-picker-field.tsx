@@ -73,7 +73,7 @@ export function RHFDatePickerField({
                 className="ml-auto absolute right-10 top-8 h-4 w-4 opacity-70 hover:opacity-100"
                 onClick={(e) => {
                   e.stopPropagation();
-                  field.onChange(undefined);
+                  field.onChange(null);
                 }}
               />
             )}
@@ -88,7 +88,7 @@ export function RHFDatePickerField({
                     date &&
                     field.value.toDateString() === date.toDateString()
                   ) {
-                    field.onChange(undefined);
+                    field.onChange(null);
                   } else {
                     field.onChange(date);
                   }
@@ -103,7 +103,7 @@ export function RHFDatePickerField({
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => field.onChange(undefined)}
+                    onClick={() => field.onChange(null)}
                   >
                     Limpiar
                   </Button>
