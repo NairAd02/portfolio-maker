@@ -28,7 +28,7 @@ export interface ExperienceCreateDTO {
   company: string;
   position: string;
   startdate: string;
-  enddate: string;
+  enddate: string | null;
   description: string;
   achievements: string[];
   technologies: string[];
@@ -38,7 +38,7 @@ export interface ExperienceEditDTO {
   company: string;
   position: string;
   startdate: string;
-  enddate: string;
+  enddate: string | null;
   description: string;
   achievements: string[];
   technologies: string[];
@@ -53,7 +53,7 @@ export const convertExperienceCreateDTO = (
       (achievement) => achievement.name
     ),
     startdate: experience.startdate.toISOString(),
-    enddate: experience.enddate.toISOString(),
+    enddate: experience.enddate ? experience.enddate.toISOString() : null,
   };
 };
 
@@ -66,7 +66,7 @@ export const convertExperienceEditDTO = (
       (achievement) => achievement.name
     ),
     startdate: experience.startdate.toISOString(),
-    enddate: experience.enddate.toISOString(),
+    enddate: experience.enddate ? experience.enddate.toISOString() : null,
   };
 };
 
