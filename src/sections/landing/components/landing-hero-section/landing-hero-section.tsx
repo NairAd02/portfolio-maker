@@ -58,7 +58,7 @@ export default function LandingHeroSection() {
           <div className="relative">
             <div className="relative z-10">
               <Image
-                src="/images/place-holder.jpg"
+                src="/images/og-image-home.png"
                 alt="Portfolio example on laptop"
                 width={600}
                 height={450}
