@@ -60,7 +60,7 @@ export default function LandingHeroSection() {
               <Image
                 src="/images/og-image-home.png"
                 alt="Portfolio example on laptop"
-                width={600}
+                width={1200}
                 height={450}
                 className="rounded-2xl shadow-2xl"
               />
