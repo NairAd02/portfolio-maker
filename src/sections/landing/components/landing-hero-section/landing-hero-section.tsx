@@ -10,12 +10,12 @@ export default function LandingHeroSection() {
     <section className="p-6 bg-muted">
       <div className="container mx-auto px-4">
         <div className="flex flex-col-reverse md:flex-row justify-between gap-12 items-center">
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <h1 className="text-4xl lg:text-6xl font-bold text-primary leading-tight">
+          <div className="space-y-4 py-4 lg:space-y-8">
+            <div className="space-y-2 lg:space-y-4">
+              <h1 className="text-2xl lg:text-4xl xl:text-4xl 2xl:text-6xl font-bold text-primary leading-tight">
                 Crea tu portafolio profesional en minutos
               </h1>
-              <p className="text-xl text-black font-semibold leading-relaxed">
+              <p className="text-base lg:text-xl text-black font-semibold leading-relaxed">
                 PortfolioMaker te ayuda a mostrar tus proyectos, experiencia,
                 certificaciones y más de forma intuitiva. Sin código, sin
                 complicaciones.
@@ -26,7 +26,7 @@ export default function LandingHeroSection() {
                 <Button
                   size="lg"
                   variant={"default"}
-                  className="text-lg px-8 py-6"
+                  className="lg:text-lg lg:px-8 lg:py-6"
                 >
                   Empieza Gratis
                 </Button>
@@ -38,13 +38,13 @@ export default function LandingHeroSection() {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="text-lg px-8 py-6"
+                  className="lg:text-lg lg:px-8 lg:py-6"
                 >
                   Ver Demo
                 </Button>
               </NavigationComponent>
             </div>
-            <div className="flex items-center space-x-6 text-sm text-slate-500">
+            <div className="flex items-center space-x-6 text-xs lg:text-sm text-slate-500">
               <div className="flex items-center space-x-1">
                 <Check className="w-4 h-4 text-green-500" />
                 <span>Sin tarjeta de crédito</span>
