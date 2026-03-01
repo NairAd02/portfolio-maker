@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { paths } from "../path";
 import {
   BookOpenText,
+  Bot,
   BriefcaseBusiness,
   ChartNetwork,
   Cpu,
@@ -26,6 +27,17 @@ export interface NavigationRoute {
 }
 
 export const groupRoutes: GroupRoute[] = [
+  {
+    title: 'Chat',
+    navigationRoutes: [
+      {
+        title: "Chat-Bot",
+        icon: <Bot />,
+        path: paths.chat_bot.root,
+        scroll: false,
+      },
+    ]
+  },
   {
     title: "Administración",
     navigationRoutes: [
