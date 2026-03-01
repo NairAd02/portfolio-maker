@@ -6,6 +6,7 @@ interface Path {
 interface ApplicationPath {
   landing: Path;
   sign_in: Path;
+  chat_bot: Path;
   generalData: Path & {
     personalInformation: string;
     projectsSection: string;
@@ -130,6 +131,10 @@ export const paths: ApplicationPath = {
   landing: {
     root: "/",
     isProtected: false,
+  },
+  chat_bot: {
+    root: "/dashboard/chat-bot",
+    isProtected: true,
   },
   sign_in: {
     root: "/sign-in",
